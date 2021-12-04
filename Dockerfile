@@ -10,7 +10,7 @@ RUN yes | unminimize
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y \
-        sudo \
+    sudo \
     && rm -rf /var/lib/apt/lists/*
 
 # Set up non-root user
@@ -31,7 +31,7 @@ WORKDIR /home/$USERNAME
 # Copy contents
 COPY . /home/$USERNAME/dotfiles
 
-CMD cd .dotfiles && \
+CMD cd dotfiles && \
     ./install.sh && \
     cd ~ && \
     fish
