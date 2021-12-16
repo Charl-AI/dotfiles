@@ -86,9 +86,6 @@ symbol = "pl "
 [php]
 symbol = "php "
 
-[pulumi]
-symbol = "pulumi "
-
 [purescript]
 symbol = "purs "
 
