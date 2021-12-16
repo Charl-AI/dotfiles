@@ -5,6 +5,7 @@ one nice feature is that a vscode devcontainer is included. This allows us to us
 trying out changes. One nice feature of devcontainers is that they automatically look for dotfiles repositories
 and run the `install.sh` file, so building the container allows us to test these configs.
 
+test commit
 ## Installation
 
 Install this repo in `$HOME`. It is easiest to do this with the GitHub CLI:
