@@ -4,3 +4,5 @@ function fish_greeting
 end
 
 set -x PIP_REQUIRE_VIRTUALENV true
+
+starship init fish | source
