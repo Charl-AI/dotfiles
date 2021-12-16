@@ -1,6 +1,9 @@
 # dotfiles
 
-Dotfiles for my custom settings and an install script for installing them. I am also shamelessly copying the Docker idea from: https://github.com/jwblangley/dotfiles for developing this repo.
+Dotfiles for my custom settings and an install script for installing them. Not much special going on here,
+one nice feature is that a vscode devcontainer is included. This allows us to use a container as a sandbox for
+trying out changes. One nice feature of devcontainers is that they automatically look for dotfiles repositories
+and run the `install.sh` file, so building the container allows us to test these configs.
 
 ## Installation
 
@@ -26,20 +29,9 @@ To update, pull the latest version of the repo and re-run the install script. It
 
 ## Developing
 
-(from https://github.com/jwblangley/dotfiles)
-
-Modify the relevant file within the repository and commit the changes. For more complicated changes, modifying the setup script may be required. To promote development without risk of damaging your personal setup, a `Dockerfile` is included for a sandbox environment. This Dockerfile is designed to replicate the process of running the installation script for the first time. For example, unlike many docker images, the default user is non-root and is password-protected. Furthermore, the installation script is not fully automated since passwords and confirmations are required and the installation script's progress is not cached. The Dockerfile replicates this experience. The default user within the container is `d_user` and the default password is `password`. These can be changed with docker build args.
-
-To build the docker image:
-
-```bash
-docker build [--build-arg USERNAME=<username>] [--build-arg PASSWORD=<password>] . -t dotfiles
-```
-To run the install script within the docker container and test the resulting setup:
-
-```bash
-docker run -it dotfiles
-```
+Run `Remote Containers: Rebuild and Reopen in Container` from the vscode command palette to create a container with the dotfiles installed.
+This requires Docker and the vscode remote development - containers extension. If the dotfiles do not automatically install, it might be
+because you do not have them installed on your local system. In that case, you can point vscode to the remote dotfiles repository and install script in settings
 
 ## Additional notes for Ubuntu customisation:
 
