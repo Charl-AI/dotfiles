@@ -33,5 +33,6 @@ ls $HOME/.local/share/omf/ || fish -c "curl https://raw.githubusercontent.com/oh
 echo "Installing z command"
 ls $HOME/.local/share/omf/pkg/z/ || fish -c "omf install z"
 
-echo "Setting fish as default shell"
-if [ $SHELL != $(which fish) ]; then chsh -s $(which fish); fi
+# Comment out for now because it can cause installation to hang waiting for password
+# echo "Setting fish as default shell"
+# if [ $SHELL != $(which fish) ]; then chsh -s $(which fish); fi
