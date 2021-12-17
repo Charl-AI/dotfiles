@@ -14,7 +14,7 @@ gh repo clone Charl-AI/dotfiles
 ```
 You can also perform `git clone git@github.com:Charl-AI/dotfiles.git $HOME/dotfiles` if you are not using the GitHub CLI.
 
-Next, use the install script to set everything up:
+Next, use the install script to set everything up. The script requires root privileges, so run as ksu on organisation machines where sudo is probably disabled:
 ```bash
 cd $HOME/dotfiles
 # give permissions for the script
