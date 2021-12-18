@@ -33,11 +33,11 @@ Run `Remote Containers: Rebuild and Reopen in Container` from the vscode command
 This requires Docker and the vscode remote development - containers extension. If the dotfiles do not automatically install, it might be
 because you do not have them installed on your local system. In that case, you can point vscode to the remote dotfiles repository and install script in settings
 
-## Additional notes for Ubuntu customisation:
+## Additional notes for manual customisation:
 
-Some modifications I like to change when using a fresh Ubuntu install. The `install.sh` script does not make these modification because it's set up to be as minimal as possible for use in development containers; it's generally best to make these adjustments manually is necessary.
+Some modifications I like to change when using a fresh Ubuntu install. The `install.sh` script does not make these modification because it's set up to be as minimal as possible for use in development containers; it's generally best to make these adjustments manually if necessary.
 ```bash
-# enable minimise on click
+# enable minimise on click for Ubuntu (Gnome)
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 ```
 
@@ -45,3 +45,8 @@ Also set up super + I keyboard shortcut for settings and super + E shortcut for 
 
 You also might want to disable smooth scrolling in chrome if it seems to scroll painfully slowly:
 chrome://flags/#smooth-scrolling
+
+It can also be a good idea to add this line to config.fish. This prevents you from using any pip commands unless you are in a virtualenv so is a nice way of keeping your system python installation clean. It is not included in the dotfiles as standard because they are designed to be compatible with devcontainers, where virtual environments aren't usually necessary:
+```set -x PIP_REQUIRE_VIRTUALENV true```
+Likewise for `.bashrc`:
+```export PIP_REQUIRE_VIRTUALENV=true```
