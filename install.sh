@@ -20,7 +20,7 @@ mkdir -p $HOME/.config/fish
 ln -sf $HOME/dotfiles/dotfiles/config.fish $HOME/.config/fish/config.fish
 
 echo "Installing starship prompt"
-which starship ||  yes y | sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
+which starship || sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
 ln -sf $HOME/dotfiles/dotfiles/starship.toml $HOME/.config/starship.toml
 
 echo "Installing Oh-My-Fish"
