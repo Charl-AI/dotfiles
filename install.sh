@@ -9,6 +9,10 @@ which git || sudo apt install -y git
 which curl || sudo apt install -y curl
 which wget || sudo apt install -y wget
 
+echo "Install nano"
+which nano || sudo apt install -y nano
+ln -sf $HOME/dotfiles/.nanorc $HOME/.nanorc
+
 echo "Install tmux"
 which tmux || sudo apt install -y tmux
 ln -sf $HOME/dotfiles/dotfiles/.tmux.conf $HOME/.tmux.conf
