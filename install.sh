@@ -11,7 +11,7 @@ which wget || sudo apt install -y wget
 
 echo "Install nano"
 which nano || sudo apt install -y nano
-ln -sf $HOME/dotfiles/.nanorc $HOME/.nanorc
+ln -sf $HOME/dotfiles/dotfiles/.nanorc $HOME/.nanorc
 
 echo "Install tmux"
 which tmux || sudo apt install -y tmux
