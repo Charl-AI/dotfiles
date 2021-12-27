@@ -1,8 +1,13 @@
 # Add confirmation message to rm.
 alias rm="rm -i"
 
-source $HOME/dotfiles/dotfiles/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOME/dotfiles/dotfiles/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# use antigen to manage zsh plugins
+source $HOME/dotfiles/dotfiles/antigen.zsh
+antigen bundle z
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen apply
+
 eval "$(starship init zsh)"
 
 # Welcome message

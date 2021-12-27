@@ -4,6 +4,7 @@
 set -e
 
 # Prerequisites
+sudo apt-get update
 which git || sudo apt install -y git
 which curl || sudo apt install -y curl
 
