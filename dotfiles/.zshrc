@@ -6,5 +6,5 @@ source $HOME/dotfiles/dotfiles/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-hi
 eval "$(starship init zsh)"
 
 # Welcome message
-echo Hello $USER@$HOSTNAME. Have a nice day! Tmux status is:
+echo Hello $USER. Have a nice day! Tmux status is:
 tmux ls
