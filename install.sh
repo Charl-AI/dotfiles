@@ -17,14 +17,11 @@ echo "Installing tmux"
 which tmux || sudo apt install -y tmux
 ln -sf $HOME/dotfiles/dotfiles/.tmux.conf $HOME/.tmux.conf
 
-echo "Installing fish"
-which fish || sudo apt install -y fish
-mkdir -p $HOME/.config/fish
-ln -sf $HOME/dotfiles/dotfiles/config.fish $HOME/.config/fish/config.fish
+echo "Installing zsh"
+command -v zsh || sudo apt install -y zsh
 
-echo "Installing Oh-My-Fish"
-ls $HOME/.local/share/omf/ || fish -c "curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish"
-ls $HOME/.local/share/omf/themes/robbyrussell/ || fish -c "omf install robbyrussell"
-
-echo "Installing z command"
-ls $HOME/.local/share/omf/pkg/z/ || fish -c "omf install z"
+echo "Installing oh-my-zsh"
+ls "$HOME/.oh-my-zsh" || echo "y" | sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+ls "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" || git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+ls "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ||  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+ln -sf "$HOME/dotfiles/dotfiles/.zshrc" "$HOME/.zshrc"
