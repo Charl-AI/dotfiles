@@ -19,10 +19,6 @@ ln -sf $HOME/dotfiles/dotfiles/.tmux.conf $HOME/.tmux.conf
 
 echo "Installing zsh"
 command -v zsh || sudo apt install -y zsh
-if [ "$SHELL" != "$(command -v zsh)" ]
-then
-    chsh -s "$(command -v zsh)"
-fi
 
 echo "Installing oh-my-zsh"
 ls "$HOME/.oh-my-zsh" || echo "y" | sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"

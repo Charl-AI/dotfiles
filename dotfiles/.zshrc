@@ -101,3 +101,7 @@ unsetopt autopushd
 
 # Add confirmation message to rm.
 alias rm="rm -i"
+
+echo Hi $USER@$HOSTNAME, have a nice day!
+echo You are using ZSH shell, tmux status:
+tmux ls
