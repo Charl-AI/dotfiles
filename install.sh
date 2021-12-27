@@ -28,7 +28,3 @@ ls $HOME/.local/share/omf/themes/robbyrussell/ || fish -c "omf install robbyruss
 
 echo "Installing z command"
 ls $HOME/.local/share/omf/pkg/z/ || fish -c "omf install z"
-
-# Comment out for now because it can cause installation to hang waiting for password
-# echo "Setting fish as default shell"
-# if [ $SHELL != $(which fish) ]; then chsh -s $(which fish); fi
