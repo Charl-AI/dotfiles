@@ -18,6 +18,7 @@ ln -sf $HOME/dotfiles/dotfiles/.tmux.conf $HOME/.tmux.conf
 
 echo "Installing starship prompt"
 which starship || sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
+mkdir -p $HOME/.config/
 ln -sf $HOME/dotfiles/dotfiles/starship.toml $HOME/.config/starship.toml
 
 echo "Installing zsh"
