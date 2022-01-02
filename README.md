@@ -17,6 +17,10 @@ You can also perform `git clone git@github.com:Charl-AI/dotfiles.git $HOME/dotfi
 Next, use the install script to set everything up. The script requires root privileges, so run as ksu on organisation machines where sudo is probably disabled:
 ```bash
 cd $HOME/dotfiles
+
+# install plugin submodules
+git submodule update --init
+
 # give permissions for the script
 chmod +x ./install.sh
 ./install.sh
