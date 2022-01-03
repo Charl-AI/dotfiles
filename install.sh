@@ -23,3 +23,4 @@ ln -sf $HOME/dotfiles/dotfiles/starship.toml $HOME/.config/starship.toml
 
 echo "Installing zsh"
 command -v zsh || sudo apt install -y zsh
+ln -sf "$HOME/dotfiles/dotfiles/.zshrc" "$HOME/.zshrc"
