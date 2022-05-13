@@ -29,9 +29,17 @@ To update, pull the latest version of the repo and re-run the install script. It
 
 ## Developing
 
-Run `Remote Containers: Rebuild and Reopen in Container` from the vscode command palette to create a container with the dotfiles installed.
-This requires Docker and the vscode remote development - containers extension. If the dotfiles do not automatically install, it might be
-because you do not have them installed on your local system. In that case, you can point vscode to the remote dotfiles repository and install script in settings
+To test out the dotfiles in a sandboxed environment, you can use docker to build a container with:
+
+```docker build -f .devcontainer/Dockerfile . -t dotfiles-test```
+
+This container is simply an Ubuntu environment with a user called 'vscode'. Then you can run the container with:
+
+```docker run -it dotfiles-test```
+
+Running the container will install the dotfiles, then open an interactive tmux session in the container.
+
+To test out the dotfiles with vscode devcontainers, run `Remote Containers: Rebuild and Reopen in Container` from the vscode command palette to create a container with the dotfiles installed. This requires Docker and the vscode remote development - containers extension. You will need to have set this repository and install script in settings, e.g. `{"dotfiles.repository": "Charl-AI", "remote.containers.dotfiles.repository": "Charl-AI/dotfiles",}`. NOTE: this will install the dotfiles latest version from GitHub, so un-pushed changes will not show up with this method (whereas they will with the above method).
 
 ## Additional notes for manual customisation:
 
