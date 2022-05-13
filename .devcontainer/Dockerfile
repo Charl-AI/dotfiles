@@ -29,4 +29,4 @@ COPY . /home/$USERNAME/dotfiles
 CMD cd dotfiles && \
     ./install.sh && \
     cd ~ && \
-    bash
+    tmux
