@@ -20,3 +20,5 @@ echo "Installing fish"
 which fish || sudo apt install -y fish
 mkdir -p $HOME/.config/fish
 ln -sf $HOME/dotfiles/dotfiles/config.fish $HOME/.config/fish/config.fish
+mkdir -p $HOME/.config/fish/functions
+ln -sf $HOME/dotfiles/dotfiles/fish_prompt.fish $HOME/.config/fish/functions/fish_prompt.fish
