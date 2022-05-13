@@ -16,11 +16,7 @@ echo "Installing tmux"
 which tmux || sudo apt install -y tmux
 ln -sf $HOME/dotfiles/dotfiles/.tmux.conf $HOME/.tmux.conf
 
-echo "Installing starship prompt"
-which starship || sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
-mkdir -p $HOME/.config/
-ln -sf $HOME/dotfiles/dotfiles/starship.toml $HOME/.config/starship.toml
-
-echo "Installing zsh"
-command -v zsh || sudo apt install -y zsh
-ln -sf "$HOME/dotfiles/dotfiles/.zshrc" "$HOME/.zshrc"
+echo "Installing fish"
+which fish || sudo apt install -y fish
+mkdir -p $HOME/.config/fish
+ln -sf $HOME/dotfiles/dotfiles/config.fish $HOME/.config/fish/config.fish
