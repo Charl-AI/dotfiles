@@ -1,4 +1,3 @@
-# normally we would pin the version but it makes sense to test this with the latest OS
 FROM ubuntu:latest as devcontainer
 
 # Unminimize docker ubuntu to better reflect real use case
@@ -22,11 +21,8 @@ USER $USERNAME
 # commands below don't run when --target is set to "devcontainer"
 FROM devcontainer
 ARG USERNAME=vscode
-WORKDIR /home/$USERNAME
+WORKDIR /home/$USERNAME/dotfiles
 
-COPY . /home/$USERNAME/dotfiles
-
-CMD cd dotfiles && \
-    ./install.sh && \
-    cd ~ && \
-    tmux
+COPY . .
+RUN ./install.sh
+CMD tmux
