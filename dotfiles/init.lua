@@ -13,9 +13,11 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use { 'ggandor/leap.nvim' , config = function()
-          require('leap').set_default_keymaps()
-  end}
+  use { 'ggandor/leap.nvim' ,
+  	config = function()
+       	    require('leap').set_default_keymaps()
+    end
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
