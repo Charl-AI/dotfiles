@@ -10,10 +10,9 @@ yes | sudo apt-get install software-properties-common
 yes | sudo add-apt-repository ppa:neovim-ppa/stable
 sudo add-apt-repository ppa:apt-fast/stable
 sudo apt-get update -y
-DEBIAN_FRONTEND=noninteractive sudo apt-get install -y apt-fast
 
-echo "Install everything with apt-fast"
-DEBIAN_FRONTEND=noninteractive sudo apt-fast install -y \
+echo "Install everything"
+DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
 	git \
 	wget \
 	curl \
