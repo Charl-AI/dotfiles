@@ -9,10 +9,18 @@ local ensure_packer = function()
   return false
 end
 
+
 local packer_bootstrap = ensure_packer()
+local map = vim.api.nvim_set_keymap
+
+-- sets up C-/ for commenting. For some reason C-_ is equivalent to C-/
+-- NB. doesn't work for multi line in visual selection mode, use 'gc' instead
+map("n", "<C-_>", ":Commentary<cr>", {noremap = true})
+
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
+  use 'tpope/vim-commentary'
   use 'christoomey/vim-tmux-navigator'
   use { 'ggandor/leap.nvim' ,
   	config = function()
