@@ -22,15 +22,11 @@ DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
         pkgconf \
         unzip \
 	wget \
-	nano \
 	neovim \
 	tmux \
 	fish
 
 echo "SymLink dotfiles"
-
-# nano
-ln -sf $HOME/dotfiles/dotfiles/.nanorc $HOME/.nanorc
 
 # neovim
 mkdir -p $HOME/.config/nvim
@@ -42,4 +38,3 @@ ln -sf $HOME/dotfiles/dotfiles/.tmux.conf $HOME/.tmux.conf
 # fish
 mkdir -p $HOME/.config/fish
 ln -sf $HOME/dotfiles/dotfiles/config.fish $HOME/.config/fish/config.fish
-
