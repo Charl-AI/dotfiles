@@ -18,6 +18,7 @@ DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
         coreutils \
         curl \
         git \
+        xclip \
         libtool \
         pkgconf \
         unzip \
