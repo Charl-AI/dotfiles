@@ -6,9 +6,6 @@ set -e
 echo "Installing prerequisites"
 which sudo || apt-get install -y sudo
 sudo apt-get update -y
-yes | sudo apt-get install software-properties-common
-yes | sudo add-apt-repository ppa:neovim-ppa/stable
-sudo apt-get update -y
 
 echo "Install everything"
 DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
@@ -23,9 +20,12 @@ DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
         pkgconf \
         unzip \
 	wget \
-	neovim \
 	tmux \
+	ripgrep \
 	fish
+
+wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
+sudo apt install ./nvim-linux64.deb
 
 echo "SymLink dotfiles"
 
