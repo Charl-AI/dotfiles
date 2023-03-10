@@ -1,41 +1,85 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Exit on first failure
 set -e
 
-echo "Installing prerequisites"
-which sudo || apt-get install -y sudo
-sudo apt-get update -y
+# this should contain all statements that require root privileges
+function install_packages {
+	echo "Installing packages"
 
-echo "Install everything"
-DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
-	autoconf \
-        automake \
-        cmake \
-        coreutils \
-        curl \
-        git \
-        xclip \
-        libtool \
-        pkgconf \
-        unzip \
-	wget \
-	tmux \
-	ripgrep \
-	fish
+	which sudo || apt-get install -y sudo
+	sudo apt-get update -y
 
-wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
-sudo apt install ./nvim-linux64.deb
+	echo "Install everything"
+	DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
+		autoconf \
+		automake \
+		build-essential \
+		cmake \
+		coreutils \
+		curl \
+		git \
+		xclip \
+		libtool \
+		pkgconf \
+		unzip \
+		wget \
+		tmux \
+		ripgrep \
+		fish
 
-echo "SymLink dotfiles"
+	wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
+	sudo apt install ./nvim-linux64.deb
+}
 
-# neovim
-mkdir -p $HOME/.config/nvim
-ln -sf $HOME/dotfiles/dotfiles/init.lua $HOME/.config/nvim/init.lua
+# this should not require root privileges
+function link_dotfiles {
+	echo "SymLink dotfiles"
 
-# tmux
-ln -sf $HOME/dotfiles/dotfiles/.tmux.conf $HOME/.tmux.conf
+	# neovim
+	mkdir -p $HOME/.config/
+	ln -sf $HOME/dotfiles/dotfiles/nvim $HOME/.config/nvim
 
-# fish
-mkdir -p $HOME/.config/fish
-ln -sf $HOME/dotfiles/dotfiles/config.fish $HOME/.config/fish/config.fish
+	# tmux
+	ln -sf $HOME/dotfiles/dotfiles/.tmux.conf $HOME/.tmux.conf
+
+	# fish
+	mkdir -p $HOME/.config/fish
+	ln -sf $HOME/dotfiles/dotfiles/config.fish $HOME/.config/fish/config.fish
+
+}
+
+
+function main {
+	# if no arguments are passed, install everything and link dotfiles
+	if [ $# -eq 0 ]; then
+		install_packages
+		link_dotfiles
+		return
+	fi
+
+	# if "-h" or "--help" is passed, print help
+	if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+		echo "Usage: $0 [OPTION]"
+		echo "Install dotfiles and packages"
+		echo ""
+		echo "Options:"
+		echo "  -h, --help     Print this help message"
+		echo "  -p, --packages Install packages"
+		echo "  -d, --dotfiles Link dotfiles"
+		return
+	fi
+
+	# if "-p" or "--packages" is passed, install packages
+	if [ "$1" = "-p" ] || [ "$1" = "--packages" ]; then
+		install_packages
+	fi
+
+	# if "-d" or "--dotfiles" is passed, link dotfiles
+	if [ "$1" = "-d" ] || [ "$1" = "--dotfiles" ]; then
+		link_dotfiles
+	fi
+
+}
+
+main "$@"
