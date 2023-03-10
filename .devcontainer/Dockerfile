@@ -21,8 +21,10 @@ USER $USERNAME
 # commands below don't run when --target is set to "devcontainer"
 FROM devcontainer
 ARG USERNAME=vscode
+
 WORKDIR /home/$USERNAME/dotfiles
 
-COPY . .
+COPY --chown=$USERNAME . .
+
 RUN ./install.sh
 CMD tmux
