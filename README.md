@@ -43,18 +43,34 @@ To test out the dotfiles with vscode devcontainers, run `Remote Containers: Rebu
 
 ## Additional notes for manual customisation:
 
+> This repo contains is for automatically installing dotfiles and CLI tools, it is designed to be minimal and used in containers. When setting up a new machine, these notes are for the extra steps I perform manually (mostly related to GUI shortcuts, terminal emulator etc.).
+
+### Ubuntu shortcuts
+
 Some modifications I like to change when using a fresh Ubuntu install. The `install.sh` script does not make these modification because it's set up to be as minimal as possible for use in development containers; it's generally best to make these adjustments manually if necessary.
 ```bash
 # enable minimise on click for Ubuntu (Gnome)
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 ```
-
 Also set up super + I keyboard shortcut for settings and super + E shortcut for explorer (might have to do this manually by setting it to run ```nautilus```)
 
-You also might want to disable smooth scrolling in chrome if it seems to scroll painfully slowly:
-chrome://flags/#smooth-scrolling
+### Terminal emulator + fonts
 
-It can also be a good idea to add this line to config.fish. This prevents you from using any pip commands unless you are in a virtualenv so is a nice way of keeping your system python installation clean. It is not included in the dotfiles as standard because they are designed to be compatible with devcontainers, where virtual environments aren't usually necessary:
-```set -x PIP_REQUIRE_VIRTUALENV true```
-Likewise for `.bashrc`:
-```export PIP_REQUIRE_VIRTUALENV=true```
+I'm not picky about terminal emulators, so stick with whatever is installed and configure it through the GUI. (Sadly) Neovim plugins often need nerd fonts installed to work properly.
+
+Two good ones are Cascadia Code and JetBrains Mono:
+```bash
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/JetBrainsMono.zip
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip
+```
+
+On windows, simply move the zip file from WSL to the windows partition, then extract with the GUI. Install by opening the .ttf file and clicking install. On linux, do the following:
+```
+mkdir -p ~/.fonts
+mv JetBrainsMono.zip ~/.fonts/
+cd ~/.fonts
+unzip JetBrainsMono.zip
+fc-cache fv
+```
+
+After installing the font, remember to configure the terminal emulator to use it.
