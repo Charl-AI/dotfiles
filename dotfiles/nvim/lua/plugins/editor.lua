@@ -297,6 +297,24 @@ return {
     },
   },
 
+  -- paired brackets
+  {
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    config = function(_)
+      require("mini.pairs").setup()
+    end,
+  },
+
+  -- comment in/out text
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    config = function(_)
+      require("mini.comment").setup()
+    end,
+  },
+
   -- better diagnostics list and others
   {
     "folke/trouble.nvim",
