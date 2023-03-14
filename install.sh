@@ -30,6 +30,7 @@ function install_packages {
 
 	wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
 	sudo apt install ./nvim-linux64.deb
+	rm nvim-linux64.deb
 }
 
 # this should not require root privileges
@@ -46,6 +47,9 @@ function link_dotfiles {
 	# fish
 	mkdir -p $HOME/.config/fish
 	ln -sf $HOME/dotfiles/dotfiles/config.fish $HOME/.config/fish/config.fish
+
+	# .gitconfig
+	ln -sf $HOME/dotfiles/dotfiles/.gitconfig $HOME/.gitconfig
 
 }
 
