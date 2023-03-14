@@ -1,0 +1,16 @@
+[user]
+  name = C Jones
+  email = cj1917@ic.ac.uk
+  username = Charl-AI
+
+[init]
+	defaultBranch = main
+
+[core]
+  editor = nvim
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
