@@ -11,7 +11,7 @@ return {
     },
     keys = {
       { "K",          vim.lsp.buf.hover,                                  desc = "Hover" },
-      { "I",          vim.lsp.buf.signature_help,                         desc = "Signature Documentation" },
+      { "<leader>ch", vim.lsp.buf.signature_help,                         desc = "Signature Documentation" },
       { "<leader>cd", vim.diagnostic.open_float,                          desc = "Line Diagnostics" },
       { "<leader>cl", "<cmd>LspInfo<cr>",                                 desc = "Lsp Info" },
       { "<leader>cd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Find Definitions" },
