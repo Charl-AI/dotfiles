@@ -1,6 +1,7 @@
 return {
 
-    { -- Theme inspired by Atom
+    -- Theme inspired by Atom
+    {
         'navarasu/onedark.nvim',
         priority = 1000,
         config = function()
@@ -63,17 +64,17 @@ return {
     },
 
 
-    { -- Set lualine as statusline
+    -- Set lualine as statusline
+    {
     'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-        options = {
-        icons_enabled = false,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = '',
+        opts = {
+            options = {
+            icons_enabled = true,
+            theme = 'onedark',
+            component_separators = '|',
+            section_separators = '',
+            },
         },
-    },
     },
 
     -- dashboard
