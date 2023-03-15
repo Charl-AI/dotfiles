@@ -102,20 +102,11 @@ return {
         selection_caret = " ",
         mappings = {
           i = {
-            ["<c-t>"] = function(...)
-              return require("trouble.providers.telescope").open_with_trouble(...)
-            end,
             ["<C-j>"] = function(...)
               return require("telescope.actions").cycle_history_next(...)
             end,
             ["<C-k>"] = function(...)
               return require("telescope.actions").cycle_history_prev(...)
-            end,
-            ["<C-Down>"] = function(...)
-              return require("telescope.actions").preview_scrolling_down(...)
-            end,
-            ["<C-Up>"] = function(...)
-              return require("telescope.actions").preview_scrolling_up(...)
             end,
           },
           n = {
