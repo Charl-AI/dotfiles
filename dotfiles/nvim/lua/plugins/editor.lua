@@ -140,16 +140,16 @@ return {
             ["<c-t>"] = function(...)
               return require("trouble.providers.telescope").open_with_trouble(...)
             end,
-            ["<C-Down>"] = function(...)
+            ["<C-j>"] = function(...)
               return require("telescope.actions").cycle_history_next(...)
             end,
-            ["<C-Up>"] = function(...)
+            ["<C-k>"] = function(...)
               return require("telescope.actions").cycle_history_prev(...)
             end,
-            ["<C-f>"] = function(...)
+            ["<C-Down>"] = function(...)
               return require("telescope.actions").preview_scrolling_down(...)
             end,
-            ["<C-b>"] = function(...)
+            ["<C-Up>"] = function(...)
               return require("telescope.actions").preview_scrolling_up(...)
             end,
           },
