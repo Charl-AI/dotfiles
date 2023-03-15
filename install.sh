@@ -48,6 +48,11 @@ function install_packages {
 	sudo install lazygit /usr/local/bin
 	rm -rf lazygit
 	rm lazygit.tar.gz
+
+	# node (for copilot)
+	sudo dpkg --remove --force-remove-reinstreq libnode-dev
+	sudo dpkg --remove --force-remove-reinstreq libnode72:amd64
+	curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - && sudo apt-get install  -y nodejs
 }
 
 # this should not require root privileges
