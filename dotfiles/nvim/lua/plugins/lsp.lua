@@ -63,6 +63,7 @@ return {
         enabled = true,
         auto_trigger = true,
         keymap = {
+          -- we map tab as accept later in cmp to prevent clashing
           accept = false,
           accept_word = "<C-l>",
           accept_line = "<C-j>",
