@@ -1,27 +1,33 @@
 # dotfiles
 
-Dotfiles for my custom settings and an install script for installing them. Not much special going on here,
-one nice feature is that a vscode devcontainer is included. This allows us to use a container as a sandbox for
-trying out changes. One nice feature of devcontainers is that they automatically look for dotfiles repositories
-and run the `install.sh` file, so building the container allows us to test these configs.
+Dotfiles for my custom settings and a script for installing them.
 
 ## Installation
 
 Install this repo in `$HOME`. It is easiest to do this with the GitHub CLI:
 ```bash
 cd $HOME
-gh repo clone Charl-AI/dotfiles
+git clone git@github.com:Charl-AI/dotfiles.git $HOME/dotfiles
 ```
-You can also perform `git clone git@github.com:Charl-AI/dotfiles.git $HOME/dotfiles` if you are not using the GitHub CLI.
 
-Next, use the install script to set everything up. The script requires root privileges, so run as ksu on organisation machines where sudo is probably disabled:
+Next, use the install script to set everything up. If you have sudo installed, you can simply run:
 ```bash
 cd $HOME/dotfiles
-# give permissions for the script
-chmod +x ./install.sh
+sudo chmod +x ./install.sh
 ./install.sh
 ```
 Note: this script will not work properly if the repository was not created in `$HOME`, as specified above.
+
+Alternatively, on organisation machines you might not have sudo or even root. You can run the install script in two stages (run `./install.sh -h` for more details):
+```bash
+# Stage 1: install packages -- run as ksu/root
+./install.sh -p
+
+# Stage 2: symlink dotfiles -- run as user
+./install.sh -d
+```
+
+TODO: In future, consider installing all packages in `~/.local/bin` to avoid needing root privileges at all.
 
 ## Updating dotfiles
 
@@ -43,7 +49,7 @@ To test out the dotfiles with vscode devcontainers, run `Remote Containers: Rebu
 
 ## Additional notes for manual customisation:
 
-> This repo contains is for automatically installing dotfiles and CLI tools, it is designed to be minimal and used in containers. When setting up a new machine, these notes are for the extra steps I perform manually (mostly related to GUI shortcuts, terminal emulator etc.).
+ This repo contains is for automatically installing dotfiles and CLI tools, it is designed to be minimal and used in containers. When setting up a new machine, these notes are for the extra steps I perform manually (mostly related to GUI shortcuts, terminal emulator etc.).
 
 ### Ubuntu shortcuts
 
