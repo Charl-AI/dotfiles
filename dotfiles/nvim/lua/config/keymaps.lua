@@ -67,3 +67,6 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 -- windows
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
+
+-- toggle word wrap
+map("n", "<leader>w", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
