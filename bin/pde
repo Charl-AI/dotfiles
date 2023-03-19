@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# this script sets up my 'personalised development environment'
+# by running `pde`, we start a tmux session with the name of 
+# the current directory -- if the session already exists, we
+# attach to it. When creating the session, we create three windows,
+# nvim, lazygit, and a shell.
+
+SESSION_NAME=$(basename $(pwd))
+
+if tmux has-session -t $SESSION_NAME 2>/dev/null; then
+    tmux attach -t $SESSION_NAME
+else
+    tmux new-session -s $SESSION_NAME -n nvim -d
+    tmux new-window -t $SESSION_NAME:1 -n lazygit
+    tmux new-window -t $SESSION_NAME:2 -n shell
+    tmux send-keys -t $SESSION_NAME:0 'nvim' C-m
+    tmux send-keys -t $SESSION_NAME:1 'lazygit' C-m
+    tmux send-keys -t $SESSION_NAME:2 'fish' C-m
+    tmux split-window -t $SESSION_NAME:2 -h -l 20% "watch nvidia-smi"
+    tmux split-window -t $SESSION_NAME:2 -v "htop"
+    tmux attach -t $SESSION_NAME
+fi
