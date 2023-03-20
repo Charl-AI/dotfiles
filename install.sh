@@ -51,11 +51,17 @@ function install_packages {
 	sudo dpkg --remove --force-remove-reinstreq libnode-dev
 	sudo dpkg --remove --force-remove-reinstreq libnode72:amd64
 	curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - && sudo apt-get install -y nodejs
+
+	# personal scripts
+	sudo chmod +x bin/*
 }
 
 # this should not require root privileges
 function link_dotfiles {
 	echo "SymLink dotfiles"
+
+	# .profile
+	ln -sf $HOME/dotfiles/dotfiles/.profile $HOME/.profile
 
 	# neovim
 	mkdir -p $HOME/.config/
@@ -70,6 +76,10 @@ function link_dotfiles {
 
 	# .gitconfig
 	ln -sf $HOME/dotfiles/dotfiles/.gitconfig $HOME/.gitconfig
+
+	# personal scripts
+	mkdir -p $HOME/bin
+	ln -sf $HOME/dotfiles/bin/* $HOME/bin/
 
 }
 
