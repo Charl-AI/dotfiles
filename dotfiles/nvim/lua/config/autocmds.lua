@@ -28,3 +28,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		end
 	end,
 })
+
+-- set formatoptions "tcqj" for all filetypes
+local formatoptions_group = vim.api.nvim_create_augroup("Formatoptions", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	group = formatoptions_group,
+	callback = function()
+		vim.opt_local.formatoptions = "tcqj"
+	end,
+	pattern = "*",
+})
