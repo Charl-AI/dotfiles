@@ -56,10 +56,10 @@ return {
 	-- search/replace in multiple files
 	{
 		"windwp/nvim-spectre",
-    -- stylua: ignore
-    keys = {
-      { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
-    },
+		-- stylua: ignore
+		keys = {
+			{ "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+		},
 	},
 
 	-- fuzzy finder
@@ -88,7 +88,11 @@ return {
 			{ "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
 			{ "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
 			{ "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-			{ "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
+			{
+				"<leader>sH",
+				"<cmd>Telescope highlights<cr>",
+				desc = "Search Highlight Groups",
+			},
 			{ "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
 			{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
 			{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
@@ -137,6 +141,34 @@ return {
 		keys = {
 			{ "s", mode = { "n", "x", "o" }, desc = "Leap (bidirectional)" },
 			{ "gs", mode = { "n", "x", "o" }, desc = "Leap (other windows)" },
+		},
+		opts = {
+			-- just the default labels, minus capital letters
+			labels = {
+				"s",
+				"f",
+				"n",
+				"j",
+				"k",
+				"l",
+				"h",
+				"o",
+				"d",
+				"w",
+				"e",
+				"m",
+				"b",
+				"u",
+				"y",
+				"v",
+				"r",
+				"g",
+				"t",
+				"c",
+				"x",
+				"/",
+				"z",
+			},
 		},
 		config = function(_, opts)
 			local leap = require("leap")
@@ -264,8 +296,16 @@ return {
 		cmd = { "TroubleToggle", "Trouble" },
 		opts = { use_diagnostic_signs = true },
 		keys = {
-			{ "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-			{ "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+			{
+				"<leader>xx",
+				"<cmd>TroubleToggle document_diagnostics<cr>",
+				desc = "Document Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xX",
+				"<cmd>TroubleToggle workspace_diagnostics<cr>",
+				desc = "Workspace Diagnostics (Trouble)",
+			},
 			{ "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
 			{ "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
 			{
@@ -299,13 +339,23 @@ return {
 		cmd = { "TodoTrouble", "TodoTelescope" },
 		event = { "BufReadPost", "BufNewFile" },
 		config = true,
-    -- stylua: ignore
-    keys = {
-      { "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-      { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Todo (Trouble)" },
-      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
-    },
+		-- stylua: ignore
+		keys = {
+			{ "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+			{
+				"[t",
+				function() require("todo-comments").jump_prev() end,
+				desc =
+				"Previous todo comment"
+			},
+			{ "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Todo (Trouble)" },
+			{
+				"<leader>xT",
+				"<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",
+				desc =
+				"Todo/Fix/Fixme (Trouble)"
+			},
+			{ "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+		},
 	},
 }
