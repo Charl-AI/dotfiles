@@ -1,6 +1,10 @@
 return {
 
 	{ "tpope/vim-sleuth" },
+	{
+		"christoomey/vim-tmux-navigator",
+		event = { "BufReadPost", "BufNewFile" },
+	},
 
 	-- file explorer
 	{
