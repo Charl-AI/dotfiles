@@ -53,7 +53,11 @@ function install_packages {
 	curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - && sudo apt-get install -y nodejs
 
 	# personal scripts
-	sudo chmod +x bin/*
+	# sudo chmod +x bin/*
+
+	# atuin (nice shell history)
+	bash <(curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh)
+	atuin import auto
 }
 
 # this should not require root privileges
