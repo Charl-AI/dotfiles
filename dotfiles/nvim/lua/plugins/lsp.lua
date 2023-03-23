@@ -3,27 +3,25 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			{ "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-			{ "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
 			{ "j-hui/fidget.nvim", opts = {} },
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 		},
 		keys = {
-			{ "K", vim.lsp.buf.hover, desc = "Hover" },
-			{ "<leader>ch", vim.lsp.buf.signature_help, desc = "Signature Documentation" },
-			{ "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
-			{ "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-			{ "<leader>cd", "<cmd>Telescope lsp_definitions<cr>", desc = "Find Definitions" },
-			{ "<leader>cD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-			{ "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "Find References" },
-			{ "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
-			{ "<leader>ct", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Find Type Definition" },
-			{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
-			{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
-			{ "<leader>cs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find symbols (document)" },
+			{ "K",          vim.lsp.buf.hover,                                  desc = "Hover" },
+			{ "<leader>ch", vim.lsp.buf.signature_help,                         desc = "Signature Documentation" },
+			{ "<leader>cd", vim.diagnostic.open_float,                          desc = "Line Diagnostics" },
+			{ "<leader>cl", "<cmd>LspInfo<cr>",                                 desc = "Lsp Info" },
+			{ "<leader>cd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Find Definitions" },
+			{ "<leader>cD", vim.lsp.buf.declaration,                            desc = "Goto Declaration" },
+			{ "<leader>cr", "<cmd>Telescope lsp_references<cr>",                desc = "Find References" },
+			{ "<leader>ci", "<cmd>Telescope lsp_implementations<cr>",           desc = "Find Implementation" },
+			{ "<leader>ct", "<cmd>Telescope lsp_type_definitions<cr>",          desc = "Find Type Definition" },
+			{ "<leader>cr", vim.lsp.buf.rename,                                 desc = "Rename" },
+			{ "<leader>ca", vim.lsp.buf.code_action,                            desc = "Code Action" },
+			{ "<leader>cs", "<cmd>Telescope lsp_document_symbols<cr>",          desc = "Find symbols (document)" },
 			{ "<leader>cS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Find symbols (workspace)" },
-			{ "<leader>cf", vim.lsp.buf.format, desc = "Format buffer with LSP" },
+			{ "<leader>cf", vim.lsp.buf.format,                                 desc = "Format buffer with LSP" },
 		},
 	},
 
@@ -53,12 +51,11 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			local servers = {
+				-- NB this table uses different names for the servers than mason
+				-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+				-- if you want to use the mason names you can use the table in mason-null=ls.nvim
 				"jsonls",
-				"lua_ls",
-				"pyright",
-				"black",
 				"yamlls",
-				"rust_analyzer",
 			}
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -111,25 +108,17 @@ return {
 			require("mason-null-ls").setup({
 				ensure_installed = {
 					"stylua",
+					"dockerfile-language-server",
 					"shfmt",
+					"black",
+					"isort",
+					"lua-language-server",
+					"pyright",
 				},
 				automatic_installation = true,
 				automatic_setup = true,
 			})
 			require("mason-null-ls").setup_handlers()
-		end,
-	},
-
-	{
-		"folke/neodev.nvim",
-		config = function()
-			require("neodev").setup()
-		end,
-	},
-	{
-		"folke/neoconf.nvim",
-		config = function()
-			require("neoconf").setup()
 		end,
 	},
 
@@ -177,7 +166,7 @@ return {
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0
-					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+						and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
 			return {
