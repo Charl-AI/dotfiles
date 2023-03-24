@@ -8,20 +8,20 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 		},
 		keys = {
-			{ "K",          vim.lsp.buf.hover,                                  desc = "Hover" },
-			{ "<leader>ch", vim.lsp.buf.signature_help,                         desc = "Signature Documentation" },
-			{ "<leader>cd", vim.diagnostic.open_float,                          desc = "Line Diagnostics" },
-			{ "<leader>cl", "<cmd>LspInfo<cr>",                                 desc = "Lsp Info" },
-			{ "<leader>cd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Find Definitions" },
-			{ "<leader>cD", vim.lsp.buf.declaration,                            desc = "Goto Declaration" },
-			{ "<leader>cr", "<cmd>Telescope lsp_references<cr>",                desc = "Find References" },
-			{ "<leader>ci", "<cmd>Telescope lsp_implementations<cr>",           desc = "Find Implementation" },
-			{ "<leader>ct", "<cmd>Telescope lsp_type_definitions<cr>",          desc = "Find Type Definition" },
-			{ "<leader>cr", vim.lsp.buf.rename,                                 desc = "Rename" },
-			{ "<leader>ca", vim.lsp.buf.code_action,                            desc = "Code Action" },
-			{ "<leader>cs", "<cmd>Telescope lsp_document_symbols<cr>",          desc = "Find symbols (document)" },
+			{ "K", vim.lsp.buf.hover, desc = "Hover" },
+			{ "<leader>ch", vim.lsp.buf.signature_help, desc = "Signature Documentation" },
+			{ "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
+			{ "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+			{ "<leader>cd", "<cmd>Telescope lsp_definitions<cr>", desc = "Find Definitions" },
+			{ "<leader>cD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+			{ "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "Find References" },
+			{ "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
+			{ "<leader>ct", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Find Type Definition" },
+			{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+			{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
+			{ "<leader>cs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find symbols (document)" },
 			{ "<leader>cS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Find symbols (workspace)" },
-			{ "<leader>cf", vim.lsp.buf.format,                                 desc = "Format buffer with LSP" },
+			{ "<leader>cf", vim.lsp.buf.format, desc = "Format buffer with LSP" },
 		},
 	},
 
@@ -129,7 +129,11 @@ return {
 		build = ":Copilot auth",
 		opts = {
 			suggestion = {
-				enabled = true,
+				-- we set enabled to false because we later set up
+				-- copilot as a cmp source, to revert to vscode-like
+				-- behaviour set this to true and remove the copilot-cmp
+				-- setup below
+				enabled = false,
 				auto_trigger = true,
 				keymap = {
 					-- we map tab as accept later in cmp to prevent clashing
@@ -142,7 +146,8 @@ return {
 				},
 			},
 			panel = {
-				enabled = true,
+				-- this is disabled for the same reason as above
+				enabled = false,
 				keymap = {
 					open = "<C-p>",
 				},
@@ -159,6 +164,22 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"L3MON4D3/LuaSnip",
+			{
+				"zbirenbaum/copilot-cmp",
+				after = { "zbirenbaum/copilot.lua" },
+				config = function()
+					require("copilot_cmp").setup()
+					local copilot_cmp = require("copilot_cmp")
+					vim.api.nvim_create_autocmd("LspAttach", {
+						callback = function(args)
+							local client = vim.lsp.get_client_by_id(args.data.client_id)
+							if client.name == "copilot" then
+								copilot_cmp._on_insert_enter()
+							end
+						end,
+					})
+				end,
+			},
 		},
 		opts = function()
 			local cmp = require("cmp")
@@ -166,7 +187,7 @@ return {
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0
-						and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
 			return {
@@ -187,13 +208,16 @@ return {
 					["<C-n>"] = cmp.mapping(function(fallback)
 						fallback()
 					end, { "i", "s" }),
-					["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-					["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+					["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Replace }),
+					["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Replace }),
 					["<Tab>"] = cmp.mapping(function(fallback)
-						if require("copilot.suggestion").is_visible() then
-							require("copilot.suggestion").accept()
-						elseif cmp.visible() then
-							cmp.confirm()
+						-- if require("copilot.suggestion").is_visible() then
+						-- 	require("copilot.suggestion").accept()
+						if cmp.visible() then
+							cmp.confirm({
+								cmp.ConfirmBehavior.Replace,
+								select = false,
+							})
 						elseif has_words_before() then
 							cmp.complete()
 						else
@@ -203,6 +227,7 @@ return {
 					["<C-e>"] = cmp.mapping.abort(),
 				}),
 				sources = cmp.config.sources({
+					{ name = "copilot" },
 					{ name = "nvim_lsp" },
 					{ name = "buffer" },
 					{ name = "path" },
