@@ -1,6 +1,13 @@
 return {
 
+	-- misc plugins for better experience
 	{ "tpope/vim-sleuth" },
+	{
+		"Aasim-A/scrollEOF.nvim",
+		config = function()
+			require("scrollEOF").setup()
+		end,
+	},
 	{
 		"christoomey/vim-tmux-navigator",
 		event = { "BufReadPost", "BufNewFile" },
