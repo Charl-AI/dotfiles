@@ -8,20 +8,20 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 		},
 		keys = {
-			{ "K",          vim.lsp.buf.hover,                                  desc = "Hover" },
-			{ "<leader>ch", vim.lsp.buf.signature_help,                         desc = "Signature Documentation" },
-			{ "<leader>cd", vim.diagnostic.open_float,                          desc = "Line Diagnostics" },
-			{ "<leader>cl", "<cmd>LspInfo<cr>",                                 desc = "Lsp Info" },
-			{ "<leader>cd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Find Definitions" },
-			{ "<leader>cD", vim.lsp.buf.declaration,                            desc = "Goto Declaration" },
-			{ "<leader>cr", "<cmd>Telescope lsp_references<cr>",                desc = "Find References" },
-			{ "<leader>ci", "<cmd>Telescope lsp_implementations<cr>",           desc = "Find Implementation" },
-			{ "<leader>ct", "<cmd>Telescope lsp_type_definitions<cr>",          desc = "Find Type Definition" },
-			{ "<leader>cr", vim.lsp.buf.rename,                                 desc = "Rename" },
-			{ "<leader>ca", vim.lsp.buf.code_action,                            desc = "Code Action" },
-			{ "<leader>cs", "<cmd>Telescope lsp_document_symbols<cr>",          desc = "Find symbols (document)" },
+			{ "K", vim.lsp.buf.hover, desc = "Hover" },
+			{ "<leader>ch", vim.lsp.buf.signature_help, desc = "Signature Documentation" },
+			{ "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
+			{ "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+			{ "<leader>cd", "<cmd>Telescope lsp_definitions<cr>", desc = "Find Definitions" },
+			{ "<leader>cD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+			{ "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "Find References" },
+			{ "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
+			{ "<leader>ct", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Find Type Definition" },
+			{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+			{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
+			{ "<leader>cs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find symbols (document)" },
 			{ "<leader>cS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Find symbols (workspace)" },
-			{ "<leader>cf", vim.lsp.buf.format,                                 desc = "Format buffer with LSP" },
+			{ "<leader>cf", vim.lsp.buf.format, desc = "Format buffer with LSP" },
 		},
 	},
 
@@ -135,7 +135,8 @@ return {
 					-- we map tab as accept later in cmp to prevent clashing
 					accept = false,
 					accept_word = "<C-l>",
-					accept_line = "<C-j>",
+					-- commented out to avoid clashes with cmp
+					-- accept_line = "<C-j>",
 					dismiss = "<C-e>",
 					next = "<C-n>",
 					previous = "<C-p>",
@@ -166,7 +167,7 @@ return {
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0
-						and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
 			return {
