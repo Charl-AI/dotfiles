@@ -13,6 +13,15 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 	},
 
+	-- multi-cursor with C-n
+	{
+		"mg979/vim-visual-multi",
+		init = function()
+			-- equivalent to let g:VM_default_mappings = 0
+			vim.g.VM_default_mappings = 0
+		end,
+	},
+
 	-- file explorer
 	{
 		"nvim-neo-tree/neo-tree.nvim",
