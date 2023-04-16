@@ -17,7 +17,7 @@ return {
 			{ "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "Find References" },
 			{ "<leader>ci", "<cmd>Telescope lsp_implementations<cr>", desc = "Find Implementation" },
 			{ "<leader>ct", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Find Type Definition" },
-			{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+			{ "<leader>cR", vim.lsp.buf.rename, desc = "Rename" },
 			{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
 			{ "<leader>cs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find symbols (document)" },
 			{ "<leader>cS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Find symbols (workspace)" },
