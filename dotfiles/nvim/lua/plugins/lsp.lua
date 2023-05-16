@@ -55,7 +55,6 @@ return {
 				-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 				-- if you want to use the mason names you can use the table in mason-null=ls.nvim
 				"jsonls",
-				"yamlls",
 			}
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
