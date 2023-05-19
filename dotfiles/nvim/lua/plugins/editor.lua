@@ -222,7 +222,6 @@ return {
 				["<leader>q"] = { name = "+quit/session" },
 				["<leader>s"] = { name = "+search (telescope)" },
 				["<leader>x"] = { name = "+diagnostics/quickfix" },
-				["<leader>m"] = { name = "+messages" },
 			}
 			wk.register(keymaps)
 		end,
