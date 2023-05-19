@@ -217,7 +217,6 @@ return {
 				["["] = { name = "+prev" },
 				["<leader>c"] = { name = "+code" },
 				["<leader>g"] = { name = "+git" },
-				["<leader>q"] = { name = "+quit/session" },
 				["<leader>s"] = { name = "+search (telescope)" },
 			}
 			wk.register(keymaps)
@@ -361,4 +360,7 @@ return {
 			{ "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
 		},
 	},
+
+	-- library used by other plugins
+	{ "nvim-lua/plenary.nvim", lazy = true },
 }

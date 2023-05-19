@@ -54,13 +54,13 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- lazy
-map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy (plugin manager)" })
 
 -- new file
 map("n", "<leader>n", "<cmd>enew<cr>", { desc = "New File" })
 
 -- quit
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
+map("n", "<leader>q", "<cmd>qa<cr>", { desc = "Quit all" })
 
 -- windows
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
