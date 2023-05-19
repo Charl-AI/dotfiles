@@ -103,7 +103,7 @@ return {
 			defaults = {
 				prompt_prefix = " ",
 				selection_caret = " ",
-				initial_mode = "normal",
+				initial_mode = "insert",
 				mappings = {
 					i = {
 						["<C-j>"] = function(...)
