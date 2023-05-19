@@ -28,13 +28,12 @@ return {
 		cmd = "Neotree",
 		keys = {
 			{
-				"<leader>fe",
+				"<leader>e",
 				function()
 					require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
 				end,
 				desc = "Explorer NeoTree (cwd)",
 			},
-			{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree (cwd)", remap = true },
 		},
 		deactivate = function()
 			vim.cmd([[Neotree close]])
@@ -217,11 +216,9 @@ return {
 				["]"] = { name = "+next" },
 				["["] = { name = "+prev" },
 				["<leader>c"] = { name = "+code" },
-				["<leader>f"] = { name = "+file/find" },
 				["<leader>g"] = { name = "+git" },
 				["<leader>q"] = { name = "+quit/session" },
 				["<leader>s"] = { name = "+search (telescope)" },
-				["<leader>x"] = { name = "+diagnostics/quickfix" },
 			}
 			wk.register(keymaps)
 		end,
@@ -309,20 +306,18 @@ return {
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble" },
-		opts = { use_diagnostic_signs = true, position = "right" },
+		opts = { use_diagnostic_signs = true },
 		keys = {
 			{
-				"<leader>xx",
+				"<leader>x",
 				"<cmd>TroubleToggle document_diagnostics<cr>",
 				desc = "Document Diagnostics (Trouble)",
 			},
 			{
-				"<leader>xX",
+				"<leader>X",
 				"<cmd>TroubleToggle workspace_diagnostics<cr>",
 				desc = "Workspace Diagnostics (Trouble)",
 			},
-			{ "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-			{ "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
 			{
 				"[q",
 				function()
@@ -363,14 +358,7 @@ return {
 				desc =
 				"Previous todo comment"
 			},
-			{ "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Todo (Trouble)" },
-			{
-				"<leader>xT",
-				"<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",
-				desc =
-				"Todo/Fix/Fixme (Trouble)"
-			},
-			{ "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+			{ "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
 		},
 	},
 }
