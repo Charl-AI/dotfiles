@@ -305,14 +305,14 @@ return {
 		opts = { use_diagnostic_signs = true },
 		keys = {
 			{
-				"<leader>x",
+				"<leader>d",
 				"<cmd>TroubleToggle document_diagnostics<cr>",
-				desc = "Document Diagnostics (Trouble)",
+				desc = "Document Diagnostics (trouble)",
 			},
 			{
-				"<leader>X",
+				"<leader>D",
 				"<cmd>TroubleToggle workspace_diagnostics<cr>",
-				desc = "Workspace Diagnostics (Trouble)",
+				desc = "Workspace Diagnostics (trouble)",
 			},
 			{
 				"[q",
