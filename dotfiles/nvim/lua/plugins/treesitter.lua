@@ -41,9 +41,11 @@ return {
 				"markdown",
 				"markdown_inline",
 				"python",
+				"rust",
 				"vim",
 				"yaml",
 			},
+			auto_install = true,
 			incremental_selection = {
 				enable = true,
 				keymaps = {
