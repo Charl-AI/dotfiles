@@ -119,6 +119,7 @@ return {
 			{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
 			{ "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
 			{ "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Word" },
+			{ "<leader>sj", "<cmd>Telescope jumplist<cr>", desc = "Jump list" },
 		},
 		opts = {
 			defaults = {
