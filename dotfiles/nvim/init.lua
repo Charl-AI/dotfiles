@@ -70,7 +70,7 @@ local lsp = require("lsp-zero").preset({
 	},
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
 	vim.keymap.set("n", "<leader>ch", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Documentation" })
 	vim.keymap.set("n", "<leader>cx", vim.diagnostic.open_float, { buffer = bufnr, desc = "Line Diagnostics" })
@@ -112,6 +112,20 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { buffer = bufnr, desc = "Format buffer with LSP" })
 end)
 
+-- this is only for 'real' lsp servers, null-ls is below
+-- NB: I prefer to keep this list minimal (only servers I use a lot)
+-- I prefer to configure others with mason in the ui
+lsp.ensure_installed(
+	{
+		"pyright",
+		"rust_analyzer",
+		"dockerls",
+		"lua_ls",
+		"yamlls",
+		"jsonls",
+	}
+)
+
 lsp.format_on_save({
 	format_opts = {
 		async = false,
@@ -120,12 +134,16 @@ lsp.format_on_save({
 	servers = {
 		["lua_ls"] = { "lua" },
 		["rust_analyzer"] = { "rust" },
-		["null-ls"] = { "python" },
+		["null-ls"] = { "python", "json", "yaml" },
 	},
 })
 
 require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
--- require("lspconfig").pyright.setup()
+lsp.configure("yamlls", {
+	settings = {
+		yaml = { keyOrdering = false }
+	}
+})
 
 lsp.setup()
 
@@ -155,7 +173,8 @@ cmp.setup({
 
 require("null-ls").setup()
 require("mason-null-ls").setup({
-	ensure_installed = { "black", "isort" },
+	-- again, keep this minimal, servers here cannot be uninstall with the mason ui
+	ensure_installed = { "black", "isort", "prettier" },
 	automatic_installation = true,
 	automatic_setup = true,
 })
