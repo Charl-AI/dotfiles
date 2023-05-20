@@ -144,6 +144,10 @@ cmp.setup({
 		{ name = "path" },
 	},
 	mapping = {
+		['<CR>'] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = false,
+		}),
 		["<Tab>"] = cmp_action.luasnip_supertab(),
 		["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
 	},
