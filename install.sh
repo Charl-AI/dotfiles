@@ -65,25 +65,25 @@ function link_dotfiles {
 	echo "SymLink dotfiles"
 
 	# .profile
-	ln -sf $HOME/dotfiles/dotfiles/.profile $HOME/.profile
+	ln -sf "$HOME/dotfiles/dotfiles/.profile" "$HOME/.profile"
 
 	# neovim
-	mkdir -p $HOME/.config/
-	ln -sf $HOME/dotfiles/dotfiles/nvim $HOME/.config/nvim
+	mkdir -p "$HOME/.config/"
+	ln -sf "$HOME/dotfiles/dotfiles/nvim" "$HOME/.config/nvim"
 
 	# tmux
-	ln -sf $HOME/dotfiles/dotfiles/.tmux.conf $HOME/.tmux.conf
+	ln -sf "$HOME/dotfiles/dotfiles/.tmux.conf" "$HOME/.tmux.conf"
 
 	# fish
-	mkdir -p $HOME/.config/fish
-	ln -sf $HOME/dotfiles/dotfiles/config.fish $HOME/.config/fish/config.fish
+	mkdir -p "$HOME/.config/fish"
+	ln -sf "$HOME/dotfiles/dotfiles/config.fish" "$HOME/.config/fish/config.fish"
 
 	# .gitconfig
-	ln -sf $HOME/dotfiles/dotfiles/.gitconfig $HOME/.gitconfig
+	ln -sf "$HOME/dotfiles/dotfiles/.gitconfig" "$HOME/.gitconfig"
 
 	# personal scripts
-	mkdir -p $HOME/bin
-	ln -sf $HOME/dotfiles/bin/* $HOME/bin/
+	mkdir -p "$HOME/bin"
+	ln -sf "$HOME/dotfiles/bin/*" "$HOME/bin/"
 
 }
 
