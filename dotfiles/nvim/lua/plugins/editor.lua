@@ -218,7 +218,7 @@ return {
 				["<leader>c"] = { name = "+code" },
 				["<leader>g"] = { name = "+git" },
 				["<leader>s"] = { name = "+search (telescope)" },
-				["<leader>t"] = { name = "+tabs" },
+				["<leader><tab>"] = { name = "+tabs" },
 			}
 			wk.register(keymaps)
 		end,
