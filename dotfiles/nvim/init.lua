@@ -46,6 +46,7 @@ require("lazy").setup({
 			{ "jay-babu/mason-null-ls.nvim" },
 			{ "j-hui/fidget.nvim" },
 			{ "hrsh7th/cmp-path" },
+			{ "hrsh7th/cmp-cmdline" },
 		},
 	},
 }, {})
@@ -169,6 +170,21 @@ cmp.setup({
 		["<Tab>"] = cmp_action.luasnip_supertab(),
 		["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
 	},
+})
+
+-- `:` cmdline setup.
+cmp.setup.cmdline(':', {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = 'path' }
+	}, {
+		{
+			name = 'cmdline',
+			option = {
+				ignore_cmds = { 'Man', '!' }
+			}
+		}
+	})
 })
 
 require("null-ls").setup()
