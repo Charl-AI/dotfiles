@@ -22,6 +22,10 @@ map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
+-- insert empty line below/above
+map('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
+map('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
+
 
 -- move cursor with alt-hjkl in insert mode
 map('c', '<M-h>', '<Left>', { silent = false, desc = 'Left' })
