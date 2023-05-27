@@ -13,6 +13,31 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 	},
 
+	{
+		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				-- surround often conflicts with leap. Our solution is
+				-- to use gz (zurround), see link below for discussion.
+				-- https://github.com/ggandor/leap.nvim/discussions/59#discussioncomment-3842315
+				keymaps = {
+					insert          = '<C-g>z',
+					insert_line     = 'gC-ggZ',
+					normal          = 'gz',
+					normal_cur      = 'gZ',
+					normal_line     = 'gzgz',
+					normal_cur_line = 'gZgZ',
+					visual          = 'gz',
+					visual_line     = 'gZ',
+					delete          = 'gzd',
+					change          = 'gzc',
+				}
+			})
+		end
+	},
+
 	-- multi-cursor with C-n
 	{
 		"mg979/vim-visual-multi",
