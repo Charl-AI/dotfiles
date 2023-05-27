@@ -30,6 +30,18 @@ map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
+-- move cursor with alt-hjkl in insert mode
+map('c', '<M-h>', '<Left>', { silent = false, desc = 'Left' })
+map('c', '<M-l>', '<Right>', { silent = false, desc = 'Right' })
+map('i', '<M-h>', '<Left>', { noremap = false, desc = 'Left' })
+map('i', '<M-j>', '<Down>', { noremap = false, desc = 'Down' })
+map('i', '<M-k>', '<Up>', { noremap = false, desc = 'Up' })
+map('i', '<M-l>', '<Right>', { noremap = false, desc = 'Right' })
+map('t', '<M-h>', '<Left>', { desc = 'Left' })
+map('t', '<M-j>', '<Down>', { desc = 'Down' })
+map('t', '<M-k>', '<Up>', { desc = 'Up' })
+map('t', '<M-l>', '<Right>', { desc = 'Right' })
+
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
