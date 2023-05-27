@@ -281,6 +281,15 @@ return {
 		},
 	},
 
+	-- move lines with alt-hjkl in normal and visual modes
+	{
+		"echasnovski/mini.move",
+		event = "VeryLazy",
+		config = function(_)
+			require("mini.move").setup()
+		end,
+	},
+
 	-- paired brackets
 	{
 		"echasnovski/mini.pairs",
