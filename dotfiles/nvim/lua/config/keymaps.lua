@@ -23,8 +23,8 @@ map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window wi
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- insert empty line below/above
-map('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
-map('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
+map('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "Insert blank line above" })
+map('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>", { desc = "Insert blank line below" })
 
 
 -- move cursor with alt-hjkl in insert mode
