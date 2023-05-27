@@ -30,16 +30,9 @@ return {
 		opts = {
 			-- symbol = "▏",
 			symbol = "│",
+			draw = { delay = 10 },
 			options = { try_as_border = true },
 		},
-		init = function()
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
-				callback = function()
-					vim.b.miniindentscope_disable = true
-				end,
-			})
-		end,
 		config = function(_, opts)
 			require("mini.indentscope").setup(opts)
 		end,
@@ -111,7 +104,7 @@ return {
 	},
 
 	-- ui components (needed for neotree)
-	{ "MunifTanjim/nui.nvim", lazy = true },
+	{ "MunifTanjim/nui.nvim",        lazy = true },
 
 	-- icons
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
