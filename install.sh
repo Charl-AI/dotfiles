@@ -26,6 +26,7 @@ function install_packages {
 		wget \
 		tmux \
 		ripgrep \
+		fzf \
 		fish
 
 	# gh cli
