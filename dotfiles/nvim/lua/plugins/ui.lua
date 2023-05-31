@@ -58,7 +58,7 @@ return {
 		opts = function()
 			local dashboard = require("alpha.themes.dashboard")
 			dashboard.section.buttons.val = {
-				dashboard.button("f", " " .. " [f]ind file", ":Telescope find_files <CR>"),
+				dashboard.button("f", " " .. " [f]ind file", ":Telescope find_files hidden=true<CR>"),
 				dashboard.button("n", " " .. " [n]ew file", ":ene <BAR> startinsert <CR>"),
 				dashboard.button("r", " " .. " [r]ecent files", ":Telescope oldfiles <CR>"),
 				dashboard.button("g", " " .. " [g]rep text", ":Telescope live_grep <CR>"),
