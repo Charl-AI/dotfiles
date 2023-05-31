@@ -55,10 +55,6 @@ function install_packages {
 
 	# personal scripts
 	# sudo chmod +x bin/*
-
-	# atuin (nice shell history)
-	bash <(curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh)
-	atuin import auto
 }
 
 # this should not require root privileges
