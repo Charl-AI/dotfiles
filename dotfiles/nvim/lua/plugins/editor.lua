@@ -128,22 +128,6 @@ return {
 		},
 	},
 
-	-- clipboard manager
-	{
-		"AckslD/nvim-neoclip.lua",
-		requires = { "nvim-telescope/telescope.nvim" },
-		config = function()
-			require("neoclip").setup({
-				default_register = { '"', "+", "*" },
-			})
-			require("telescope").load_extension("neoclip")
-		end,
-		keys = {
-			{ "<leader>p",  "<cmd>Telescope neoclip<cr>", desc = "Clipboard History" },
-			{ "<leader>sp", "<cmd>Telescope neoclip<cr>", desc = "Clipboard" },
-		},
-	},
-
 	-- easily jump to any location and enhanced f/t motions for Leap
 	{
 		"ggandor/flit.nvim",
