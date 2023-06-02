@@ -26,6 +26,8 @@ map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window w
 map('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "Insert blank line above" })
 map('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>", { desc = "Insert blank line below" })
 
+-- C-Backspace for deleting word in insert mode (equivalent to C-w)
+map('i', '<C-H>', '<C-W>', { desc = "Delete last word" })
 
 -- move cursor with alt-hjkl in insert mode
 map('c', '<M-h>', '<Left>', { silent = false, desc = 'Left' })
