@@ -8,7 +8,7 @@ export LANG=en_IN.UTF-8
 
 # remap caps lock to escape if xcape is installed
 if [ -x "$(command -v xcape)" ]; then
-    xcape -e '#66=Escape'
+    xcape -e '#66=Escape' -t 50
 fi
 
 # if running bash
@@ -29,3 +29,4 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+. "/data/.cargo/env"
