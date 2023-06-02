@@ -77,6 +77,7 @@ return {
 			{ "<leader>.",       "<cmd>Telescope live_grep<cr>",                     desc = "Find in Files (Grep)" },
 			{ "<leader>/",       "<cmd>Telescope current_buffer_fuzzy_find<cr>",     desc = "Find in Buffer (Grep)" },
 			{ "<leader><space>", "<cmd>Telescope find_files hidden=true<cr>",        desc = "Find Files" },
+			{ "<leader>;",       "<cmd>Telescope resume<cr>",                        desc = "Resume Last Search" },
 			-- +s namespace is for complete list of telescope commands
 			{ "<leader>sa",      "<cmd>Telescope autocommands<cr>",                  desc = "Auto Commands" },
 			{ "<leader>sb",      "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Buffers" },
@@ -92,6 +93,7 @@ return {
 			{ "<leader>sm",      "<cmd>Telescope marks<cr>",                         desc = "Jump to Mark" },
 			{ "<leader>so",      "<cmd>Telescope vim_options<cr>",                   desc = "Options" },
 			{ "<leader>sw",      "<cmd>Telescope grep_string<cr>",                   desc = "Word" },
+			{ "<leader>s;",      "<cmd>Telescope resume<cr>",                        desc = "Resume Last Search" },
 		},
 		opts = {
 			defaults = {
