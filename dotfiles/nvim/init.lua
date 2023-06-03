@@ -116,16 +116,14 @@ end)
 -- this is only for 'real' lsp servers, null-ls is below
 -- NB: I prefer to keep this list minimal (only servers I use a lot)
 -- I prefer to configure others with mason in the ui
-lsp.ensure_installed(
-	{
-		"pyright",
-		"rust_analyzer",
-		"dockerls",
-		"lua_ls",
-		"yamlls",
-		"jsonls",
-	}
-)
+lsp.ensure_installed({
+	"pyright",
+	"rust_analyzer",
+	"dockerls",
+	"lua_ls",
+	"yamlls",
+	"jsonls",
+})
 
 lsp.format_on_save({
 	format_opts = {
@@ -133,17 +131,20 @@ lsp.format_on_save({
 		timeout_ms = 10000,
 	},
 	servers = {
-		["lua_ls"] = { "lua" },
+		-- it's generally best to use standalone formatters through null-ls
+		-- as opposed to language server builtin formatting, which is usually
+		-- not as good. Rust is an exception because rust-analyzer uses rustfmt
+		-- by default.
 		["rust_analyzer"] = { "rust" },
-		["null-ls"] = { "python", "json", "yaml" },
+		["null-ls"] = { "python", "json", "yaml", "lua" },
 	},
 })
 
 require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
 lsp.configure("yamlls", {
 	settings = {
-		yaml = { keyOrdering = false }
-	}
+		yaml = { keyOrdering = false },
+	},
 })
 
 lsp.setup()
@@ -163,7 +164,7 @@ cmp.setup({
 		{ name = "path" },
 	},
 	mapping = {
-		['<CR>'] = cmp.mapping.confirm({
+		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = false,
 		}),
@@ -173,24 +174,24 @@ cmp.setup({
 })
 
 -- `:` cmdline setup.
-cmp.setup.cmdline(':', {
+cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
-		{ name = 'path' }
+		{ name = "path" },
 	}, {
 		{
-			name = 'cmdline',
+			name = "cmdline",
 			option = {
-				ignore_cmds = { 'Man', '!' }
-			}
-		}
-	})
+				ignore_cmds = { "Man", "!" },
+			},
+		},
+	}),
 })
 
 require("null-ls").setup()
 require("mason-null-ls").setup({
 	-- again, keep this minimal, servers here cannot be uninstall with the mason ui
-	ensure_installed = { "black", "isort", "prettier" },
+	ensure_installed = { "black", "isort", "prettier", "stylua" },
 	automatic_installation = true,
 	automatic_setup = true,
 })
