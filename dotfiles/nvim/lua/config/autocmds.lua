@@ -44,8 +44,8 @@ local function check_eof_scrolloff()
 	local win_height = vim.api.nvim_win_get_height(0)
 	local win_view = vim.fn.winsaveview()
 	local scrolloff = math.min(vim.o.scrolloff, math.floor(win_height / 2))
-	local scrolloff_line_count = win_height - (vim.fn.line('w$') - win_view.topline + 1)
-	local distance_to_last_line = vim.fn.line('$') - win_view.lnum
+	local scrolloff_line_count = win_height - (vim.fn.line("w$") - win_view.topline + 1)
+	local distance_to_last_line = vim.fn.line("$") - win_view.lnum
 
 	if distance_to_last_line < scrolloff and scrolloff_line_count + distance_to_last_line < scrolloff then
 		win_view.topline = win_view.topline + scrolloff - (scrolloff_line_count + distance_to_last_line)
@@ -53,9 +53,9 @@ local function check_eof_scrolloff()
 	end
 end
 
-local scrollEOF_group = vim.api.nvim_create_augroup('ScrollEOF', { clear = true })
+local scrollEOF_group = vim.api.nvim_create_augroup("ScrollEOF", { clear = true })
 vim.api.nvim_create_autocmd("CursorMoved", {
 	group = scrollEOF_group,
-	pattern = '*',
+	pattern = "*",
 	callback = check_eof_scrolloff,
 })

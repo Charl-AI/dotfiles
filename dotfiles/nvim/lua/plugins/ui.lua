@@ -104,7 +104,7 @@ return {
 	},
 
 	-- ui components (needed for neotree)
-	{ "MunifTanjim/nui.nvim",        lazy = true },
+	{ "MunifTanjim/nui.nvim", lazy = true },
 
 	-- icons
 	{ "nvim-tree/nvim-web-devicons", lazy = true },

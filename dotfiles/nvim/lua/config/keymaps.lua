@@ -31,23 +31,23 @@ map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window wi
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- insert empty line below/above
-map('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "Insert blank line above" })
-map('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>", { desc = "Insert blank line below" })
+map("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = "Insert blank line above" })
+map("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>", { desc = "Insert blank line below" })
 
 -- C-Backspace for deleting word in insert mode (equivalent to C-w)
-map('i', '<C-H>', '<C-W>', { desc = "Delete last word" })
+map("i", "<C-H>", "<C-W>", { desc = "Delete last word" })
 
 -- move cursor with alt-hjkl in insert mode
-map('c', '<M-h>', '<Left>', { silent = false, desc = 'Left' })
-map('c', '<M-l>', '<Right>', { silent = false, desc = 'Right' })
-map('i', '<M-h>', '<Left>', { noremap = false, desc = 'Left' })
-map('i', '<M-j>', '<Down>', { noremap = false, desc = 'Down' })
-map('i', '<M-k>', '<Up>', { noremap = false, desc = 'Up' })
-map('i', '<M-l>', '<Right>', { noremap = false, desc = 'Right' })
-map('t', '<M-h>', '<Left>', { desc = 'Left' })
-map('t', '<M-j>', '<Down>', { desc = 'Down' })
-map('t', '<M-k>', '<Up>', { desc = 'Up' })
-map('t', '<M-l>', '<Right>', { desc = 'Right' })
+map("c", "<M-h>", "<Left>", { silent = false, desc = "Left" })
+map("c", "<M-l>", "<Right>", { silent = false, desc = "Right" })
+map("i", "<M-h>", "<Left>", { noremap = false, desc = "Left" })
+map("i", "<M-j>", "<Down>", { noremap = false, desc = "Down" })
+map("i", "<M-k>", "<Up>", { noremap = false, desc = "Up" })
+map("i", "<M-l>", "<Right>", { noremap = false, desc = "Right" })
+map("t", "<M-h>", "<Left>", { desc = "Left" })
+map("t", "<M-j>", "<Down>", { desc = "Down" })
+map("t", "<M-k>", "<Up>", { desc = "Up" })
+map("t", "<M-l>", "<Right>", { desc = "Right" })
 
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
