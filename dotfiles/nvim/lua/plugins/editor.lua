@@ -94,6 +94,10 @@ return {
 			{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
 			{ "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Word" },
 			{ "<leader>s;", "<cmd>Telescope resume<cr>", desc = "Resume Last Search" },
+			-- these go under the +g namespace because they are closer in spirit to the git commands
+			{ "<leader>gf", "<cmd>Telescope git_bcommits<cr>", desc = "Commit History (file)" },
+			{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commit History (project)" },
+			{ "<leader>gs", "<cmd>Telescope git_stash<cr>", desc = "Stash" },
 		},
 		opts = {
 			defaults = {
