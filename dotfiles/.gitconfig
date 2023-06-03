@@ -10,7 +10,7 @@
   editor = nvim
 
 [pull]
-	rebase = true
+	rebase = false
 
 [credential "https://github.com"]
 	helper = 
