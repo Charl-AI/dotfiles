@@ -12,6 +12,9 @@ function fish_user_key_bindings
   fzf_key_bindings
 end
 
+# show directory tree in fzf preview, include hidden files, exclude .git
+set FZF_ALT_C_OPTS "--preview 'tree -C -a -I '.git' {}'"
+
 # add personal bin to PATH if it exists
 if test -d $HOME/bin
     set -x PATH $HOME/bin $PATH

@@ -27,6 +27,7 @@ function install_packages {
 		tmux \
 		ripgrep \
 		fzf \
+		tree \
 		fish
 
 	# gh cli
