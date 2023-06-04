@@ -12,4 +12,12 @@ function fish_user_key_bindings
   fzf_key_bindings
 end
 
+# add personal bin to PATH if it exists
+if test -d $HOME/bin
+    set -x PATH $HOME/bin $PATH
+end
+
+if test -d $HOME/.local/bin
+    set -x PATH $HOME/.local/bin $PATH
+end
 
