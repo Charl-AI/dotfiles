@@ -8,7 +8,7 @@ export LANG=en_IN.UTF-8
 
 # remap caps lock to escape if xcape is installed
 if [ -x "$(command -v xcape)" ]; then
-    xcape -e '#66=Escape' -t 50
+    xcape -e '#66=Escape'
 fi
 
 # if running bash
