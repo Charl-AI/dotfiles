@@ -38,8 +38,9 @@ function install_packages {
 		sudo apt update &&
 		sudo apt install gh -y
 
-	# nvim
-	wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb -P /tmp/
+	# nvim 
+	# TODO: update nvim to 0.9+ note that they no longer release .deb
+	wget https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.deb -P /tmp/
 	sudo apt install /tmp/nvim-linux64.deb
 
 	# lazygit
