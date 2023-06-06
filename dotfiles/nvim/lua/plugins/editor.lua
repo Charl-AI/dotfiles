@@ -86,8 +86,8 @@ return {
 			{ "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
 			{ "<leader>sx", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
 			{ "<leader>sl", "<cmd>Telescope loclist<cr>", desc = "Location List" },
-			{ "<leader>ss", "<cmd>Telescope spell_suggest<cr>", desc = "Spell Suggestions" },
-			{ "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+			{ "<leader>sh", "<cmd>Telescope pickers<cr>", desc = "Search History" },
+			{ "<leader>sH", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
 			{ "<leader>sj", "<cmd>Telescope jumplist<cr>", desc = "Jump list" },
 			{ "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
 			{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
@@ -101,6 +101,8 @@ return {
 		},
 		opts = {
 			defaults = {
+				-- cache the last 50 searches
+				cache_picker = { num_pickers = 50 },
 				file_ignore_patterns = { ".git" },
 				vimgrep_arguments = {
 					"rg",
