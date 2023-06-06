@@ -72,20 +72,21 @@ return {
 		cmd = "Telescope",
 		version = false,
 		keys = {
-			-- commonly used ones have additional mappings with <leader>...
+			-- commonly used ones get mappings in the top-level namespace: <leader>...
 			{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
 			{ "<leader>.", "<cmd>Telescope live_grep<cr>", desc = "Find in Files (Grep)" },
 			{ "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find in Buffer (Grep)" },
 			{ "<leader><space>", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Files" },
 			{ "<leader>;", "<cmd>Telescope resume<cr>", desc = "Resume Last Search" },
-			-- +s namespace is for complete list of telescope commands
+			-- +s namespace is for less used commands
 			{ "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
-			{ "<leader>sb", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Buffers" },
+			{ "<leader>sq", "<cmd>Telescope quickfix<cr>", desc = "Quickfix List" },
+			{ "<leader>sQ", "<cmd>Telescope quickfixhistory<cr>", desc = "Quickfix History" },
 			{ "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
 			{ "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
 			{ "<leader>sx", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
-			{ "<leader>sg", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Grep (buffer)" },
-			{ "<leader>sG", "<cmd>Telescope live_grep<cr>", desc = "Grep (all files)" },
+			{ "<leader>sl", "<cmd>Telescope loclist<cr>", desc = "Location List" },
+			{ "<leader>ss", "<cmd>Telescope spell_suggest<cr>", desc = "Spell Suggestions" },
 			{ "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
 			{ "<leader>sj", "<cmd>Telescope jumplist<cr>", desc = "Jump list" },
 			{ "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
@@ -93,7 +94,6 @@ return {
 			{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
 			{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
 			{ "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Word" },
-			{ "<leader>s;", "<cmd>Telescope resume<cr>", desc = "Resume Last Search" },
 			-- these go under the +g namespace because they are closer in spirit to the git commands
 			{ "<leader>gf", "<cmd>Telescope git_bcommits<cr>", desc = "Commit History (file)" },
 			{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commit History (project)" },
