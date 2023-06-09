@@ -155,7 +155,18 @@ return {
 			{ "gs", mode = { "n", "x", "o" }, desc = "Leap (other windows)" },
 		},
 		opts = {
+
+			-- make leap and flit treat all quotes, brackets, and newlines as equivalent
+			-- this is because I don't like using the shift key (i.e. I can now use [ instead of { )
+			equivalence_classes = {
+				" \t\r\n",
+				")]}>",
+				"([{<",
+				{ '"', "'", "`" },
+			},
+			safe_labels = {}, -- disable autojump
 			-- just the default labels, minus capital letters
+			-- again, I don't like using the shift key
 			labels = {
 				"s",
 				"f",
