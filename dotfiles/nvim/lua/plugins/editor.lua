@@ -162,6 +162,7 @@ return {
 				" \t\r\n",
 				")]}>",
 				"([{<",
+				";:",
 				{ '"', "'", "`" },
 			},
 			safe_labels = {}, -- disable autojump
