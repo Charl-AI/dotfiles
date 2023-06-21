@@ -10,13 +10,13 @@
 # journal 2 weeks ago
 
 # By default, each day is a markdown file in
-# ~/.journal . You can change this by exporting
+# ~/journal . You can change this by exporting
 # JOURNAL_LOGDIR to another directory.
 # e.g. `JOURNAL_LOGDIR=~/other/dir journal`
 
 # See https://jodavaho.io/posts/bash-journalling.html
 
-default_logdir="$HOME/.journal"
+default_logdir="$HOME/journal"
 logdir="${JOURNAL_LOGDIR:-$default_logdir}"
 
 journal() {
