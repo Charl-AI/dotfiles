@@ -1,25 +1,51 @@
 #!/usr/bin/env bash
 
-# this script sets up my 'personalised development environment'
-# by running `pde`, we start a tmux session with the name of
-# the current directory -- if the session already exists, we
-# attach to it. When creating the session, we create three windows,
-# nvim, lazygit, and a shell.
+# pde is a script for opening my 'personalised development environment'
 
-SESSION_NAME=$(basename $(pwd))
+display_help(){
+	echo "pde sets up your 'personalised development environment'"
+	echo ""
+	echo "pde looks for a tmux session with the given name and attaches to it if possible"
+	echo "If no session with that name exists, pde creates one, and sets up three windows:"
+	echo "  1. nvim"
+	echo "  2. lazygit"
+	echo "  3. shell (with fish, htop, and nvidia-smi in separate panes)"
+	echo ""
+	echo "Usage: pde [NAME]"
+	echo "NAME: The name of the tmux session to create"
+	echo "If no NAME is given, the name is generated from the current directory"
+	echo ""
+	echo "Examples:"
+	echo "   pde                    # Creates a session named after the current directory"
+	echo "   pde my_session_name    # Creates a session named 'my_session_name'"
+	echo ""
+	echo "pde -h | --help     displays this help message"
 
-if tmux has-session -t $SESSION_NAME 2>/dev/null; then
-	tmux attach -t $SESSION_NAME
+}
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    display_help
+    exit 0
+fi
+
+DEFAULT_SESSION_NAME=$(basename "$(pwd)")
+SESSION_NAME=${1:-$DEFAULT_SESSION_NAME}
+
+SESSION_NAME="${SESSION_NAME//./_}" # Replace dots with underscores
+SESSION_NAME="${SESSION_NAME// /_}" # Replace spaces with underscores
+
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+	tmux attach -t "$SESSION_NAME"
 else
-	tmux new-session -s $SESSION_NAME -n nvim -d
-	tmux new-window -t $SESSION_NAME:1 -n lazygit
-	tmux new-window -t $SESSION_NAME:2 -n shell
-	tmux send-keys -t $SESSION_NAME:0 'nvim' C-m
-	tmux send-keys -t $SESSION_NAME:1 'lazygit' C-m
+	tmux new-session -s "$SESSION_NAME" -n nvim -d
+	tmux new-window -t  "$SESSION_NAME":1  -n lazygit
+	tmux new-window -t "$SESSION_NAME":2 -n shell
+	tmux send-keys -t "$SESSION_NAME":0 'nvim' C-m
+	tmux send-keys -t "$SESSION_NAME":1 'lazygit' C-m
 	# commented line below because I already have fish as my default shell in tmux.conf
 	# tmux send-keys -t $SESSION_NAME:2 'fish' C-m
-	tmux split-window -t $SESSION_NAME:2 -h -l 20% "watch nvidia-smi"
-	tmux split-window -t $SESSION_NAME:2 -v "htop"
-	tmux select-pane -t $SESSION_NAME:2.0
-	tmux attach -t $SESSION_NAME
+	tmux split-window -t "$SESSION_NAME":2 -h -l 20% "watch nvidia-smi"
+	tmux split-window -t "$SESSION_NAME":2 -v "htop"
+	tmux select-pane -t "$SESSION_NAME":2.0
+	tmux attach -t "$SESSION_NAME"
 fi
