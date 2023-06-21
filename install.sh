@@ -82,8 +82,7 @@ function link_dotfiles {
 
 	# personal scripts
 	mkdir -p "$HOME/bin"
-	# TODO: glob in below line does not work since the variable was surrounded in quotes
-	ln -sf "$HOME/dotfiles/bin/*" "$HOME/bin/"
+	ln -sf  "$HOME/dotfiles/bin/"*  "$HOME/bin/"
 
 }
 
