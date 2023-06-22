@@ -136,7 +136,7 @@ lsp.format_on_save({
 		-- not as good. Rust is an exception because rust-analyzer uses rustfmt
 		-- by default.
 		["rust_analyzer"] = { "rust" },
-		["null-ls"] = { "python", "json", "yaml", "lua" },
+		["null-ls"] = { "python", "json", "yaml", "lua", "markdown" },
 	},
 })
 
