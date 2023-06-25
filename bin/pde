@@ -21,7 +21,7 @@ display_help(){
 	echo "   pde                    # Creates/attaches/switches to a session named after the current directory"
 	echo "   pde my_session_name    # Creates/attaches/switches to a session named 'my_session_name'"
 	echo "   pde -f                 # Opens fzf to select one of the currently running sessions to attach/switch to"
-	echo "   pde -h | --help        # Displays this help message"
+	echo "   pde -h                 # Displays this help message"
 	echo ""
 
 }
