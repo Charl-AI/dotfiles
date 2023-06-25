@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 # pde is a script for opening my 'personalised development environment'
+# it is primarily concerned with creating/attaching/switching tmux sessions
+# this is somewhat similar to the well-known tmux-sessionizer script:
+# https://github.com/ThePrimeagen/.dotfiles
 
 display_help(){
 	echo ""
