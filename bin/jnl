@@ -4,6 +4,7 @@
 # adapted from https://jodavaho.io/posts/bash-journalling.html
 
 display_help(){
+    echo ""
     echo "jnl opens your daily journal in neovim"
     echo ""
     echo "Usage: jnl [DATE]"
@@ -22,6 +23,7 @@ display_help(){
     echo "to another directory."
     echo ""
     echo "jnl -h | --help   displays this help"
+    echo ""
 }
 
 default_logdir="$HOME/journal"
