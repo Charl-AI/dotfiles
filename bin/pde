@@ -14,7 +14,6 @@ display_help(){
 	echo "  0. nvim"
 	echo "  1. lazygit"
 	echo "  2. shell (with fish, htop, and nvidia-smi in separate panes)"
-	echo "NB: pde will prompt you for y/N before creating a new session"
 	echo ""
 	echo "Usage: pde [<NAME>][-h | --help]"
 	echo ""
@@ -50,12 +49,6 @@ if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
 		tmux attach -t "$SESSION_NAME"
 	fi
 else
-	read -p "Session '$SESSION_NAME' does not exist. Create it? [y/N] " -n 1 -r choice
-	case "$choice" in
-		y|Y ) echo "";;
-		* ) echo ""; exit 0;;
-	esac
-
 	tmux new-session -s "$SESSION_NAME" -n nvim -d
 	tmux new-window -t  "$SESSION_NAME":1  -n lazygit
 	tmux new-window -t "$SESSION_NAME":2 -n shell

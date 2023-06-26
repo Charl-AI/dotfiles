@@ -70,4 +70,4 @@ if [[ -z "$selected_dir" ]]; then
 fi
 
 cd "$selected_dir" || exit 1
-yes | pde
+pde
