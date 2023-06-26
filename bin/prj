@@ -1,49 +1,73 @@
 #!/usr/bin/env bash
 
-# prj is for listing project directories
-# NB: this script cannot switch directories because that would
-# require us to always remember to run it with source or .
-
-# You can switch dirs with it by running `cd (prj | fzf)`
-# we include an alias in our config.fish to make this easier
+# prj is for listing project directories and switching to them
+# requires fzf and pde
 
 display_help(){
   echo ""
-  echo "prj helps find your project directories"
-  echo "It simply searches (non-recursively) for directories containing .git/"
+  echo "prj is for finding and switching projects"
   echo ""
-  echo "Usage: prj [DIRS | -h | --help]"
-  echo "DIRS: the directories to search for projects in"
-  echo "If no DIRS are given, prj looks in the following search paths:"
+  echo "prj searches (non-recursively) for directories containing .git/"
+  echo "It uses fzf and pde for selecting a project and opening in tmux"
+  echo ""
+  echo "Usage: prj [<DIRS>...][-l | --list | -h | --help]"
+  echo ""
+  echo "Operands:"
+  echo "  <DIRS>...:  (Optional) directories to search for projects in,"
+  echo "              may be multiple paths separated by spaces."
+  echo "Options:"
+  echo "  -l, --list: print the project directories found to stdout"
+  echo "  -h, --help: display this help message and exit"
+  echo ""
+  echo "If no <DIRS> are given, prj looks in the following search paths:"
   echo "  ~"
   echo "  ~/projects"
   echo "  /data"
   echo "  /data2"
+  echo ""
   echo "Examples:"
   echo ""
-  echo "  prj            # list projects in default directory list"
-  echo "  prj .          # list projects in the current dir only"
-  echo "  prj ~ /tmp     # list projects in home and tmp dirs (only)"
-  echo "  cd (prj | fzf) # (fish) select a project dir and cd into it"
-  echo "  prj -h         # display this help message"
+  echo "  prj                 # select/switch to projects in default directory list"
+  echo "  prj .               # select/switch to projects in the current dir only"
+  echo "  prj --list ~ /tmp   # list projects in home and tmp dirs (only)"
+  echo "  cd (prj -l | fzf)   # (fish) select a project dir and cd into it"
+  echo "  prj -h              # display this help message"
   echo ""
 }
 
-if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-    display_help
-    exit 0
-fi
+DEFAULT_SEARCH_DIRS=("$HOME" "$HOME/projects" "/data" "/data2")
 
-PRJ_SEARCH_DIRS=("$HOME" "$HOME/projects" "/data" "/data2")
-if [[ -n "$1" ]]; then
-  PRJ_SEARCH_DIRS=("$@")
-fi
+for arg in "$@"; do
+  case $arg in
+    -h|--help) display_help; exit 0;;
+    -l|--list) list_directories=true ;;
+    *) PRJ_SEARCH_DIRS+=("$arg") ;;
+  esac
+done
+
+PRJ_SEARCH_DIRS=("${PRJ_SEARCH_DIRS[@]:-${DEFAULT_SEARCH_DIRS[@]}}")
+
+directories=()
 
 for search_dir in "${PRJ_SEARCH_DIRS[@]}"; do
   if [[ ! -d "$search_dir" ]]; then
-    # skip iteration if dir doesnt exist
-    continue
+    continue  # skip iteration if dir doesnt exist
   fi
-  find "$search_dir" -maxdepth 2 -type d -name ".git" -exec dirname {} \;
+  readarray -d '' dirs_found < <(find "$search_dir" -maxdepth 2 -type d -name ".git" -exec dirname {} \;)
+  directories+=("${dirs_found[@]}")
 done
 
+if [[ "$list_directories" ]]; then
+  printf '%s\n' "${directories[@]}" | sed -e '/^\s*$/d'
+  
+  exit 0
+fi
+
+selected_dir=$(printf '%s\n' "${directories[@]}" | sed -e  '/^\s*$/d' | fzf)
+
+if [[ -z "$selected_dir" ]]; then
+  exit 1
+fi
+
+cd "$selected_dir" || exit 1
+yes | pde

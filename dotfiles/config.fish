@@ -17,16 +17,6 @@ function ce
     conda activate (conda info --envs | fzf | awk '{print $1}')
 end
 
-# (s)witch project (d)ir using fzf, prj, pde
-function sd
-    set -l selected (prj | fzf)
-    # check if fzf selection was made
-    if test -n "$selected"
-        cd $selected
-        yes | pde
-    end
-end
-
 # show directory tree in fzf preview, include hidden files, exclude .git
 set FZF_ALT_C_OPTS "--preview 'tree -C -a -I '.git' {}'"
 
