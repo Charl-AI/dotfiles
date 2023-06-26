@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# fkill uses fzf as a UI for finding and killing processes
+
+display_help(){
+  echo ""
+  echo "fkill is for finding and killing processes with fzf"
+  echo "You may select multiple processes with <TAB> using fzf multiselect"
+  echo ""
+  echo "Usage: fkill [<SIGNAL>][-h | --help]"
+  echo ""
+  echo "Operands:"
+  echo "  <SIGNAL>  (Optional) Signal to send to the process (defaults to SIGTERM: 15)"
+  echo "Optiona:"
+  echo "  -h, --help  Display this help message and exit"
+  echo ""
+  echo "Examples:"
+  echo "  fkill    # Select and kill proceses with SIGTERM"
+  echo "  fkill 9  # Select and kill processes with SIGKILL (recommended if SIGTERM fails)"
+  echo "  fkill -h # Display this help message"
+  echo ""
+
+}
+
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    display_help
+    exit 0
+fi
+
+uid=$(id -u)
+if [ "$uid" -eq 0 ]; then
+  echo "You shouldn't run this script as root"
+  exit 1
+fi
+
+signal=${1:-15} # Default to SIGTERM (15)
+pid=$(ps -f -u "$uid" | sed 1d | fzf -m | awk '{print $2}')
+
+if [ -z "$pid" ]; then
+  exit 0
+fi
+kill "-$signal" "$pid"
+
+
