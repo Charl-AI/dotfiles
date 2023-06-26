@@ -12,6 +12,12 @@ function fish_user_key_bindings
   fzf_key_bindings
 end
 
+
+# (c)hancge (e)nvironment with conda
+function ce
+    conda activate (conda info --envs | fzf | awk '{print $1}')
+end
+
 # show directory tree in fzf preview, include hidden files, exclude .git
 set FZF_ALT_C_OPTS "--preview 'tree -C -a -I '.git' {}'"
 
