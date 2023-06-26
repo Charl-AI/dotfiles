@@ -14,16 +14,15 @@ display_help(){
 	echo "  0. nvim"
 	echo "  1. lazygit"
 	echo "  2. shell (with fish, htop, and nvidia-smi in separate panes)"
+	echo "NB: pde will prompt you for y/N before creating a new session"
 	echo ""
-	echo "Usage: pde [NAME | -f | --find | -h | --help]"
+	echo "Usage: pde [NAME | -h | --help]"
 	echo "NAME: The name of the tmux session to create"
-	echo "-f | --find : opens fzf for selecting a name from the list of currently running sessions"
-	echo "If no args are given, the name is generated from the basename of the current working directory"
+	echo "If no NAME is given, the name is generated from the basename of the current working directory"
 	echo ""
 	echo "Examples:"
 	echo "   pde                    # Creates/attaches/switches to a session named after the current directory"
 	echo "   pde my_session_name    # Creates/attaches/switches to a session named 'my_session_name'"
-	echo "   pde -f                 # Opens fzf to select one of the currently running sessions to attach/switch to"
 	echo "   pde -h                 # Displays this help message"
 	echo ""
 
@@ -39,15 +38,6 @@ SESSION_NAME=${1:-$DEFAULT_SESSION_NAME} # name given as arg overrides basename 
 
 SESSION_NAME="${SESSION_NAME//./_}" # Replace dots with underscores
 SESSION_NAME="${SESSION_NAME// /_}" # Replace spaces with underscores
-
-if [[ "$1" == "-f" || "$1" == "--find" ]]; then
-	FZF_SESSION_NAME=$(tmux list-sessions -F "#S" | fzf)
-	if [[ -z $FZF_SESSION_NAME ]]; then
-		# no fzf selection made
-		exit 0
-	fi
-	SESSION_NAME=$FZF_SESSION_NAME # fzf overrides any other session name when used
-fi
 
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
 	if [[ -n $TMUX ]]; then
