@@ -10,7 +10,7 @@ display_help(){
   echo "Usage: fkill [<SIGNAL>][-h | --help]"
   echo ""
   echo "Operands:"
-  echo "  <SIGNAL>  (Optional) Signal to send to the process (defaults to SIGTERM: 15)"
+  echo "  <SIGNAL>  (Optional) Signal to send to the process, defaults to 15 (SIGTERM)"
   echo "Optiona:"
   echo "  -h, --help  Display this help message and exit"
   echo ""
