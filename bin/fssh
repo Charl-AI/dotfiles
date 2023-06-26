@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# fssh uses fzf as a UI for selecting ssh hosts
+
+host=$(grep '^[[:space:]]*Host[[:space:]]' ~/.ssh/config | cut -d ' ' -f 2 | fzf)
+
+if [ -z "$host" ]; then
+  exit 0
+fi
+
+ssh "$host"
