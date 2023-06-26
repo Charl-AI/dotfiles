@@ -19,7 +19,7 @@ display_help(){
 	echo "Usage: pde [<NAME>][-h | --help]"
 	echo ""
 	echo "Operands:" 
-	echo "  <NAME>  Optional name of the tmux session to create. If no <NAME> is given,"
+	echo "  <NAME>  (Optional) name of the tmux session to create. If no <NAME> is given,"
 	echo "          the name is generated from the basename of the current working directory"
 	echo "Options:"
 	echo "  -h, --help  Display this help message and exit"
