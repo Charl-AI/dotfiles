@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# prj is for listing project directories
+# NB: this script cannot switch directories because that would
+# require us to always remember to run it with source or .
+
+# You can switch dirs with it by running `cd (prj | fzf)`
+# we include an alias in our config.fish to make this easier
+
+display_help(){
+  echo ""
+  echo "prj helps find your project directories"
+  echo "It simply searches (non-recursively) for directories containing .git/"
+  echo ""
+  echo "Usage: prj [DIRS | -h | --help]"
+  echo "DIRS: the directories to search for projects in"
+  echo "If no DIRS are given, prj looks in the following search paths:"
+  echo "  ~"
+  echo "  ~/projects"
+  echo "  /data"
+  echo "  /data2"
+  echo "Examples:"
+  echo ""
+  echo "  prj            # list projects in default directory list"
+  echo "  prj .          # list projects in the current dir only"
+  echo "  prj ~ /tmp     # list projects in home and tmp dirs (only)"
+  echo "  cd (prj | fzf) # (fish) select a project dir and cd into it"
+  echo "  prj -h         # display this help message"
+  echo ""
+}
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    display_help
+    exit 0
+fi
+
+PRJ_SEARCH_DIRS=("$HOME" "$HOME/projects" "/data" "/data2")
+if [[ -n "$1" ]]; then
+  PRJ_SEARCH_DIRS=("$@")
+fi
+
+for search_dir in "${PRJ_SEARCH_DIRS[@]}"; do
+  if [[ ! -d "$search_dir" ]]; then
+    # skip iteration if dir doesnt exist
+    continue
+  fi
+  find "$search_dir" -maxdepth 2 -type d -name ".git" -exec dirname {} \;
+done
+
