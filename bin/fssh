@@ -2,7 +2,35 @@
 
 # fssh uses fzf as a UI for selecting ssh hosts
 
-host=$(grep '^[[:space:]]*Host[[:space:]]' ~/.ssh/config | cut -d ' ' -f 2 | fzf)
+display_help(){
+  echo ""
+  echo "fssh - ssh with fzf"
+  echo ""
+  echo "Usage: fssh [<QUERY>][-h | --help]"
+  echo ""
+  echo "Operands:"
+  echo "  <QUERY>     Optional query string to filter hosts"
+  echo "              if fzf only finds one match in your ssh config"
+  echo "              it will automatically connect to that host"
+  echo ""
+  echo "Options:"
+  echo "  -h, --help  Display this help message and exit"
+  echo ""
+  echo "Examples:"
+  echo "  fssh            # Select and ssh to a host in your ssh config"
+  echo "  fssh myserver   # Select and ssh to 'myserver' iff it's the only match"
+  echo "  fssh -h         # Display this help message"
+
+}
+
+for arg in "$@"; do
+  case $arg in
+    -h|--help) display_help; exit 0 ;;
+    *) ;;
+  esac
+done
+
+host=$(awk '/^Host / {print $2}' ~/.ssh/config  | fzf -1 -q "$1")
 
 if [ -z "$host" ]; then
   exit 0
