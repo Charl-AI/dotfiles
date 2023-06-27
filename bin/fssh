@@ -18,7 +18,8 @@ display_help(){
   echo ""
   echo "Examples:"
   echo "  fssh            # Select and ssh to a host in your ssh config"
-  echo "  fssh myserver   # Select and ssh to 'myserver' iff it's the only match"
+  echo "  fssh myserver   # ssh straight to 'myserver' iff it's the only match"
+  echo "                  # if multiple matches, select using fzf with prompt 'myserver'"
   echo "  fssh -h         # Display this help message"
 
 }

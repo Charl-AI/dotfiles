@@ -4,7 +4,7 @@
 
 display_help(){
   echo ""
-  echo "fkill is for finding and killing processes with fzf"
+  echo "fkill - find and kill processes with fzf"
   echo "You may select multiple processes with <TAB> using fzf multiselect"
   echo ""
   echo "Usage: fkill [<SIGNAL>][-h | --help]"
