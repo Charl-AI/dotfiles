@@ -11,14 +11,16 @@ function fish_user_key_bindings
   fzf_key_bindings
 end
 
+set -x FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
+
+# show directory tree in fzf preview, include hidden files, exclude .git
+set FZF_ALT_C_OPTS "--preview 'tree -C -a -I '.git' {}'"
+
 
 # (c)hancge (e)nvironment with conda
 function ce
     conda activate (conda info --envs | fzf | awk '{print $1}')
 end
-
-# show directory tree in fzf preview, include hidden files, exclude .git
-set FZF_ALT_C_OPTS "--preview 'tree -C -a -I '.git' {}'"
 
 # Use the first conda installation found in the following list
 set -x CONDA_PATH /data/miniconda3/bin/conda /vol/biomedic3/cj1917/miniconda3/bin/conda $HOME/miniconda3/bin/conda
