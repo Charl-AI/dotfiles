@@ -35,7 +35,7 @@ if [ "$uid" -eq 0 ]; then
 fi
 
 signal=${1:-15} # Default to SIGTERM (15)
-pid=$(ps -f -u "$uid" | sed 1d | fzf -m | awk '{print $2}')
+pid=$(ps -f -u "$uid" | fzf -m --header-lines=1 | awk '{print $2}')
 
 if [ -z "$pid" ]; then
   exit 0
