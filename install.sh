@@ -55,8 +55,6 @@ function install_packages {
 	sudo dpkg --remove --force-remove-reinstreq libnode72:amd64
 	curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - && sudo apt-get install -y nodejs
 
-	# personal scripts
-	# sudo chmod +x bin/*
 }
 
 # this should not require root privileges
@@ -83,6 +81,12 @@ function link_dotfiles {
 	# personal scripts
 	mkdir -p "$HOME/bin"
 	ln -sf  "$HOME/dotfiles/bin/"*  "$HOME/bin/"
+
+	for file in "bin/"*; do
+		if [ -f "$file" ]; then
+			chmod +x "$file"
+		fi
+	done
 
 }
 
