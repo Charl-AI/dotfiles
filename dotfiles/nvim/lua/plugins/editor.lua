@@ -136,77 +136,28 @@ return {
 		},
 	},
 
-	-- easily jump to any location and enhanced f/t motions for Leap
 	{
-		"ggandor/flit.nvim",
-		keys = function()
-			local ret = {}
-			for _, key in ipairs({ "f", "F", "t", "T" }) do
-				ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
-			end
-			return ret
-		end,
-		opts = { labeled_modes = "nx" },
-	},
-	{
-		"ggandor/leap.nvim",
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		opts = { modes = { search = { enabled = false } } },
 		keys = {
-			{ "s", mode = { "n", "x", "o" }, desc = "Leap (bidirectional)" },
-			{ "gs", mode = { "n", "x", "o" }, desc = "Leap (other windows)" },
-		},
-		opts = {
-
-			-- make leap and flit treat all quotes, brackets, and newlines as equivalent
-			-- this is because I don't like using the shift key (i.e. I can now use [ instead of { )
-			equivalence_classes = {
-				" \t\r\n",
-				")]}>",
-				"([{<",
-				";:",
-				{ '"', "'", "`" },
-			},
-			safe_labels = {}, -- disable autojump
-			-- just the default labels, minus capital letters
-			-- again, I don't like using the shift key
-			labels = {
+			{
 				"s",
-				"f",
-				"n",
-				"j",
-				"k",
-				"l",
-				"h",
-				"o",
-				"d",
-				"w",
-				"e",
-				"m",
-				"b",
-				"u",
-				"y",
-				"v",
-				"r",
-				"g",
-				"t",
-				"c",
-				"x",
-				"/",
-				"z",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+				desc = "Flash",
+			},
+			{
+				"S",
+				mode = { "n", "o", "x" },
+				function()
+					require("flash").treesitter()
+				end,
+				desc = "Flash Treesitter",
 			},
 		},
-		config = function(_, opts)
-			local leap = require("leap")
-			for k, v in pairs(opts) do
-				leap.opts[k] = v
-			end
-			leap.add_default_mappings(true)
-			vim.keymap.set({ "n", "x", "o" }, "s", function()
-				local current_window = vim.fn.win_getid()
-				require("leap").leap({ target_windows = { current_window } })
-			end)
-			vim.keymap.del({ "x", "o" }, "x")
-			vim.keymap.del({ "x", "o" }, "X")
-		end,
 	},
 
 	-- which-key
