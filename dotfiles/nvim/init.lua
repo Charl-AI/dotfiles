@@ -44,14 +44,12 @@ require("lazy").setup({
 			{ "zbirenbaum/copilot-cmp" },
 			{ "jose-elias-alvarez/null-ls.nvim" },
 			{ "jay-babu/mason-null-ls.nvim" },
-			{ "j-hui/fidget.nvim" },
 			{ "hrsh7th/cmp-path" },
 			{ "hrsh7th/cmp-cmdline" },
 		},
 	},
 }, {})
 
-require("fidget").setup()
 require("mason").setup({
 	ui = {
 		border = "rounded",
