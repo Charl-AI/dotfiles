@@ -59,6 +59,7 @@ function install_packages {
 }
 
 # this should not require root privileges
+# TODO: switch to stow for nicer management of symlinks
 function link_dotfiles {
 	echo "SymLink dotfiles"
 
