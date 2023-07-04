@@ -10,6 +10,7 @@ function install_packages {
 	which sudo || apt-get install -y sudo
 	sudo apt-get update -y
 
+	# TODO: Consider building from source or doing a user-install to avoid sudo
 	echo "Install everything"
 	DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
 		autoconf \
