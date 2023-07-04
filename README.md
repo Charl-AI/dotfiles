@@ -51,6 +51,10 @@ To test out the dotfiles with vscode devcontainers, run `Remote Containers: Rebu
 
  This repo contains is for automatically installing dotfiles and CLI tools, it is designed to be minimal and used in containers. When setting up a new machine, these notes are for the extra steps I perform manually (mostly related to GUI shortcuts, terminal emulator etc.).
 
+## Super Caps-Lock
+
+I like my caps lock key to be remapped to Ctrl (when held), and Esc (when tapped). First, use the `gnome-tweaks` GUI to set caps as an extra ctrl, then install `xcape`, log out, and log back in. If you are using these dotfiles, `xcape` should be correctly set to add the esc functionality in `~/.profile`.
+
 ### Ubuntu shortcuts
 
 Some modifications I like to change when using a fresh Ubuntu install. The `install.sh` script does not make these modification because it's set up to be as minimal as possible for use in development containers; it's generally best to make these adjustments manually if necessary.
