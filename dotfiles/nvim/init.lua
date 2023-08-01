@@ -192,4 +192,5 @@ require("mason-null-ls").setup({
 	ensure_installed = { "black", "isort", "prettier", "stylua" },
 	automatic_installation = true,
 	automatic_setup = true,
+	handlers = {},
 })
