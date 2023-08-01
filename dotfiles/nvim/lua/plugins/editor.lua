@@ -89,7 +89,12 @@ return {
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
-		opts = { modes = { search = { enabled = false } }, label = {uppercase = false} },
+		opts = {
+			labels = "asdfghjkl",
+			search = { mode = "fuzzy" },
+			modes = { search = { enabled = false }, char = { jump_labels = true } },
+			label = { uppercase = false },
+		},
 		keys = {
 			{
 				"s",
@@ -186,17 +191,18 @@ return {
 	},
 
 	-- basic file operations
-	{ 'echasnovski/mini.files',
+	{
+		"echasnovski/mini.files",
 		version = false,
 		config = function()
 			require("mini.files").setup({
-					mappings = {
-						go_in_plus = "<cr>",
-					}
-				})
+				mappings = {
+					go_in_plus = "<cr>",
+				},
+			})
 		end,
 		keys = {
-			{ "<leader>e", "<cmd>lua MiniFiles.open()<cr>", desc = "Open File View"},
+			{ "<leader>e", "<cmd>lua MiniFiles.open()<cr>", desc = "Open File View" },
 		},
 	},
 

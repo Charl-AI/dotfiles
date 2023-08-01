@@ -42,7 +42,7 @@ opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
 
-opt.hlsearch = false
+opt.hlsearch = true
 opt.mouse = "a"
 vim.wo.signcolumn = "yes"
 
