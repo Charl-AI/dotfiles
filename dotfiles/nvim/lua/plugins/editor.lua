@@ -86,35 +86,6 @@ return {
 		},
 	},
 
-	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		opts = {
-			labels = "asdfghjkl",
-			search = { mode = "fuzzy" },
-			modes = { search = { enabled = false }, char = { jump_labels = true } },
-			label = { uppercase = false },
-		},
-		keys = {
-			{
-				"s",
-				mode = { "n", "x", "o" },
-				function()
-					require("flash").jump()
-				end,
-				desc = "Flash",
-			},
-			{
-				"S",
-				mode = { "n", "o", "x" },
-				function()
-					require("flash").treesitter()
-				end,
-				desc = "Flash Treesitter",
-			},
-		},
-	},
-
 	-- which-key
 	{
 		"folke/which-key.nvim",
@@ -164,29 +135,28 @@ return {
 		},
 	},
 
+	{
+		"echasnovski/mini.ai",
+		config = function()
+			require("mini.ai").setup()
+		end,
+	},
+
 	-- surroundings
 	{
 		"echasnovski/mini.surround",
 		config = function()
-			require("mini.surround").setup(
-				-- surround often conflicts with leap. Our solution is
-				-- to use gz (zurround), see link below for discussion.
-				-- https://github.com/ggandor/leap.nvim/discussions/59#discussioncomment-3842315
-				{
-					mappings = {
-						add = "<leader>z",
-						delete = "<leader>zd",
-						find = "",
-						find_left = "",
-						highlight = "<leader>zh",
-						replace = "<leader>zc",
-						update_n_lines = "",
-						-- Add this only if you don't want to use extended mappings
-						suffix_last = "",
-						suffix_next = "",
-					},
-				}
-			)
+			require("mini.surround").setup()
+		end,
+	},
+
+	-- multiline f/t
+	{
+		"echasnovski/mini.jump",
+		config = function()
+			require("mini.jump").setup({
+				highlight = 0,
+			})
 		end,
 	},
 
