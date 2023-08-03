@@ -133,7 +133,7 @@ return {
 				["<leader>c"] = { name = "+code" },
 				["<leader>g"] = { name = "+git" },
 				["<leader>s"] = { name = "+search (telescope)" },
-				["<leader>t"] = { name = "+tabs" },
+				["<leader><Tab>"] = { name = "+tabs" },
 			}
 			wk.register(keymaps)
 		end,
@@ -290,6 +290,7 @@ return {
 				"Previous todo comment"
 			},
 			{ "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
+			{ "<leader>t", "<cmd>TodoTrouble<cr>", desc="TODO Comments (trouble)"}
 		},
 	},
 
