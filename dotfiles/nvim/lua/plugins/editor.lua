@@ -25,7 +25,7 @@ return {
 			-- commonly used ones get mappings in the top-level namespace: <leader>...
 			{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
 			{ "<leader>.", "<cmd>Telescope live_grep<cr>", desc = "Find in Files (Grep)" },
-			{ "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find in Buffer (Grep)" },
+			{ "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find in Buffer (Fuzzy)" },
 			{ "<leader><space>", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Files" },
 			{ "<leader>;", "<cmd>Telescope resume<cr>", desc = "Resume Last Search" },
 			-- +s namespace is for less used commands
