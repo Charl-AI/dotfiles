@@ -95,3 +95,22 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- toggle word wrap
 map("n", "<leader>w", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
+
+-- d,c,x delete to 'd', 'c', 'x' registers by default for a better copy paste experience
+-- Now we can copy-delete-paste without losing the first copy
+-- To paste from the delete registers use "dp, "cp, "xp
+-- The default delete registers of " and - still work as expected
+map("n", "d", '"dd')
+map("v", "d", '"dd')
+map("n", "D", '"dD')
+map("v", "D", '"dD')
+
+map("n", "x", '"xx')
+map("v", "x", '"xx')
+map("n", "X", '"xX')
+map("v", "X", '"xX')
+
+map("n", "c", '"cc')
+map("v", "c", '"cc')
+map("n", "C", '"cC')
+map("v", "C", '"cC')
