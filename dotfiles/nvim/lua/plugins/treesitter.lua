@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		version = false, -- last release is way too old and doesn't work on Windows
+		version = false,
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
 		dependencies = {
@@ -25,10 +25,7 @@ return {
 				end,
 			},
 		},
-		keys = {
-			{ "<c-space>", desc = "Increment selection" },
-			{ "<bs>", desc = "Decrement selection", mode = "x" },
-		},
+		keys = {},
 		opts = {
 			highlight = { enable = true },
 			indent = { enable = true, disable = { "python" } },
@@ -48,12 +45,7 @@ return {
 			auto_install = true,
 			incremental_selection = {
 				enable = true,
-				keymaps = {
-					init_selection = "<CR>",
-					node_incremental = "<CR>",
-					scope_incremental = "<TAB>",
-					node_decremental = "<S-TAB>",
-				},
+				keymaps = {},
 			},
 		},
 		config = function(_, opts)
