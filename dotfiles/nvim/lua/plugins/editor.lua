@@ -155,7 +155,12 @@ return {
 		"echasnovski/mini.jump",
 		config = function()
 			require("mini.jump").setup({
-				highlight = 0,
+				highlight = 1,
+			})
+			-- change default highlighting (underline) to something more visible
+			vim.api.nvim_set_hl(0, "MiniJump", {
+				fg = vim.g.terminal_color_0,
+				bg = vim.g.terminal_color_10,
 			})
 		end,
 	},
