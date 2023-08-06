@@ -22,22 +22,6 @@ return {
 		},
 	},
 
-	-- active indent guide and indent text objects
-	{
-		"echasnovski/mini.indentscope",
-		version = false, -- wait till new 0.7.0 release to put it back on semver
-		event = { "BufReadPre", "BufNewFile" },
-		opts = {
-			-- symbol = "▏",
-			symbol = "│",
-			draw = { delay = 10 },
-			options = { try_as_border = true },
-		},
-		config = function(_, opts)
-			require("mini.indentscope").setup(opts)
-		end,
-	},
-
 	-- Set lualine as statusline
 	{
 		"nvim-lualine/lualine.nvim",

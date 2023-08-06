@@ -146,6 +146,11 @@ return {
 			require("mini.pairs").setup()
 			require("mini.comment").setup()
 			require("mini.move").setup()
+			require("mini.indentscope").setup({
+				symbol = "│",
+				draw = { delay = 10 },
+				options = { try_as_border = true },
+			})
 
 			require("mini.files").setup({
 				mappings = {
