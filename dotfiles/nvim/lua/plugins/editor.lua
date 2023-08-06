@@ -135,25 +135,24 @@ return {
 		},
 	},
 
+	-- Lots of useful stuff here
 	{
-		"echasnovski/mini.ai",
-		config = function()
-			require("mini.ai").setup()
-		end,
-	},
-
-	-- surroundings
-	{
-		"echasnovski/mini.surround",
+		"echasnovski/mini.nvim",
+		-- as of 06/08/23, stable version (*) does not include mini.files
+		-- version = "*",
 		config = function()
 			require("mini.surround").setup()
-		end,
-	},
+			require("mini.ai").setup()
+			require("mini.pairs").setup()
+			require("mini.comment").setup()
+			require("mini.move").setup()
 
-	-- multiline f/t
-	{
-		"echasnovski/mini.jump",
-		config = function()
+			require("mini.files").setup({
+				mappings = {
+					go_in_plus = "<cr>",
+				},
+			})
+
 			require("mini.jump").setup({
 				highlight = 1,
 			})
@@ -163,49 +162,9 @@ return {
 				bg = vim.g.terminal_color_10,
 			})
 		end,
-	},
-
-	-- basic file operations
-	{
-		"echasnovski/mini.files",
-		version = false,
-		config = function()
-			require("mini.files").setup({
-				mappings = {
-					go_in_plus = "<cr>",
-				},
-			})
-		end,
 		keys = {
 			{ "<leader>e", "<cmd>lua MiniFiles.open()<cr>", desc = "Open File View" },
 		},
-	},
-
-	-- move lines with alt-hjkl in normal and visual modes
-	{
-		"echasnovski/mini.move",
-		event = "VeryLazy",
-		config = function(_)
-			require("mini.move").setup()
-		end,
-	},
-
-	-- paired brackets
-	{
-		"echasnovski/mini.pairs",
-		event = "VeryLazy",
-		config = function(_)
-			require("mini.pairs").setup()
-		end,
-	},
-
-	-- comment in/out text
-	{
-		"echasnovski/mini.comment",
-		event = "VeryLazy",
-		config = function(_)
-			require("mini.comment").setup()
-		end,
 	},
 
 	-- better diagnostics list and others
