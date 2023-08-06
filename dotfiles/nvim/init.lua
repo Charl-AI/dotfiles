@@ -38,6 +38,7 @@ require("lazy").setup({
 			},
 			{ "williamboman/mason-lspconfig.nvim" },
 			{ "hrsh7th/nvim-cmp" },
+			{ "hrsh7th/cmp-buffer" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "L3MON4D3/LuaSnip" },
 			{ "zbirenbaum/copilot.lua" },
@@ -171,7 +172,13 @@ cmp.setup({
 	},
 })
 
--- `:` cmdline setup.
+cmp.setup.cmdline({ "/", "?" }, {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
+
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
