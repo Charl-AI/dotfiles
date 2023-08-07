@@ -7,15 +7,6 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 	},
 
-	-- multi-cursor with C-n
-	{
-		"mg979/vim-visual-multi",
-		init = function()
-			-- equivalent to let g:VM_default_mappings = 0
-			vim.g.VM_default_mappings = 0
-		end,
-	},
-
 	-- fuzzy finder
 	{
 		"nvim-telescope/telescope.nvim",
@@ -140,12 +131,18 @@ return {
 		"echasnovski/mini.nvim",
 		-- as of 06/08/23, stable version (*) does not include mini.files
 		-- version = "*",
+		event = "VimEnter",
 		config = function()
 			require("mini.surround").setup()
 			require("mini.ai").setup()
 			require("mini.pairs").setup()
 			require("mini.comment").setup()
 			require("mini.move").setup()
+
+			require("mini.cursorword").setup({
+				delay = 10,
+			})
+
 			require("mini.indentscope").setup({
 				symbol = "│",
 				draw = { delay = 10 },
