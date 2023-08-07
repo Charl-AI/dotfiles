@@ -41,16 +41,20 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- use absoulute line numbers in insert mode and when buffer is not in focus
 local line_numbers_group = vim.api.nvim_create_augroup("LineNumbers", { clear = true })
-vim.api.nvim_create_autocmd({ "InsertEnter", "FocusLost", "BufLeave" }, {
+vim.api.nvim_create_autocmd({ "InsertEnter", "FocusLost", "WinLeave" }, {
 	group = line_numbers_group,
 	callback = function()
-		vim.opt_local.relativenumber = false
+		if vim.opt_local.number:get() then
+			vim.opt_local.relativenumber = false
+		end
 	end,
 })
-vim.api.nvim_create_autocmd({ "InsertLeave", "FocusGained", "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "InsertLeave", "FocusGained", "WinEnter" }, {
 	group = line_numbers_group,
 	callback = function()
-		vim.opt_local.relativenumber = true
+		if vim.opt_local.number:get() then
+			vim.opt_local.relativenumber = true
+		end
 	end,
 })
 
