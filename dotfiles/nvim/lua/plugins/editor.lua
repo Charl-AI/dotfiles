@@ -139,10 +139,6 @@ return {
 			require("mini.comment").setup()
 			require("mini.move").setup()
 
-			require("mini.cursorword").setup({
-				delay = 10,
-			})
-
 			require("mini.indentscope").setup({
 				symbol = "│",
 				draw = { delay = 10 },
