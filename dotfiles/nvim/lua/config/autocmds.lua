@@ -39,6 +39,21 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
 })
 
+-- use absoulute line numbers in insert mode and when buffer is not in focus
+local line_numbers_group = vim.api.nvim_create_augroup("LineNumbers", { clear = true })
+vim.api.nvim_create_autocmd({ "InsertEnter", "FocusLost", "BufLeave" }, {
+	group = line_numbers_group,
+	callback = function()
+		vim.opt_local.relativenumber = false
+	end,
+})
+vim.api.nvim_create_autocmd({ "InsertLeave", "FocusGained", "BufEnter" }, {
+	group = line_numbers_group,
+	callback = function()
+		vim.opt_local.relativenumber = true
+	end,
+})
+
 -- scrolloff at end of file (based on Aasim-A/scrollEOF.nvim)
 local function check_eof_scrolloff()
 	local win_height = vim.api.nvim_win_get_height(0)
