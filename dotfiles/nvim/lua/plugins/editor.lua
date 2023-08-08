@@ -134,10 +134,26 @@ return {
 		event = "VimEnter",
 		config = function()
 			require("mini.surround").setup()
-			require("mini.ai").setup()
 			require("mini.pairs").setup()
 			require("mini.comment").setup()
 			require("mini.move").setup()
+
+			local spec_treesitter = require("mini.ai").gen_spec.treesitter
+			require("mini.ai").setup({
+				search_method = "cover_or_nearest",
+				-- use treesitter for advanced text objects
+				custom_textobjects = {
+					c = spec_treesitter({ a = "@class.outer", i = "@class.inner" }),
+					m = spec_treesitter({
+						a = { "@function.outer", "@method.outer" },
+						i = { "@function.inner", "@method.inner" },
+					}),
+					o = spec_treesitter({
+						a = { "@conditional.outer", "@loop.outer" },
+						i = { "@conditional.inner", "@loop.inner" },
+					}),
+				},
+			})
 
 			require("mini.indentscope").setup({
 				symbol = "│",
