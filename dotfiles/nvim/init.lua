@@ -2,10 +2,264 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-require("config.options")
-require("config.keymaps")
-require("config.autocmds")
+-- OPTIONS/SETTINGS
+local opt = vim.opt
 
+opt.autowrite = true -- Enable auto write
+opt.clipboard = "unnamedplus" -- Sync with system clipboard
+opt.completeopt = "menu,menuone,noselect"
+opt.conceallevel = 0 -- Hide * markup for bold and italic
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
+opt.cursorline = true -- Enable highlighting of the current line
+opt.expandtab = true -- Use spaces instead of tabs
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.ignorecase = true -- Ignore case
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.laststatus = 0
+opt.list = false -- Show some invisible characters (tabs...
+opt.mouse = "a" -- Enable mouse mode
+opt.number = true -- Print line number
+opt.pumblend = 10 -- Popup blend
+opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.relativenumber = true -- Relative line numbers
+opt.scrolloff = 5 -- Lines of context
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+opt.shiftround = true -- Round indent
+opt.shiftwidth = 2 -- Size of an indent
+opt.shortmess:append({ W = true, I = true, c = true })
+opt.showmode = false -- Dont show mode since we have a statusline
+opt.sidescrolloff = 8 -- Columns of context
+opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartcase = true -- Don't ignore case with capitals
+opt.smartindent = true -- Insert indents automatically
+opt.spelllang = { "en" }
+opt.splitbelow = true -- Put new windows below current
+opt.splitright = true -- Put new windows right of current
+opt.tabstop = 2 -- Number of spaces tabs count for
+opt.termguicolors = true -- True color support
+opt.timeoutlen = 100
+opt.ttimeoutlen = 0
+opt.undofile = true
+opt.undolevels = 10000
+opt.updatetime = 200 -- Save swap file and trigger CursorHold
+opt.wildmode = "longest:full,full" -- Command-line completion mode
+opt.winminwidth = 5 -- Minimum window width
+opt.wrap = false -- Disable line wrap
+
+opt.hlsearch = true
+opt.mouse = "a"
+vim.wo.signcolumn = "yes"
+
+if vim.fn.has("nvim-0.9.0") == 1 then
+	opt.splitkeep = "screen"
+	opt.shortmess:append({ C = true })
+end
+
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
+
+-- KEYMAPS (non plugin specific)
+local function map(mode, lhs, rhs, opts)
+	local options = { noremap = true, silent = true }
+	if opts then
+		options = vim.tbl_extend("force", options, opts)
+	end
+	vim.keymap.set(mode, lhs, rhs, options)
+end
+
+-- better up/down
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+-- sensible $,^ with H, L
+map("n", "H", "^")
+map("n", "L", "$")
+map("v", "H", "^")
+map("v", "L", "$")
+map("o", "H", "^")
+map("o", "L", "$")
+
+-- Move to window using the <ctrl> hjkl keys
+map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+
+-- Resize window using <ctrl> arrow keys
+map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
+-- insert empty line below/above
+map("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>k", { desc = "Insert blank line above" })
+map("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>j", { desc = "Insert blank line below" })
+
+-- C-Backspace for deleting word in insert mode (equivalent to C-w)
+map("i", "<C-H>", "<C-W>", { desc = "Delete last word" })
+
+-- move cursor with alt-hjkl in insert mode
+map("c", "<M-h>", "<Left>", { silent = false, desc = "Left" })
+map("c", "<M-l>", "<Right>", { silent = false, desc = "Right" })
+map("i", "<M-h>", "<Left>", { noremap = false, desc = "Left" })
+map("i", "<M-j>", "<Down>", { noremap = false, desc = "Down" })
+map("i", "<M-k>", "<Up>", { noremap = false, desc = "Up" })
+map("i", "<M-l>", "<Right>", { noremap = false, desc = "Right" })
+map("t", "<M-h>", "<Left>", { desc = "Left" })
+map("t", "<M-j>", "<Down>", { desc = "Down" })
+map("t", "<M-k>", "<Up>", { desc = "Up" })
+map("t", "<M-l>", "<Right>", { desc = "Right" })
+
+-- Clear search with <esc>
+map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+
+-- Add undo break-points
+map("i", ",", ",<c-g>u")
+map("i", ".", ".<c-g>u")
+map("i", ";", ";<c-g>u")
+
+-- save file
+map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+
+-- better indenting
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+
+-- lazy
+map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy (plugin manager)" })
+
+-- new file
+map("n", "<leader>n", "<cmd>enew<cr>", { desc = "New File" })
+
+-- quit
+map("n", "<leader>q", "<cmd>qa<cr>", { desc = "Quit all" })
+
+-- windows
+map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
+map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
+
+-- tabs
+map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
+map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
+map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+-- toggle word wrap
+map("n", "<leader>w", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
+
+-- d,c,x delete to 'd', 'c', 'x' registers by default for a better copy paste experience
+-- Now we can copy-delete-paste without losing the first copy
+-- To paste from the delete registers use "dp, "cp, "xp
+-- The default delete registers of " and - still work as expected
+map("n", "d", '"dd')
+map("v", "d", '"dd')
+map("n", "D", '"dD')
+map("v", "D", '"dD')
+
+map("n", "x", '"xx')
+map("v", "x", '"xx')
+map("n", "X", '"xX')
+map("v", "X", '"xX')
+
+map("n", "c", '"cc')
+map("v", "c", '"cc')
+map("n", "C", '"cC')
+map("v", "C", '"cC')
+
+-- AUTOCOMMANDS
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = "*",
+})
+
+-- resize splits if window got resized
+local resize_splits_group = vim.api.nvim_create_augroup("ResizeSplits", { clear = true })
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+	group = resize_splits_group,
+	callback = function()
+		vim.cmd("tabdo wincmd =")
+	end,
+})
+
+-- go to last loc when opening a buffer
+local last_loc_group = vim.api.nvim_create_augroup("LastLoc", { clear = true })
+vim.api.nvim_create_autocmd("BufReadPost", {
+	group = last_loc_group,
+	callback = function()
+		local mark = vim.api.nvim_buf_get_mark(0, '"')
+		local lcount = vim.api.nvim_buf_line_count(0)
+		if mark[1] > 0 and mark[1] <= lcount then
+			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+		end
+	end,
+})
+
+-- set formatoptions for all filetypes -- default is "jcroql"
+local formatoptions_group = vim.api.nvim_create_augroup("Formatoptions", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	group = formatoptions_group,
+	callback = function()
+		vim.opt_local.formatoptions = "tcqjr"
+	end,
+	pattern = "*",
+})
+
+-- use absoulute line numbers in insert mode and when buffer is not in focus
+local line_numbers_group = vim.api.nvim_create_augroup("LineNumbers", { clear = true })
+vim.api.nvim_create_autocmd({ "InsertEnter", "FocusLost", "WinLeave" }, {
+	group = line_numbers_group,
+	callback = function()
+		if vim.opt_local.number:get() then
+			vim.opt_local.relativenumber = false
+		end
+	end,
+})
+vim.api.nvim_create_autocmd({ "InsertLeave", "FocusGained", "WinEnter" }, {
+	group = line_numbers_group,
+	callback = function()
+		if vim.opt_local.number:get() then
+			vim.opt_local.relativenumber = true
+		end
+	end,
+})
+
+-- scrolloff at end of file (based on Aasim-A/scrollEOF.nvim)
+local function check_eof_scrolloff()
+	local win_height = vim.api.nvim_win_get_height(0)
+	local win_view = vim.fn.winsaveview()
+	local scrolloff = math.min(vim.o.scrolloff, math.floor(win_height / 2))
+	local scrolloff_line_count = win_height - (vim.fn.line("w$") - win_view.topline + 1)
+	local distance_to_last_line = vim.fn.line("$") - win_view.lnum
+
+	if distance_to_last_line < scrolloff and scrolloff_line_count + distance_to_last_line < scrolloff then
+		win_view.topline = win_view.topline + scrolloff - (scrolloff_line_count + distance_to_last_line)
+		vim.fn.winrestview(win_view)
+	end
+end
+
+local scrollEOF_group = vim.api.nvim_create_augroup("ScrollEOF", { clear = true })
+vim.api.nvim_create_autocmd("CursorMoved", {
+	group = scrollEOF_group,
+	pattern = "*",
+	callback = check_eof_scrolloff,
+})
+
+-- PLUGINS
 -- Install package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
