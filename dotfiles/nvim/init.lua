@@ -72,14 +72,6 @@ end
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- sensible $,^ with H, L
-map("n", "H", "^")
-map("n", "L", "$")
-map("v", "H", "^")
-map("v", "L", "$")
-map("o", "H", "^")
-map("o", "L", "$")
-
 -- Move to window using the <ctrl> hjkl keys
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
 map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
