@@ -344,19 +344,19 @@ require("lazy").setup({
 			on_attach = function(buffer)
 				local gs = package.loaded.gitsigns
 
-				local function map(mode, l, r, desc)
+				local function map2(mode, l, r, desc)
 					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
 				end
 
-				map("n", "]h", gs.next_hunk, "Next Hunk")
-				map("n", "[h", gs.prev_hunk, "Prev Hunk")
-				map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-				map("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
-				map("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
-				map("n", "<leader>gb", function()
+				map2("n", "]h", gs.next_hunk, "Next Hunk")
+				map2("n", "[h", gs.prev_hunk, "Prev Hunk")
+				map2({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+				map2("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
+				map2("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
+				map2("n", "<leader>gb", function()
 					gs.blame_line({ full = true })
 				end, "Blame Line")
-				map("n", "<leader>gd", gs.diffthis, "Diff This")
+				map2("n", "<leader>gd", gs.diffthis, "Diff This")
 			end,
 		},
 	},
@@ -458,8 +458,8 @@ require("lazy").setup({
 			{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
 			{ "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Word" },
 			-- these go under the +g namespace because they are closer in spirit to the git commands
-			{ "<leader>gf", "<cmd>Telescope git_bcommits<cr>", desc = "Commit History (file)" },
-			{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Commit History (project)" },
+			{ "<leader>gh", "<cmd>Telescope git_bcommits<cr>", desc = "Commit History (file)" },
+			{ "<leader>gH", "<cmd>Telescope git_commits<cr>", desc = "Commit History (project)" },
 			{ "<leader>gs", "<cmd>Telescope git_stash<cr>", desc = "Stash" },
 		},
 		opts = {
