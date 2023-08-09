@@ -517,7 +517,7 @@ require("nvim-treesitter.configs").setup({
 			set_jumps = true,
 			goto_next_start = {
 				["]m"] = "@function.outer",
-				["]f"] = "@function.outr",
+				["]f"] = "@function.outer",
 				["]c"] = "@class.outer",
 				["]a"] = "@parameter.inner",
 			},
