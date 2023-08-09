@@ -20,8 +20,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- we install and set up the lsp here
--- other plugins are configured in the lua/plugins/ dir
 require("lazy").setup({
 	{ import = "plugins" },
 
@@ -49,8 +47,67 @@ require("lazy").setup({
 			{ "hrsh7th/cmp-cmdline" },
 		},
 	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
+		build = ":TSUpdate",
+	},
 }, {})
 
+-- Treesitter is for syntax highlighting and smart text objects
+require("nvim-treesitter.configs").setup({
+	ensure_installed = {
+		"bash",
+		"json",
+		"lua",
+		"luap",
+		"markdown",
+		"markdown_inline",
+		"python",
+		"rust",
+		"vim",
+		"vimdoc",
+		"yaml",
+	},
+	auto_install = true,
+	highlight = { enable = true },
+	indent = { enable = true },
+	-- NB: see the config for mini.ai to see where we define the textobjects
+	textobjects = {
+		move = {
+			enable = true,
+			set_jumps = true,
+			goto_next_start = {
+				["]m"] = "@function.outer",
+				["]f"] = "@function.outr",
+				["]c"] = "@class.outer",
+				["]a"] = "@parameter.inner",
+			},
+			goto_next_end = {
+				["]M"] = "@function.outer",
+				["]F"] = "@function.outer",
+				["]C"] = "@class.outer",
+				["]A"] = "@parameter.inner",
+			},
+			goto_previous_start = {
+				["[m"] = "@function.outer",
+				["[f"] = "@function.outer",
+				["[c"] = "@class.outer",
+				["[a"] = "@parameter.inner",
+			},
+			goto_previous_end = {
+				["[M"] = "@function.outer",
+				["[F"] = "@function.outer",
+				["[C"] = "@class.outer",
+				["[A"] = "@parameter.inner",
+			},
+		},
+	},
+})
+
+-- LSP stuff
 require("mason").setup({
 	ui = {
 		border = "rounded",

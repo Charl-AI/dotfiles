@@ -144,10 +144,9 @@ return {
 				-- use treesitter for advanced text objects
 				custom_textobjects = {
 					c = spec_treesitter({ a = "@class.outer", i = "@class.inner" }),
-					m = spec_treesitter({
-						a = { "@function.outer", "@method.outer" },
-						i = { "@function.inner", "@method.inner" },
-					}),
+					m = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+					f = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+					a = spec_treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
 					o = spec_treesitter({
 						a = { "@conditional.outer", "@loop.outer" },
 						i = { "@conditional.inner", "@loop.inner" },
