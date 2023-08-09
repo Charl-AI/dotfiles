@@ -106,6 +106,14 @@ map("t", "<M-l>", "<Right>", { desc = "Right" })
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
+-- Don't move cursor when searching for current word
+-- NB this makes # and * do basically the same thing
+map("n", "*", "*``", { desc = "Search for current word" })
+map("n", "#", "#``", { desc = "Search for current word" })
+
+-- Substitute selected text throughout buffer with confirmation (nb overrides h register)
+map("v", "<C-r>", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Substitute selected text" })
+
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
