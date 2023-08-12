@@ -6,6 +6,7 @@ vim.g.maplocalleader = " "
 local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write
+opt.breakindent = true
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 0 -- Hide * markup for bold and italic
@@ -17,6 +18,7 @@ opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.laststatus = 0
+opt.linebreak = true
 opt.list = false -- Show some invisible characters (tabs...
 opt.mouse = "a" -- Enable mouse mode
 opt.number = true -- Print line number
