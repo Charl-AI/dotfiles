@@ -72,6 +72,7 @@ end
 
 -- exit terminal mode with <esc>
 map("t", "<esc>", "<C-\\><C-n>")
+map("n", "<leader>t", "<C-W>v <cmd>terminal<cr>", { desc = "Terminal (open in split)" })
 
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -116,8 +117,9 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsea
 map("n", "*", "*``", { desc = "Search for current word" })
 map("n", "#", "#``", { desc = "Search for current word" })
 
--- Substitute selected text throughout buffer with confirmation (nb overrides h register)
-map("v", "<C-r>", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Substitute selected text" })
+-- Quicker find and replace with confirmation (nb the visual mode one overrides h register)
+map("v", "<leader>x", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Xchange selected text" })
+map("n", "<leader>x", ":%s/<C-r><C-w>//g<Left><Left>", { desc = "Xchange word under cursor" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
@@ -335,6 +337,7 @@ require("lazy").setup({
 				["<leader>c"] = { name = "+code" },
 				["<leader>g"] = { name = "+git" },
 				["<leader>s"] = { name = "+search (telescope)" },
+				["<leader>d"] = { name = "+diagnostics (trouble)" },
 				["gt"] = { name = "+tabs" },
 			}
 			wk.register(keymaps)
@@ -369,14 +372,14 @@ require("lazy").setup({
 		opts = { use_diagnostic_signs = true },
 		keys = {
 			{
-				"<leader>x",
+				"<leader>db",
 				"<cmd>TroubleToggle document_diagnostics<cr>",
-				desc = "Document Diagnostics (trouble)",
+				desc = "Buffer",
 			},
 			{
-				"<leader>X",
+				"<leader>dw",
 				"<cmd>TroubleToggle workspace_diagnostics<cr>",
-				desc = "Workspace Diagnostics (trouble)",
+				desc = "Workspace",
 			},
 		},
 	},
@@ -387,7 +390,7 @@ require("lazy").setup({
 		config = true,
 		keys = {
 			{ "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-			{ "<leader>t", "<cmd>TodoTrouble<cr>", desc = "TODO Comments (trouble)" },
+			{ "<leader>dt", "<cmd>TodoTrouble<cr>", desc = "Todo" },
 		},
 	},
 	{
