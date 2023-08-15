@@ -358,22 +358,27 @@ require("lazy").setup({
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
-			on_attach = function(buffer)
+			on_attach = function(_)
 				local gs = package.loaded.gitsigns
 
-				local function map2(mode, l, r, desc)
-					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-				end
+				map("n", "[h", gs.prev_hunk, { desc = "Prev Hunk" })
+				map("n", "]h", gs.next_hunk, { desc = "Next Hunk" })
 
-				map2("n", "]h", gs.next_hunk, "Next Hunk")
-				map2("n", "[h", gs.prev_hunk, "Prev Hunk")
-				map2({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-				map2("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
-				map2("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
-				map2("n", "<leader>gb", function()
+				map({ "n", "v" }, "<leader>gs", gs.stage_hunk, { desc = "Stage hunk" })
+				map({ "n", "v" }, "<leader>gr", gs.reset_hunk, { desc = "Reset hunk" })
+				map({ "n", "v" }, "<leader>gu", gs.undo_stage_hunk, { desc = "Unstage hunk" })
+				map("n", "<leader>gS", gs.stage_buffer, { desc = "Stage buffer" })
+				map("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
+				map("n", "<leader>gU", gs.reset_buffer_index, { desc = "Unstage buffer" })
+				map("n", "<leader>gp", gs.preview_hunk, { desc = "Preview hunk" })
+				map("n", "<leader>gB", gs.toggle_current_line_blame, { desc = "Toggle inline blame" })
+				map("n", "<leader>gb", function()
+					map("n", "<leader>gd", gs.diffthis, { desc = "Diff line" })
 					gs.blame_line({ full = true })
-				end, "Blame Line")
-				map2("n", "<leader>gd", gs.diffthis, "Diff This")
+				end, { desc = "Blame line" })
+
+				-- this is under the x namespace because it uses the quickfix list and trouble
+				map("n", "<leader>xg", "<cmd>Gitsigns setqflist<cr>", { desc = "Git hunks" })
 			end,
 		},
 	},
@@ -485,9 +490,8 @@ require("lazy").setup({
 			{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
 			{ "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Word" },
 			-- these go under the +g namespace because they are closer in spirit to the git commands
-			{ "<leader>gh", "<cmd>Telescope git_bcommits<cr>", desc = "Commit History (file)" },
-			{ "<leader>gH", "<cmd>Telescope git_commits<cr>", desc = "Commit History (project)" },
-			{ "<leader>gs", "<cmd>Telescope git_stash<cr>", desc = "Stash" },
+			{ "<leader>gh", "<cmd>Telescope git_bcommits<cr>", desc = "File history (telescope)" },
+			{ "<leader>gH", "<cmd>Telescope git_commits<cr>", desc = "Project history (telescope)" },
 		},
 		opts = {
 			defaults = {
