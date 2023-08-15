@@ -156,10 +156,10 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 -- tabs
-map("n", "gtn", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "gt]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-map("n", "gtq", "<cmd>tabclose<cr>", { desc = "Quit Tab" })
-map("n", "gt[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "New Tab" })
+map("n", "<leader>t]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader>tq", "<cmd>tabclose<cr>", { desc = "Quit Tab" })
+map("n", "<leader>t[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- toggle word wrap
 map("n", "<leader>w", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
@@ -349,7 +349,7 @@ require("lazy").setup({
 				["<leader>g"] = { name = "+git" },
 				["<leader>s"] = { name = "+search (telescope)" },
 				["<leader>x"] = { name = "+diagnostics (trouble)" },
-				["gt"] = { name = "+tabs" },
+				["<leader>t"] = { name = "+tabs" },
 			}
 			wk.register(keymaps)
 		end,
