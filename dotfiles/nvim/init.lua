@@ -369,7 +369,7 @@ require("lazy").setup({
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble" },
-		opts = { use_diagnostic_signs = true },
+		opts = { use_diagnostic_signs = true, auto_preview = false },
 		keys = {
 			{
 				"<leader>db",
