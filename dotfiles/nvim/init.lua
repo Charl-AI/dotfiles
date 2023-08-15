@@ -72,7 +72,7 @@ end
 
 -- exit terminal mode with <esc>
 map("t", "<esc>", "<C-\\><C-n>")
-map("n", "<leader>t", "<C-W>v <cmd>terminal<cr>", { desc = "Terminal (open in split)" })
+map("n", "<leader>t", "<cmd>terminal<cr>", { desc = "Terminal" })
 
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -118,8 +118,8 @@ map("n", "*", "*``", { desc = "Search for current word" })
 map("n", "#", "#``", { desc = "Search for current word" })
 
 -- Quicker find and replace with confirmation (nb the visual mode one overrides h register)
-map("v", "<leader>x", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Xchange selected text" })
-map("n", "<leader>x", ":%s/<C-r><C-w>//g<Left><Left>", { desc = "Xchange word under cursor" })
+map("v", "<leader>#", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Find and replace selected text" })
+map("n", "<leader>#", ":%s/<C-r><C-w>//g<Left><Left>", { desc = "Find and replace current word" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
@@ -337,7 +337,7 @@ require("lazy").setup({
 				["<leader>c"] = { name = "+code" },
 				["<leader>g"] = { name = "+git" },
 				["<leader>s"] = { name = "+search (telescope)" },
-				["<leader>d"] = { name = "+diagnostics (trouble)" },
+				["<leader>x"] = { name = "+diagnostics (trouble)" },
 				["gt"] = { name = "+tabs" },
 			}
 			wk.register(keymaps)
@@ -372,14 +372,24 @@ require("lazy").setup({
 		opts = { use_diagnostic_signs = true, auto_preview = false },
 		keys = {
 			{
-				"<leader>db",
+				"<leader>xb",
 				"<cmd>TroubleToggle document_diagnostics<cr>",
-				desc = "Buffer",
+				desc = "Buffer diagnostics",
 			},
 			{
-				"<leader>dw",
+				"<leader>xw",
 				"<cmd>TroubleToggle workspace_diagnostics<cr>",
-				desc = "Workspace",
+				desc = "Workspace diagnostics",
+			},
+			{
+				"<leader>xq",
+				"<cmd>TroubleToggle quickfix<cr>",
+				desc = "Quickfix list",
+			},
+			{
+				"<leader>xl",
+				"<cmd>TroubleToggle location<cr>",
+				desc = "Location list",
 			},
 		},
 	},
@@ -390,7 +400,7 @@ require("lazy").setup({
 		config = true,
 		keys = {
 			{ "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-			{ "<leader>dt", "<cmd>TodoTrouble<cr>", desc = "Todo" },
+			{ "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo" },
 		},
 	},
 	{
