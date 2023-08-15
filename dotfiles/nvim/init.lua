@@ -224,6 +224,16 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
 })
 
+-- set lisp options for all lisp filetypes
+local lisp_group = vim.api.nvim_create_augroup("Lisp", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	group = lisp_group,
+	callback = function()
+		vim.opt_local.lisp = true
+	end,
+	pattern = "lisp",
+})
+
 -- use absoulute line numbers in insert mode and when buffer is not in focus
 local line_numbers_group = vim.api.nvim_create_augroup("LineNumbers", { clear = true })
 vim.api.nvim_create_autocmd({ "InsertEnter", "FocusLost", "WinLeave" }, {
