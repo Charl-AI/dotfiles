@@ -70,8 +70,9 @@ local function map(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, options)
 end
 
--- exit terminal mode with <esc>
-map("t", "<esc>", "<C-\\><C-n>")
+-- making terminal mode more usable
+map("t", "<esc>", "<C-\\><C-n>") -- esc brings you back to normal mode
+map("t", "M-[", "<esc>") -- alt-[ sends esc to the terminal itself
 map("n", "<leader>t", "<cmd>terminal<cr>", { desc = "Terminal" })
 
 -- better up/down
@@ -83,6 +84,11 @@ map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
 map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
 map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+
+map("t", "<C-h>", "<cmd>wincmd h<CR>")
+map("t", "<C-j>", "<cmd>wincmd j<CR>")
+map("t", "<C-k>", "<cmd>wincmd k<CR>")
+map("t", "<C-l>", "<cmd>wincmd l<CR>")
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
