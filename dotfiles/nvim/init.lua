@@ -120,7 +120,7 @@ map("n", "#", "#``", { desc = "Search for current word" })
 
 -- Quicker find and replace with confirmation (nb the visual mode one overrides h register)
 map("v", "<leader>#", '"hy:%s/<C-r>h//gc<left><left><left>', { desc = "Find and replace selected text" })
-map("n", "<leader>#", ":%s/<C-r><C-w>//g<Left><Left>", { desc = "Find and replace current word" })
+map("n", "<leader>#", ":%s/<C-r><C-w>//gc<Left><Left>", { desc = "Find and replace current word" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
