@@ -70,11 +70,6 @@ local function map(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, options)
 end
 
--- making terminal mode more usable
-map("t", "<esc>", "<C-\\><C-n>") -- esc brings you back to normal mode
-map("t", "M-[", "<esc>") -- alt-[ sends esc to the terminal itself
-map("n", "<leader>t", "<cmd>terminal<cr>", { desc = "Terminal" })
-
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
