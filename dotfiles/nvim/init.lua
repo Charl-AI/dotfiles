@@ -372,8 +372,8 @@ require("lazy").setup({
 				map("n", "<leader>gU", gs.reset_buffer_index, { desc = "Unstage buffer" })
 				map("n", "<leader>gp", gs.preview_hunk, { desc = "Preview hunk" })
 				map("n", "<leader>gB", gs.toggle_current_line_blame, { desc = "Toggle inline blame" })
+				map("n", "<leader>gd", gs.diffthis, { desc = "Diff line" })
 				map("n", "<leader>gb", function()
-					map("n", "<leader>gd", gs.diffthis, { desc = "Diff line" })
 					gs.blame_line({ full = true })
 				end, { desc = "Blame line" })
 
