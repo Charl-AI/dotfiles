@@ -19,3 +19,9 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
+
+[credential "https://git.overleaf.com"]
+	username = cj1917@ic.ac.uk
+
+[credential]
+	helper = cache --timeout=604800
