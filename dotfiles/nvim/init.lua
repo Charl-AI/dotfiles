@@ -627,8 +627,9 @@ require("mason").setup({
 vim.keymap.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "Mason (LSP GUI)" })
 
 require("copilot").setup({
+	-- disable suggestion because we use nvim cmp
+	-- NB you can bring up a panel with alt-enter in insert mode
 	suggestion = { enabled = false },
-	panel = { enabled = false },
 })
 require("copilot_cmp").setup()
 
