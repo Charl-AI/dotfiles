@@ -57,7 +57,15 @@ This repo contains is for automatically installing dotfiles and CLI tools, it is
 
 ## Super Caps-Lock
 
-I like my caps lock key to be remapped to Ctrl (when held), and Esc (when tapped). First, use the `gnome-tweaks` GUI to set caps as an extra ctrl, then install `xcape`, log out, and log back in. If you are using these dotfiles, `xcape` should be correctly set to add the esc functionality in `~/.profile`.
+I like my caps lock key to be remapped to Ctrl (when held), and Esc (when tapped).
+
+### Ubuntu
+
+First, use the `gnome-tweaks` GUI to set caps as an extra ctrl, then install `xcape`, log out, and log back in. If you are using these dotfiles, `xcape` should be correctly set to add the esc functionality in `~/.profile`.
+
+### MacOS
+
+Install and use [Hyperkey](https://hyperkey.app/) to remap caps lock to ctrl and esc.
 
 ### Ubuntu shortcuts
 
@@ -70,18 +78,23 @@ gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 
 Also set up super + I keyboard shortcut for settings and super + E shortcut for explorer (might have to do this manually by setting it to run `nautilus`)
 
+### MacOS shortcuts
+
+[Alt-Tab](https://alt-tab-macos.netlify.app/) and [rectangle](https://rectangleapp.com/) are both pretty useful to improve window management on MacOS.
+
 ### Terminal emulator + fonts
 
-I'm not picky about terminal emulators, so stick with whatever is installed and configure it through the GUI. (Sadly) Neovim plugins often need nerd fonts installed to work properly.
+I'm generally happy with Windows terminal and Gnome terminal, but I don't like the default one on MacOS. Use Alacritty instead.
 
-Two good ones are Cascadia Code and JetBrains Mono:
+(Sadly) Neovim plugins often need nerd fonts installed to work properly.
+
+A decent one is JetBrains Mono:
 
 ```bash
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/JetBrainsMono.zip
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip
 ```
 
-On windows, simply move the zip file from WSL to the windows partition, then extract with the GUI. Install by opening the .ttf file and clicking install. On linux, do the following:
+On windows and MacOS, simply install with the GUI. On linux, do the following:
 
 ```
 mkdir -p ~/.fonts
