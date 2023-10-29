@@ -579,8 +579,6 @@ require("nvim-treesitter.configs").setup({
 })
 
 -- Improved editing experience
-
-require("mini.pairs").setup()
 require("mini.comment").setup()
 require("mini.move").setup()
 require("mini.surround").setup()
