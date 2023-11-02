@@ -436,17 +436,6 @@ require("lazy").setup({
 			show_current_context = false,
 		},
 	},
-	{
-		"nvim-lualine/lualine.nvim",
-		opts = {
-			options = {
-				icons_enabled = true,
-				theme = "onedark",
-				component_separators = "|",
-				section_separators = "",
-			},
-		},
-	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{
 		"folke/persistence.nvim",
@@ -582,6 +571,8 @@ require("nvim-treesitter.configs").setup({
 require("mini.comment").setup()
 require("mini.move").setup()
 require("mini.surround").setup()
+
+require("mini.statusline").setup()
 
 local spec_treesitter = require("mini.ai").gen_spec.treesitter
 require("mini.ai").setup({
