@@ -225,16 +225,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
 })
 
--- set lisp options for all lisp filetypes
-local lisp_group = vim.api.nvim_create_augroup("Lisp", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-	group = lisp_group,
-	callback = function()
-		vim.opt_local.lisp = true
-	end,
-	pattern = "lisp",
-})
-
 -- use absoulute line numbers in insert mode and when buffer is not in focus
 local line_numbers_group = vim.api.nvim_create_augroup("LineNumbers", { clear = true })
 vim.api.nvim_create_autocmd({ "InsertEnter", "FocusLost", "WinLeave" }, {
@@ -426,27 +416,6 @@ require("lazy").setup({
 			vim.cmd.colorscheme("onedark")
 		end,
 	},
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = { "BufReadPost", "BufNewFile" },
-		opts = {
-			char = "│",
-			filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
-			show_trailing_blankline_indent = false,
-			show_current_context = false,
-		},
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		opts = {
-			options = {
-				icons_enabled = true,
-				theme = "onedark",
-				component_separators = "|",
-				section_separators = "",
-			},
-		},
-	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{
 		"folke/persistence.nvim",
@@ -579,11 +548,11 @@ require("nvim-treesitter.configs").setup({
 })
 
 -- Improved editing experience
-
-require("mini.pairs").setup()
 require("mini.comment").setup()
 require("mini.move").setup()
 require("mini.surround").setup()
+
+require("mini.statusline").setup()
 
 local spec_treesitter = require("mini.ai").gen_spec.treesitter
 require("mini.ai").setup({
@@ -603,7 +572,7 @@ require("mini.ai").setup({
 
 require("mini.indentscope").setup({
 	symbol = "│",
-	draw = { delay = 10 },
+	draw = { delay = 0 },
 	options = { try_as_border = true },
 })
 
