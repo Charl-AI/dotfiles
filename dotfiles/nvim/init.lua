@@ -416,16 +416,6 @@ require("lazy").setup({
 			vim.cmd.colorscheme("onedark")
 		end,
 	},
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = { "BufReadPost", "BufNewFile" },
-		opts = {
-			char = "│",
-			filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
-			show_trailing_blankline_indent = false,
-			show_current_context = false,
-		},
-	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{
 		"folke/persistence.nvim",
@@ -582,7 +572,7 @@ require("mini.ai").setup({
 
 require("mini.indentscope").setup({
 	symbol = "│",
-	draw = { delay = 10 },
+	draw = { delay = 0 },
 	options = { try_as_border = true },
 })
 
