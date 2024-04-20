@@ -97,10 +97,6 @@ map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
--- insert empty line below/above
-map("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>k", { desc = "Insert blank line above" })
-map("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>j", { desc = "Insert blank line below" })
-
 -- C-Backspace for deleting word in insert mode (equivalent to C-w)
 map("i", "<C-H>", "<C-W>", { desc = "Delete last word" })
 
