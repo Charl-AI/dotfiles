@@ -70,6 +70,10 @@ function link_dotfiles {
 	mkdir -p "$HOME/.config/"
 	ln -sf "$HOME/dotfiles/dotfiles/nvim" "$HOME/.config/nvim"
 
+	# helix
+	mkdir -p "$HOME/.config/helix"
+	ln -sf "$HOME/dotfiles/dotfiles/helix/config.toml" "$HOME/.config/helix/config.toml"
+
 	# tmux
 	ln -sf "$HOME/dotfiles/dotfiles/.tmux.conf" "$HOME/.tmux.conf"
 
