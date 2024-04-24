@@ -25,6 +25,9 @@ end
 # Use the first conda installation found in the following list
 set -x CONDA_PATH /data/miniconda3/bin/conda /vol/biomedic3/cj1917/miniconda3/bin/conda $HOME/miniconda3/bin/conda
 
+# use ripgreprc
+set -x RIPGREP_CONFIG_PATH $HOME/.ripgreprc
+
 function conda
     echo "Lazy loading conda upon first invocation..."
     functions --erase conda

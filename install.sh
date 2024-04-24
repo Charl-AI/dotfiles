@@ -84,6 +84,9 @@ function link_dotfiles {
 	# .gitconfig
 	ln -sf "$HOME/dotfiles/dotfiles/.gitconfig" "$HOME/.gitconfig"
 
+	# ripgrep
+	ln -sf "$HOME/dotfiles/dotfiles/.ripgreprc" "$HOME/.ripgreprc"
+
 	# personal scripts
 	mkdir -p "$HOME/bin"
 	ln -sf  "$HOME/dotfiles/bin/"*  "$HOME/bin/"
