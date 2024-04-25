@@ -143,12 +143,6 @@ map("n", "<leader>q", "<cmd>qa<cr>", { desc = "Quit all" })
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
--- tabs
-map("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "<leader>t]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-map("n", "<leader>tq", "<cmd>tabclose<cr>", { desc = "Quit Tab" })
-map("n", "<leader>t[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
-
 -- toggle word wrap
 map("n", "<leader>w", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
 
@@ -323,9 +317,8 @@ require("lazy").setup({
 				["["] = { name = "+prev" },
 				["<leader>c"] = { name = "+code" },
 				["<leader>g"] = { name = "+git" },
-				["<leader>s"] = { name = "+search (telescope)" },
+				["<leader>s"] = { name = "+search (mini.Pick)" },
 				["<leader>x"] = { name = "+diagnostics (trouble)" },
-				["<leader>t"] = { name = "+tabs" },
 			}
 			wk.register(keymaps)
 		end,
@@ -391,16 +384,8 @@ require("lazy").setup({
 		event = { "BufReadPost", "BufNewFile" },
 		config = true,
 		keys = {
-			{ "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
 			{ "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo" },
 		},
-	},
-	{
-		"navarasu/onedark.nvim",
-		priority = 1000,
-		config = function()
-			vim.cmd.colorscheme("onedark")
-		end,
 	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{
@@ -414,65 +399,6 @@ require("lazy").setup({
 					require("persistence").load()
 				end,
 				desc = "Restore Session",
-			},
-		},
-	},
-	{
-		"nvim-telescope/telescope.nvim",
-		cmd = "Telescope",
-		version = false,
-		keys = {
-			-- commonly used ones get mappings in the top-level namespace: <leader>...
-			{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-			{ "<leader>.", "<cmd>Telescope live_grep<cr>", desc = "Find in Files (Grep)" },
-			{ "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find in Buffer (Fuzzy)" },
-			{ "<leader><space>", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Files" },
-			{ "<leader>;", "<cmd>Telescope resume<cr>", desc = "Resume Last Search" },
-			-- +s namespace is for less used commands
-			{ "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
-			{ "<leader>sq", "<cmd>Telescope quickfix<cr>", desc = "Quickfix List" },
-			{ "<leader>sQ", "<cmd>Telescope quickfixhistory<cr>", desc = "Quickfix History" },
-			{ "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-			{ "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-			{ "<leader>sx", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
-			{ "<leader>sl", "<cmd>Telescope loclist<cr>", desc = "Location List" },
-			{ "<leader>sh", "<cmd>Telescope pickers<cr>", desc = "Search History" },
-			{ "<leader>sH", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-			{ "<leader>sj", "<cmd>Telescope jumplist<cr>", desc = "Jump list" },
-			{ "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-			{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-			{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
-			{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-			{ "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Word" },
-			-- these go under the +g namespace because they are closer in spirit to the git commands
-			{ "<leader>gh", "<cmd>Telescope git_bcommits<cr>", desc = "File history (telescope)" },
-			{ "<leader>gH", "<cmd>Telescope git_commits<cr>", desc = "Project history (telescope)" },
-		},
-		opts = {
-			defaults = {
-				-- cache the last 50 searches
-				cache_picker = { num_pickers = 50 },
-				file_ignore_patterns = { ".git" },
-				vimgrep_arguments = {
-					"rg",
-					"--color=never",
-					"--no-heading",
-					"--with-filename",
-					"--line-number",
-					"--column",
-					"--smart-case",
-					"--hidden",
-				},
-				prompt_prefix = "> ",
-				selection_caret = "-> ",
-				initial_mode = "insert",
-				mappings = {
-					n = {
-						["q"] = function(...)
-							return require("telescope.actions").close(...)
-						end,
-					},
-				},
 			},
 		},
 	},
@@ -562,6 +488,70 @@ require("mini.indentscope").setup({
 	options = { try_as_border = true },
 })
 
+require("mini.extra").setup()
+require("mini.pick").setup({
+	mappings = {
+		move_down = "<C-j>",
+		move_up = "<C-k>",
+		paste = "<C-p>",
+		scroll_down = "<C-d>",
+		scroll_up = "<C-u>",
+	},
+
+	-- Window related options
+	window = {
+		-- Float window config (table or callable returning it)
+		config = { width = 1000, height = 15 },
+	},
+})
+
+-- commonly used keymaps in top level namespace
+vim.keymap.set("n", "<leader><space>", "<cmd>Pick files<cr>", { desc = "Search files" })
+vim.keymap.set("n", "<leader>,", "<cmd>Pick buffers<cr>", { desc = "Search buffers" })
+vim.keymap.set("n", "<leader>;", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
+vim.keymap.set("n", "<leader>.", "<cmd>Pick grep_live<cr>", { desc = "Live grep (project)" })
+vim.keymap.set("n", "<leader>/", '<cmd>Pick buf_lines scope="current"<cr>', { desc = "Fuzzy search (buffer)" })
+
+-- s is for searching with fuzzy finder (mini.pick)
+vim.keymap.set("n", "<leader>sh", "<cmd>Pick help<cr>", { desc = "[h]elp pages" })
+vim.keymap.set("n", "<leader>sf", "<cmd>Pick explorer<cr>", { desc = "[f]iles (tree view)" })
+vim.keymap.set("n", "<leader>s/", '<Cmd>Pick history scope="/"<CR>', { desc = "[/] search history" })
+vim.keymap.set("n", "<leader>s:", '<Cmd>Pick history scope=":"<CR>', { desc = "[:] command history" })
+vim.keymap.set("n", "<leader>sc", '<Cmd>Pick git_commits path="%"<CR>', { desc = "[c]ommits (file)" })
+vim.keymap.set("n", "<leader>sC", "<Cmd>Pick git_commits<CR>", { desc = "[C]ommits (workspace)" })
+vim.keymap.set("n", "<leader>sd", '<Cmd>Pick diagnostic scope="current"<CR>', { desc = "[d]iagnostics (file)" })
+vim.keymap.set("n", "<leader>sD", '<Cmd>Pick diagnostic scope="all"<CR>', { desc = "[D]iagnostics (workspace)" })
+vim.keymap.set("n", "<leader>sr", '<cmd>Pick lsp scope="references"<cr>', { desc = "[r]eferences" })
+vim.keymap.set("n", "<leader>ss", '<cmd>Pick lsp scope="document_symbol"<cr>', { desc = "[s]ymbol (file)" })
+vim.keymap.set("n", "<leader>sS", '<cmd>Pick lsp scope="workspace_symbol"<cr>', { desc = "[S]ymbol (workspace)" })
+vim.keymap.set("n", "<leader>sq", '<cmd>Pick list scope="quickfix"<cr>', { desc = "[q]uickfix list" })
+vim.keymap.set("n", "<leader>sl", '<cmd>Pick list scope="location"<cr>', { desc = "[l]ocation list" })
+vim.keymap.set("n", "<leader>sj", '<cmd>Pick list scope="jump"<cr>', { desc = "[j]ump list" })
+-- vim.keymap.set("n", "<leader>sd", '<cmd>Pick lsp scope="definition"<cr>', { desc = "[d]efinition" })
+
+require("mini.base16").setup({
+	palette = {
+		base00 = "#303446",
+		base01 = "#292c3c",
+		base02 = "#414559",
+		base03 = "#51576d",
+		base04 = "#626880",
+		base05 = "#c6d0f5",
+		base06 = "#f2d5cf",
+		base07 = "#babbf1",
+		base08 = "#e78284",
+		base09 = "#ef9f76",
+		base0A = "#e5c890",
+		base0B = "#a6d189",
+		base0C = "#81c8be",
+		base0D = "#8caaee",
+		base0E = "#ca9ee6",
+		base0F = "#eebebe",
+	},
+})
+
+vim.g.colors_name = "base16-catpuccin-frappe"
+
 require("mini.files").setup({
 	mappings = {
 		go_in_plus = "<cr>",
@@ -595,44 +585,17 @@ local lsp = require("lsp-zero").preset({
 })
 
 lsp.on_attach(function(_, bufnr)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
-	vim.keymap.set("n", "<leader>ch", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Documentation" })
 	vim.keymap.set("n", "<leader>cx", vim.diagnostic.open_float, { buffer = bufnr, desc = "Line Diagnostics" })
 	vim.keymap.set("n", "<leader>cl", "<cmd>LspInfo<cr>", { buffer = bufnr, desc = "Lsp Info" })
-	vim.keymap.set(
-		"n",
-		"<leader>cd",
-		"<cmd>Telescope lsp_definitions<cr>",
-		{ buffer = bufnr, desc = "Find Definitions" }
-	)
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
+	vim.keymap.set("n", "<leader>ch", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Documentation" })
+	vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Find Definitions" })
 	vim.keymap.set("n", "<leader>cD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Goto Declaration" })
-	vim.keymap.set("n", "<leader>cr", "<cmd>Telescope lsp_references<cr>", { buffer = bufnr, desc = "Find References" })
-	vim.keymap.set(
-		"n",
-		"<leader>ci",
-		"<cmd>Telescope lsp_implementations<cr>",
-		{ buffer = bufnr, desc = "Find Implementation" }
-	)
-	vim.keymap.set(
-		"n",
-		"<leader>ct",
-		"<cmd>Telescope lsp_type_definitions<cr>",
-		{ buffer = bufnr, desc = "Find Type Definition" }
-	)
+	vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, { buffer = bufnr, desc = "Find References" })
+	vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Find Implementation" })
+	vim.keymap.set("n", "<leader>ct", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Find Type Definition" })
 	vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
-	vim.keymap.set(
-		"n",
-		"<leader>cs",
-		"<cmd>Telescope lsp_document_symbols<cr>",
-		{ buffer = bufnr, desc = "Find symbols (document)" }
-	)
-	vim.keymap.set(
-		"n",
-		"<leader>cS",
-		"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-		{ buffer = bufnr, desc = "Find symbols (workspace)" }
-	)
 	vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { buffer = bufnr, desc = "Format buffer with LSP" })
 end)
 
