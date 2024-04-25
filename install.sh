@@ -39,10 +39,10 @@ function install_packages {
 		sudo apt update &&
 		sudo apt install gh -y
 
-	# nvim 
-	# TODO: update nvim to 0.9+ note that they no longer release .deb
-	wget https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.deb -P /tmp/
-	sudo apt install /tmp/nvim-linux64.deb
+	# nvim
+	curl -LO https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz
+	sudo rm -rf /opt/nvim
+	sudo tar -C /opt -xzf nvim-linux64.tar.gz
 
 	# lazygit
 	cd /tmp/ &&
@@ -50,11 +50,6 @@ function install_packages {
 		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" &&
 		tar xf lazygit.tar.gz lazygit &&
 		sudo install lazygit /usr/local/bin
-
-	# node (for copilot)
-	sudo dpkg --remove --force-remove-reinstreq libnode-dev
-	sudo dpkg --remove --force-remove-reinstreq libnode72:amd64
-	curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - && sudo apt-get install -y nodejs
 
 }
 
@@ -89,7 +84,7 @@ function link_dotfiles {
 
 	# personal scripts
 	mkdir -p "$HOME/bin"
-	ln -sf  "$HOME/dotfiles/bin/"*  "$HOME/bin/"
+	ln -sf "$HOME/dotfiles/bin/"* "$HOME/bin/"
 
 	for file in "bin/"*; do
 		if [ -f "$file" ]; then
