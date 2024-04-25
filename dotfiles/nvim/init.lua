@@ -18,6 +18,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	{
 		"williamboman/mason.nvim",
 		build = ":MasonUpdate",
@@ -131,5 +132,6 @@ require("lazy").setup({
 	},
 }, {})
 
+vim.cmd.colorscheme("catppuccin-frappe")
 require("editor")
 require("lsp")
