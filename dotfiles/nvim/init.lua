@@ -280,8 +280,6 @@ require("lazy").setup({
 			{ "hrsh7th/cmp-buffer" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "L3MON4D3/LuaSnip" },
-			{ "zbirenbaum/copilot.lua" },
-			{ "zbirenbaum/copilot-cmp" },
 			{ "jose-elias-alvarez/null-ls.nvim" },
 			{ "jay-babu/mason-null-ls.nvim" },
 			{ "hrsh7th/cmp-path" },
@@ -563,13 +561,6 @@ require("mason").setup({
 })
 vim.keymap.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "Mason (LSP GUI)" })
 
-require("copilot").setup({
-	-- disable suggestion because we use nvim cmp
-	-- NB you can bring up a panel with alt-enter in insert mode
-	suggestion = { enabled = false },
-})
-require("copilot_cmp").setup()
-
 local lsp = require("lsp-zero").preset({
 	manage_nvim_cmp = {
 		set_basic_mappings = false,
@@ -636,7 +627,6 @@ cmp.setup({
 		documentation = cmp.config.window.bordered(),
 	},
 	sources = {
-		{ name = "copilot" },
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },
 		{ name = "path" },
