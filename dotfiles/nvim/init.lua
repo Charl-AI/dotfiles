@@ -279,6 +279,7 @@ require("lazy").setup({
 			{ "hrsh7th/nvim-cmp" },
 			{ "hrsh7th/cmp-buffer" },
 			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 			{ "L3MON4D3/LuaSnip" },
 			{ "jose-elias-alvarez/null-ls.nvim" },
 			{ "jay-babu/mason-null-ls.nvim" },
@@ -553,19 +554,46 @@ local lsp = require("lsp-zero").preset({
 	},
 })
 
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = false,
+})
+
+-- if there are diagnostics available for a line, show them instead of the hover window
+local function hover_or_diagnostic()
+	local line_num = vim.api.nvim_win_get_cursor(0)[1]
+	local diagnostics =
+		vim.diagnostic.get(0, { lnum = line_num - 1, severity = { min = vim.diagnostic.severity.HINT } })
+
+	if #diagnostics == 0 then
+		vim.lsp.buf.hover()
+	else
+		vim.diagnostic.open_float()
+	end
+end
+
 lsp.on_attach(function(_, bufnr)
-	vim.keymap.set("n", "<leader>cx", vim.diagnostic.open_float, { buffer = bufnr, desc = "Line Diagnostics" })
-	vim.keymap.set("n", "<leader>cl", "<cmd>LspInfo<cr>", { buffer = bufnr, desc = "Lsp Info" })
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
-	vim.keymap.set("n", "<leader>ch", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Documentation" })
-	vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Find Definitions" })
-	vim.keymap.set("n", "<leader>cD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Goto Declaration" })
-	vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, { buffer = bufnr, desc = "Find References" })
-	vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Find Implementation" })
-	vim.keymap.set("n", "<leader>ct", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Find Type Definition" })
-	vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
-	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
-	vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { buffer = bufnr, desc = "Format buffer with LSP" })
+	vim.keymap.set("n", "K", hover_or_diagnostic, { buffer = bufnr, desc = "Hover" })
+	vim.keymap.set("n", "<leader>cl", "<cmd>LspInfo<cr>", { buffer = bufnr, desc = "[l]sp info" })
+	vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { buffer = bufnr, desc = "[h]over" })
+	vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { buffer = bufnr, desc = "[R]ename" })
+	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "[a]ction" })
+	vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { buffer = bufnr, desc = "[f]ormat with LSP" })
+
+	-- the built in LSP uses the quickfix list for these methods, here we use trouble because I think it is a bit nicer
+	vim.keymap.set("n", "<leader>cd", "<cmd>Trouble lsp_definitions<cr>", { buffer = bufnr, desc = "[d]efinitions" })
+	vim.keymap.set("n", "<leader>cr", "<cmd>Trouble lsp_references<cr>", { buffer = bufnr, desc = "[r]eferences" })
+	vim.keymap.set(
+		"n",
+		"<leader>ci",
+		"<cmd>Trouble lsp_implementations<cr>",
+		{ buffer = bufnr, desc = "[i]mplementations" }
+	)
+	vim.keymap.set(
+		"n",
+		"<leader>ct",
+		"<cmd>Trouble lsp_type_definitions<cr>",
+		{ buffer = bufnr, desc = "[t]ype definitions" }
+	)
 end)
 
 -- this is only for 'real' lsp servers, null-ls is below
@@ -613,6 +641,7 @@ cmp.setup({
 		documentation = cmp.config.window.bordered(),
 	},
 	sources = {
+		{ name = "nvim_lsp_signature_help" },
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },
 		{ name = "path" },
