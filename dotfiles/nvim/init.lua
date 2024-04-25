@@ -135,10 +135,10 @@ map("v", ">", ">gv")
 map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy (plugin manager)" })
 
 -- new file
-map("n", "<leader>n", "<cmd>enew<cr>", { desc = "New File" })
+map("n", "<leader>n", "<cmd>enew<cr>", { desc = "[n]ew File" })
 
 -- quit
-map("n", "<leader>q", "<cmd>qa<cr>", { desc = "Quit all" })
+map("n", "<leader>q", "<cmd>qa<cr>", { desc = "[q]uit all" })
 
 -- windows
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
@@ -317,7 +317,6 @@ require("lazy").setup({
 				["<leader>c"] = { name = "+code" },
 				["<leader>g"] = { name = "+git" },
 				["<leader>s"] = { name = "+search (mini.Pick)" },
-				["<leader>x"] = { name = "+diagnostics (trouble)" },
 			}
 			wk.register(keymaps)
 		end,
@@ -344,9 +343,6 @@ require("lazy").setup({
 				map("n", "<leader>gb", function()
 					gs.blame_line({ full = true })
 				end, { desc = "Blame line" })
-
-				-- this is under the x namespace because it uses the quickfix list and trouble
-				map("n", "<leader>xg", "<cmd>Gitsigns setqflist<cr>", { desc = "Git hunks" })
 			end,
 		},
 	},
@@ -356,24 +352,14 @@ require("lazy").setup({
 		opts = { use_diagnostic_signs = true, auto_preview = false },
 		keys = {
 			{
-				"<leader>xb",
+				"<leader>d",
 				"<cmd>TroubleToggle document_diagnostics<cr>",
-				desc = "Buffer diagnostics",
+				desc = "[d]iagnostics (buffer)",
 			},
 			{
-				"<leader>xw",
+				"<leader>D",
 				"<cmd>TroubleToggle workspace_diagnostics<cr>",
-				desc = "Workspace diagnostics",
-			},
-			{
-				"<leader>xq",
-				"<cmd>TroubleToggle quickfix<cr>",
-				desc = "Quickfix list",
-			},
-			{
-				"<leader>xl",
-				"<cmd>TroubleToggle location<cr>",
-				desc = "Location list",
+				desc = "[D]iagnostics (workspace)",
 			},
 		},
 	},
@@ -388,7 +374,7 @@ require("lazy").setup({
 				function()
 					require("persistence").load()
 				end,
-				desc = "Restore Session",
+				desc = "[r]estore session",
 			},
 		},
 	},
@@ -499,7 +485,7 @@ require("mini.pick").setup({
 vim.keymap.set("n", "<leader><space>", "<cmd>Pick files<cr>", { desc = "Search files" })
 vim.keymap.set("n", "<leader>,", "<cmd>Pick buffers<cr>", { desc = "Search buffers" })
 vim.keymap.set("n", "<leader>;", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
-vim.keymap.set("n", "<leader>.", "<cmd>Pick grep_live<cr>", { desc = "Live grep (project)" })
+vim.keymap.set("n", "<leader>.", "<cmd>Pick grep_live<cr>", { desc = "Live grep (workspace)" })
 vim.keymap.set("n", "<leader>/", '<cmd>Pick buf_lines scope="current"<cr>', { desc = "Fuzzy search (buffer)" })
 
 -- s is for searching with fuzzy finder (mini.pick)
@@ -547,7 +533,7 @@ require("mini.files").setup({
 		go_in_plus = "<cr>",
 	},
 })
-vim.keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "Open File View" })
+vim.keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "[e]xplorer (mini.Files)" })
 
 require("mini.jump").setup({
 	highlight = 1,
