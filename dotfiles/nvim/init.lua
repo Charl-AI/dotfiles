@@ -400,41 +400,6 @@ require("nvim-treesitter.configs").setup({
 	auto_install = true,
 	highlight = { enable = true },
 	indent = { enable = true },
-	-- NB: see the config for mini.ai to see where we define the textobjects
-	textobjects = {
-		move = {
-			enable = true,
-			set_jumps = true,
-			goto_next_start = {
-				["]m"] = "@function.outer",
-				["]f"] = "@function.outer",
-				["]c"] = "@class.outer",
-				["]]"] = "@class.outer",
-				["]a"] = "@parameter.inner",
-			},
-			goto_next_end = {
-				["]M"] = "@function.outer",
-				["]F"] = "@function.outer",
-				["]C"] = "@class.outer",
-				["]["] = "@class.outer",
-				["]A"] = "@parameter.inner",
-			},
-			goto_previous_start = {
-				["[m"] = "@function.outer",
-				["[f"] = "@function.outer",
-				["[c"] = "@class.outer",
-				["[["] = "@class.outer",
-				["[a"] = "@parameter.inner",
-			},
-			goto_previous_end = {
-				["[M"] = "@function.outer",
-				["[F"] = "@function.outer",
-				["[C"] = "@class.outer",
-				["[]"] = "@class.outer",
-				["[A"] = "@parameter.inner",
-			},
-		},
-	},
 })
 
 -- Improved editing experience
@@ -453,10 +418,6 @@ require("mini.ai").setup({
 		m = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
 		f = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
 		a = spec_treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
-		o = spec_treesitter({
-			a = { "@conditional.outer", "@loop.outer" },
-			i = { "@conditional.inner", "@loop.inner" },
-		}),
 	},
 })
 
