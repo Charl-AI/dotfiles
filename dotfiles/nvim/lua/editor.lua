@@ -91,6 +91,4 @@ require("mini.files").setup({
 })
 vim.keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "[e]xplorer (mini.Files)" })
 
-require("mini.jump").setup({
-	highlight = 1,
-})
+require("mini.jump").setup({})
