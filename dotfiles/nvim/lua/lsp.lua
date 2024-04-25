@@ -100,7 +100,7 @@ cmp.setup({
 		{ name = "path" },
 	},
 	mapping = {
-		["<C-Space>"] = cmp.mapping.confirm({
+		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Insert,
 			select = true,
 		}),
@@ -132,7 +132,7 @@ cmp.setup({
 			local line_num, col = unpack(vim.api.nvim_win_get_cursor(0))
 			local line_text = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, true)[1]
 			local indent = string.match(line_text, "^%s*")
-			local replace = vim.split(args.body, "\n", true)
+			local replace = vim.split(args.body, "\n", { true })
 			local surround = string.match(line_text, "%S.*") or ""
 			local surround_end = surround:sub(col)
 
