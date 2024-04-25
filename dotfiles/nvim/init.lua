@@ -319,7 +319,6 @@ require("lazy").setup({
 				["<leader>c"] = { name = "+code" },
 				["<leader>g"] = { name = "+git" },
 				["<leader>s"] = { name = "+search (mini.Pick)" },
-				["<leader>x"] = { name = "+diagnostics (trouble)" },
 			}
 			wk.register(keymaps)
 		end,
@@ -346,37 +345,7 @@ require("lazy").setup({
 				map("n", "<leader>gb", function()
 					gs.blame_line({ full = true })
 				end, { desc = "Blame line" })
-
-				-- this is under the x namespace because it uses the quickfix list and trouble
-				map("n", "<leader>xg", "<cmd>Gitsigns setqflist<cr>", { desc = "Git hunks" })
 			end,
-		},
-	},
-	{
-		"folke/trouble.nvim",
-		cmd = { "TroubleToggle", "Trouble" },
-		opts = { use_diagnostic_signs = true, auto_preview = false },
-		keys = {
-			{
-				"<leader>xb",
-				"<cmd>TroubleToggle document_diagnostics<cr>",
-				desc = "Buffer diagnostics",
-			},
-			{
-				"<leader>xw",
-				"<cmd>TroubleToggle workspace_diagnostics<cr>",
-				desc = "Workspace diagnostics",
-			},
-			{
-				"<leader>xq",
-				"<cmd>TroubleToggle quickfix<cr>",
-				desc = "Quickfix list",
-			},
-			{
-				"<leader>xl",
-				"<cmd>TroubleToggle location<cr>",
-				desc = "Location list",
-			},
 		},
 	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
