@@ -132,7 +132,7 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- lazy
-map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy (plugin manager)" })
+map("n", "<leader>ul", "<cmd>:Lazy<cr>", { desc = "[l]azy (plugin manager)" })
 
 -- new file
 map("n", "<leader>n", "<cmd>enew<cr>", { desc = "[n]ew File" })
@@ -145,7 +145,7 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 -- toggle word wrap
-map("n", "<leader>w", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
+map("n", "<leader>uw", "<cmd>set wrap!<cr>", { desc = "[w]ord wrap (toggle)" })
 
 -- d,c,x delete to 'd', 'c', 'x' registers by default for a better copy paste experience
 -- Now we can copy-delete-paste without losing the first copy
@@ -318,6 +318,7 @@ require("lazy").setup({
 				["<leader>c"] = { name = "+code" },
 				["<leader>g"] = { name = "+git" },
 				["<leader>s"] = { name = "+search (mini.Pick)" },
+				["<leader>u"] = { name = "+ui" },
 			}
 			wk.register(keymaps)
 		end,
@@ -546,7 +547,7 @@ require("mason").setup({
 		border = "rounded",
 	},
 })
-vim.keymap.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "Mason (LSP GUI)" })
+vim.keymap.set("n", "<leader>um", "<cmd>Mason<cr>", { desc = "[m]ason (LSP installer)" })
 
 local lsp = require("lsp-zero").preset({
 	manage_nvim_cmp = {
