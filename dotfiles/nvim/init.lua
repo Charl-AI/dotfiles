@@ -44,7 +44,6 @@ require("lazy").setup({
 		"christoomey/vim-tmux-navigator",
 		event = { "BufReadPost", "BufNewFile" },
 	},
-	{ "nvim-lua/plenary.nvim", lazy = true },
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
