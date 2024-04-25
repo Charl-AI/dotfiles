@@ -379,15 +379,6 @@ require("lazy").setup({
 			},
 		},
 	},
-	{
-		"folke/todo-comments.nvim",
-		cmd = { "TodoTrouble", "TodoTelescope" },
-		event = { "BufReadPost", "BufNewFile" },
-		config = true,
-		keys = {
-			{ "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo" },
-		},
-	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{
 		"folke/persistence.nvim",
