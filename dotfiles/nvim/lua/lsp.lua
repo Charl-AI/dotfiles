@@ -179,7 +179,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 local function hover_or_diagnostic()
 	local line_num = vim.api.nvim_win_get_cursor(0)[1]
 	local diagnostics =
-			vim.diagnostic.get(0, { lnum = line_num - 1, severity = { min = vim.diagnostic.severity.HINT } })
+		vim.diagnostic.get(0, { lnum = line_num - 1, severity = { min = vim.diagnostic.severity.HINT } })
 
 	if #diagnostics == 0 then
 		vim.lsp.buf.hover()
