@@ -40,6 +40,7 @@ opt.wildmode = "longest:full,full"
 opt.winminwidth = 5
 opt.wrap = false
 opt.hlsearch = true
+opt.fillchars = { eob = " " }
 
 if vim.fn.has("nvim-0.9.0") == 1 then
 	opt.splitkeep = "screen"
