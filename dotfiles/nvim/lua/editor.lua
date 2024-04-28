@@ -6,6 +6,7 @@ local function map(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, options)
 end
 
+-- which-key provides hints/menus to visualise keybindings
 require("which-key").setup()
 require("which-key").register({
 	mode = { "n", "v" },
@@ -17,32 +18,42 @@ require("which-key").register({
 	["<leader>s"] = { name = "+search (mini.Pick)" },
 })
 
--- Treesitter is for syntax highlighting and smart text objects
+-- trouble is an improved quickfix/location list for showing diagnostics
+require("trouble").setup({ use_diagnostic_signs = true, auto_preview = false })
+map("n", "<leader>d", "<cmd>TroubleToggle document_diagnostics<cr>", { desc = "[d]iagnostics (buffer)" })
+map("n", "<leader>D", "<cmd>TroubleToggle workspace_diagnostics<cr>", { desc = "[D]iagnostics (workspace)" })
+
+-- persistence is for saving and restoring sessions
+require("persistence").setup({
+	options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "help", "terminal" },
+})
+map("n", "<leader>r", function()
+	require("persistence").load()
+end, { desc = "[r]estore session" })
+
+-- treesitter is for syntax highlighting and smart text objects
 require("nvim-treesitter.configs").setup({
-	ensure_installed = {
-		"bash",
-		"json",
-		"lua",
-		"luap",
-		"markdown",
-		"markdown_inline",
-		"python",
-		"rust",
-		"vim",
-		"vimdoc",
-		"yaml",
-	},
+	ensure_installed = { "bash", "json", "lua", "markdown", "python", "rust", "vim", "vimdoc", "yaml" },
 	auto_install = true,
 	highlight = { enable = true },
 	indent = { enable = true },
 })
 
--- Improved editing experience
+-- mini.nvim is a set of small utilities for improving the editor
 require("mini.comment").setup()
+require("mini.pairs").setup()
 require("mini.move").setup()
 require("mini.surround").setup()
-
 require("mini.statusline").setup()
+require("mini.jump").setup()
+require("mini.extra").setup()
+
+require("mini.files").setup({
+	mappings = {
+		go_in_plus = "<cr>",
+	},
+})
+map("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "[e]xplorer (mini.Files)" })
 
 local spec_treesitter = require("mini.ai").gen_spec.treesitter
 require("mini.ai").setup({
@@ -62,7 +73,6 @@ require("mini.indentscope").setup({
 	options = { try_as_border = true },
 })
 
-require("mini.extra").setup()
 require("mini.pick").setup({
 	mappings = {
 		move_down = "<C-j>",
@@ -79,14 +89,14 @@ require("mini.pick").setup({
 	},
 })
 
--- commonly used keymaps in top level namespace
+-- commonly used search keymaps in top level namespace
 map("n", "<leader><space>", "<cmd>Pick files<cr>", { desc = "Search files" })
 map("n", "<leader>,", "<cmd>Pick buffers<cr>", { desc = "Search buffers" })
 map("n", "<leader>;", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
 map("n", "<leader>.", "<cmd>Pick grep_live<cr>", { desc = "Live grep (workspace)" })
 map("n", "<leader>/", '<cmd>Pick buf_lines scope="current"<cr>', { desc = "Fuzzy search (buffer)" })
 
--- s is for searching with fuzzy finder (mini.pick)
+-- <leader>s namespace is for searching with fuzzy finder (mini.pick)
 map("n", "<leader>sh", "<cmd>Pick help<cr>", { desc = "[h]elp pages" })
 map("n", "<leader>sf", "<cmd>Pick explorer<cr>", { desc = "[f]iles (tree view)" })
 map("n", "<leader>s/", '<Cmd>Pick history scope="/"<CR>', { desc = "[/] search history" })
@@ -101,16 +111,6 @@ map("n", "<leader>sS", '<cmd>Pick lsp scope="workspace_symbol"<cr>', { desc = "[
 map("n", "<leader>sq", '<cmd>Pick list scope="quickfix"<cr>', { desc = "[q]uickfix list" })
 map("n", "<leader>sl", '<cmd>Pick list scope="location"<cr>', { desc = "[l]ocation list" })
 map("n", "<leader>sj", '<cmd>Pick list scope="jump"<cr>', { desc = "[j]ump list" })
-
-require("mini.files").setup({
-	mappings = {
-		go_in_plus = "<cr>",
-	},
-})
-map("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "[e]xplorer (mini.Files)" })
-
-require("mini.jump").setup()
-require("mini.pairs").setup()
 
 require("gitsigns").setup({
 	on_attach = function(_)
@@ -132,14 +132,3 @@ require("gitsigns").setup({
 		end, { desc = "Blame line" })
 	end,
 })
-
-require("trouble").setup({ use_diagnostic_signs = true, auto_preview = false })
-map("n", "<leader>d", "<cmd>TroubleToggle document_diagnostics<cr>", { desc = "[d]iagnostics (buffer)" })
-map("n", "<leader>D", "<cmd>TroubleToggle workspace_diagnostics<cr>", { desc = "[D]iagnostics (workspace)" })
-
-require("persistence").setup({
-	options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "help", "terminal" },
-})
-map("n", "<leader>r", function()
-	require("persistence").load()
-end, { desc = "[r]estore session" })
