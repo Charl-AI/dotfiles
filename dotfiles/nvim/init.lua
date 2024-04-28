@@ -19,10 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{
-		"williamboman/mason.nvim",
-		build = ":MasonUpdate",
-	},
+	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "neovim/nvim-lspconfig" },
 	{ "stevearc/conform.nvim" },
@@ -32,37 +29,12 @@ require("lazy").setup({
 	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 	{ "hrsh7th/cmp-path" },
 	{ "hrsh7th/cmp-cmdline" },
-	{
-		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
-		build = ":TSUpdate",
-	},
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{ "nvim-treesitter/nvim-treesitter-textobjects" },
 	{ "echasnovski/mini.nvim" },
 	{ "tpope/vim-sleuth" },
-	{
-		"christoomey/vim-tmux-navigator",
-		event = { "BufReadPost", "BufNewFile" },
-	},
-	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		config = function(_, opts)
-			local wk = require("which-key")
-			wk.setup(opts)
-			local keymaps = {
-				mode = { "n", "v" },
-				["g"] = { name = "+goto" },
-				["]"] = { name = "+next" },
-				["["] = { name = "+prev" },
-				["<leader>c"] = { name = "+code" },
-				["<leader>g"] = { name = "+git" },
-				["<leader>s"] = { name = "+search (mini.Pick)" },
-			}
-			wk.register(keymaps)
-		end,
-	},
+	{ "christoomey/vim-tmux-navigator", event = { "BufReadPost", "BufNewFile" } },
+	{ "folke/which-key.nvim", event = "VeryLazy" },
 	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPre", "BufNewFile" },
