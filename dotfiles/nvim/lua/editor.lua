@@ -39,7 +39,7 @@ require("mini.ai").setup({
 
 require("mini.indentscope").setup({
 	symbol = "│",
-	draw = { delay = 0 },
+	draw = { delay = 10, animation = require("mini.indentscope").gen_animation.none() },
 	options = { try_as_border = true },
 })
 
