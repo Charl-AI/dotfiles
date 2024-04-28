@@ -248,7 +248,7 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 })
 
 -- session management (based on folke/persistence.nvim)
--- sessions are saved at $HOME/.local/state/sessions/path-to-project-dir
+-- sessions are saved at $HOME/.local/state/sessions/%path%to%project%dir.vim
 local function get_session_path()
 	local save_dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/")
 	local curr_name = vim.fn.getcwd():gsub("/", "%%")
@@ -257,9 +257,26 @@ local function get_session_path()
 end
 
 local function save_session()
+	-- don't save the session if there are no proper buffers open
+	local bufs = vim.tbl_filter(function(b)
+		if vim.bo[b].buftype ~= "" then
+			return false
+		end
+		if vim.bo[b].filetype == "gitcommit" then
+			return false
+		end
+		if vim.bo[b].filetype == "gitrebase" then
+			return false
+		end
+		return vim.api.nvim_buf_get_name(b) ~= ""
+	end, vim.api.nvim_list_bufs())
+	if #bufs == 0 then
+		return
+	end
+
 	local session_path = get_session_path()
 	vim.cmd("mksession! " .. vim.fn.fnameescape(session_path))
-	print("Saving current session to " .. session_path)
+	print("Saved current session to " .. session_path)
 end
 
 local function restore_session()
