@@ -34,6 +34,7 @@ require("lazy").setup({
 	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "stevearc/conform.nvim" },
+	{ "hrsh7th/vim-vsnip" },
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-buffer" },
 	{ "hrsh7th/cmp-nvim-lsp" },
