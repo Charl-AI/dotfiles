@@ -1,3 +1,11 @@
+local function map(mode, lhs, rhs, opts)
+	local options = { noremap = true, silent = true }
+	if opts then
+		options = vim.tbl_extend("force", options, opts)
+	end
+	vim.keymap.set(mode, lhs, rhs, options)
+end
+
 require("which-key").setup()
 require("which-key").register({
 	mode = { "n", "v" },
@@ -72,35 +80,55 @@ require("mini.pick").setup({
 })
 
 -- commonly used keymaps in top level namespace
-vim.keymap.set("n", "<leader><space>", "<cmd>Pick files<cr>", { desc = "Search files" })
-vim.keymap.set("n", "<leader>,", "<cmd>Pick buffers<cr>", { desc = "Search buffers" })
-vim.keymap.set("n", "<leader>;", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
-vim.keymap.set("n", "<leader>.", "<cmd>Pick grep_live<cr>", { desc = "Live grep (workspace)" })
-vim.keymap.set("n", "<leader>/", '<cmd>Pick buf_lines scope="current"<cr>', { desc = "Fuzzy search (buffer)" })
+map("n", "<leader><space>", "<cmd>Pick files<cr>", { desc = "Search files" })
+map("n", "<leader>,", "<cmd>Pick buffers<cr>", { desc = "Search buffers" })
+map("n", "<leader>;", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
+map("n", "<leader>.", "<cmd>Pick grep_live<cr>", { desc = "Live grep (workspace)" })
+map("n", "<leader>/", '<cmd>Pick buf_lines scope="current"<cr>', { desc = "Fuzzy search (buffer)" })
 
 -- s is for searching with fuzzy finder (mini.pick)
-vim.keymap.set("n", "<leader>sh", "<cmd>Pick help<cr>", { desc = "[h]elp pages" })
-vim.keymap.set("n", "<leader>sf", "<cmd>Pick explorer<cr>", { desc = "[f]iles (tree view)" })
-vim.keymap.set("n", "<leader>s/", '<Cmd>Pick history scope="/"<CR>', { desc = "[/] search history" })
-vim.keymap.set("n", "<leader>s:", '<Cmd>Pick history scope=":"<CR>', { desc = "[:] command history" })
-vim.keymap.set("n", "<leader>sc", '<Cmd>Pick git_commits path="%"<CR>', { desc = "[c]ommits (file)" })
-vim.keymap.set("n", "<leader>sC", "<Cmd>Pick git_commits<CR>", { desc = "[C]ommits (workspace)" })
-vim.keymap.set("n", "<leader>sd", '<Cmd>Pick diagnostic scope="current"<CR>', { desc = "[d]iagnostics (file)" })
-vim.keymap.set("n", "<leader>sD", '<Cmd>Pick diagnostic scope="all"<CR>', { desc = "[D]iagnostics (workspace)" })
-vim.keymap.set("n", "<leader>sr", '<cmd>Pick lsp scope="references"<cr>', { desc = "[r]eferences" })
-vim.keymap.set("n", "<leader>ss", '<cmd>Pick lsp scope="document_symbol"<cr>', { desc = "[s]ymbol (file)" })
-vim.keymap.set("n", "<leader>sS", '<cmd>Pick lsp scope="workspace_symbol"<cr>', { desc = "[S]ymbol (workspace)" })
-vim.keymap.set("n", "<leader>sq", '<cmd>Pick list scope="quickfix"<cr>', { desc = "[q]uickfix list" })
-vim.keymap.set("n", "<leader>sl", '<cmd>Pick list scope="location"<cr>', { desc = "[l]ocation list" })
-vim.keymap.set("n", "<leader>sj", '<cmd>Pick list scope="jump"<cr>', { desc = "[j]ump list" })
--- vim.keymap.set("n", "<leader>sd", '<cmd>Pick lsp scope="definition"<cr>', { desc = "[d]efinition" })
+map("n", "<leader>sh", "<cmd>Pick help<cr>", { desc = "[h]elp pages" })
+map("n", "<leader>sf", "<cmd>Pick explorer<cr>", { desc = "[f]iles (tree view)" })
+map("n", "<leader>s/", '<Cmd>Pick history scope="/"<CR>', { desc = "[/] search history" })
+map("n", "<leader>s:", '<Cmd>Pick history scope=":"<CR>', { desc = "[:] command history" })
+map("n", "<leader>sc", '<Cmd>Pick git_commits path="%"<CR>', { desc = "[c]ommits (file)" })
+map("n", "<leader>sC", "<Cmd>Pick git_commits<CR>", { desc = "[C]ommits (workspace)" })
+map("n", "<leader>sd", '<Cmd>Pick diagnostic scope="current"<CR>', { desc = "[d]iagnostics (file)" })
+map("n", "<leader>sD", '<Cmd>Pick diagnostic scope="all"<CR>', { desc = "[D]iagnostics (workspace)" })
+map("n", "<leader>sr", '<cmd>Pick lsp scope="references"<cr>', { desc = "[r]eferences" })
+map("n", "<leader>ss", '<cmd>Pick lsp scope="document_symbol"<cr>', { desc = "[s]ymbol (file)" })
+map("n", "<leader>sS", '<cmd>Pick lsp scope="workspace_symbol"<cr>', { desc = "[S]ymbol (workspace)" })
+map("n", "<leader>sq", '<cmd>Pick list scope="quickfix"<cr>', { desc = "[q]uickfix list" })
+map("n", "<leader>sl", '<cmd>Pick list scope="location"<cr>', { desc = "[l]ocation list" })
+map("n", "<leader>sj", '<cmd>Pick list scope="jump"<cr>', { desc = "[j]ump list" })
 
 require("mini.files").setup({
 	mappings = {
 		go_in_plus = "<cr>",
 	},
 })
-vim.keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "[e]xplorer (mini.Files)" })
+map("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "[e]xplorer (mini.Files)" })
 
 require("mini.jump").setup()
 require("mini.pairs").setup()
+
+require("gitsigns").setup({
+	on_attach = function(_)
+		local gs = package.loaded.gitsigns
+		map("n", "[h", gs.prev_hunk, { desc = "Prev Hunk" })
+		map("n", "]h", gs.next_hunk, { desc = "Next Hunk" })
+
+		map({ "n", "v" }, "<leader>gs", gs.stage_hunk, { desc = "Stage hunk" })
+		map({ "n", "v" }, "<leader>gr", gs.reset_hunk, { desc = "Reset hunk" })
+		map({ "n", "v" }, "<leader>gu", gs.undo_stage_hunk, { desc = "Unstage hunk" })
+		map("n", "<leader>gS", gs.stage_buffer, { desc = "Stage buffer" })
+		map("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
+		map("n", "<leader>gU", gs.reset_buffer_index, { desc = "Unstage buffer" })
+		map("n", "<leader>gp", gs.preview_hunk, { desc = "Preview hunk" })
+		map("n", "<leader>gB", gs.toggle_current_line_blame, { desc = "Toggle inline blame" })
+		map("n", "<leader>gd", gs.diffthis, { desc = "Diff line" })
+		map("n", "<leader>gb", function()
+			gs.blame_line({ full = true })
+		end, { desc = "Blame line" })
+	end,
+})
