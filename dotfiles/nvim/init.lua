@@ -36,23 +36,7 @@ require("lazy").setup({
 	{ "christoomey/vim-tmux-navigator", event = { "BufReadPost", "BufNewFile" } },
 	{ "folke/which-key.nvim", event = "VeryLazy" },
 	{ "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" } },
-	{
-		"folke/trouble.nvim",
-		cmd = { "TroubleToggle", "Trouble" },
-		opts = { use_diagnostic_signs = true, auto_preview = false },
-		keys = {
-			{
-				"<leader>d",
-				"<cmd>TroubleToggle document_diagnostics<cr>",
-				desc = "[d]iagnostics (buffer)",
-			},
-			{
-				"<leader>D",
-				"<cmd>TroubleToggle workspace_diagnostics<cr>",
-				desc = "[D]iagnostics (workspace)",
-			},
-		},
-	},
+	{ "folke/trouble.nvim" },
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{
 		"folke/persistence.nvim",

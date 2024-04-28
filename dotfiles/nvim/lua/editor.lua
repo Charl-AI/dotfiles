@@ -132,3 +132,7 @@ require("gitsigns").setup({
 		end, { desc = "Blame line" })
 	end,
 })
+
+require("trouble").setup({ use_diagnostic_signs = true, auto_preview = false })
+map("n", "<leader>d", "<cmd>TroubleToggle document_diagnostics<cr>", { desc = "[d]iagnostics (buffer)" })
+map("n", "<leader>D", "<cmd>TroubleToggle workspace_diagnostics<cr>", { desc = "[D]iagnostics (workspace)" })
