@@ -1,3 +1,5 @@
+-- Plugins for improving the editor experience
+
 local function map(mode, lhs, rhs, opts)
 	local options = { noremap = true, silent = true }
 	if opts then

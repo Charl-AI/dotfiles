@@ -1,3 +1,5 @@
+-- LSP plugins
+
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local default_setup = function(server)
 	require("lspconfig")[server].setup({
@@ -41,6 +43,7 @@ require("conform").setup({
 		html = { "prettier" },
 		json = { "prettier" },
 		yaml = { "prettier" },
+		sh = { "shfmt" },
 		markdown = { "prettier" },
 
 		-- use ruff if available, else isort and black
