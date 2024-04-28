@@ -25,14 +25,6 @@ require("trouble").setup({ use_diagnostic_signs = true, auto_preview = false })
 map("n", "<leader>d", "<cmd>TroubleToggle document_diagnostics<cr>", { desc = "[d]iagnostics (buffer)" })
 map("n", "<leader>D", "<cmd>TroubleToggle workspace_diagnostics<cr>", { desc = "[D]iagnostics (workspace)" })
 
--- persistence is for saving and restoring sessions
-require("persistence").setup({
-	options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "help", "terminal" },
-})
-map("n", "<leader>r", function()
-	require("persistence").load()
-end, { desc = "[r]estore session" })
-
 -- treesitter is for syntax highlighting and smart text objects
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { "bash", "json", "lua", "markdown", "python", "rust", "vim", "vimdoc", "yaml" },

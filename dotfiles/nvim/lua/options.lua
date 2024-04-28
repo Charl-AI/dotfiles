@@ -246,3 +246,38 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 	pattern = "*",
 	callback = check_eof_scrolloff,
 })
+
+-- session management (based on folke/persistence.nvim)
+-- sessions are saved at $HOME/.local/state/sessions/path-to-project-dir
+local function get_session_path()
+	local save_dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/")
+	local curr_name = vim.fn.getcwd():gsub("/", "%%")
+	local session_path = save_dir .. curr_name .. ".vim"
+	return session_path
+end
+
+local function save_session()
+	local session_path = get_session_path()
+	vim.cmd("mksession! " .. vim.fn.fnameescape(session_path))
+	print("Saving current session to " .. session_path)
+end
+
+local function restore_session()
+	local session_path = get_session_path()
+	if vim.fn.filereadable(session_path) ~= 0 then
+		vim.cmd("silent! source " .. vim.fn.fnameescape(session_path))
+		print("Restored session from " .. session_path)
+	else
+		print("No saved session found at " .. session_path)
+	end
+end
+
+local session_group = vim.api.nvim_create_augroup("Sessions", { clear = true })
+vim.api.nvim_create_autocmd("VimLeavePre", {
+	group = session_group,
+	callback = save_session,
+})
+
+vim.api.nvim_create_user_command("SaveSession", save_session, { desc = "Save current session" })
+vim.api.nvim_create_user_command("RestoreSession", restore_session, { desc = "Restore session from current directory" })
+map("n", "<leader>r", "<cmd>RestoreSession<cr>", { desc = "[r]estore session" })

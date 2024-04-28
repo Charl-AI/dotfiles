@@ -25,7 +25,6 @@ require("lazy").setup({
 	-- editor
 	{ "folke/which-key.nvim" },
 	{ "folke/trouble.nvim" },
-	{ "folke/persistence.nvim" },
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{ "nvim-treesitter/nvim-treesitter-textobjects" },
 	{ "echasnovski/mini.nvim" },
