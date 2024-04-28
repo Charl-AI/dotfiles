@@ -38,20 +38,7 @@ require("lazy").setup({
 	{ "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" } },
 	{ "folke/trouble.nvim" },
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
-	{
-		"folke/persistence.nvim",
-		event = "BufReadPre",
-		opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "help", "terminal" } },
-		keys = {
-			{
-				"<leader>r",
-				function()
-					require("persistence").load()
-				end,
-				desc = "[r]estore session",
-			},
-		},
-	},
+	{ "folke/persistence.nvim", event = "BufReadPre" },
 }, {})
 
 vim.cmd.colorscheme("catppuccin-frappe")
