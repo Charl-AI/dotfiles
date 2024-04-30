@@ -157,9 +157,14 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
--- disable virtual text for diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	virtual_text = false,
+vim.diagnostic.config({
+	virtual_text = {
+		format = function()
+			return ""
+		end,
+		prefix = "●",
+	},
+	severity_sort = true,
 })
 
 -- if there are diagnostics available for a line, this function toggles
