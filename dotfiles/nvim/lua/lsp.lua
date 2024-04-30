@@ -162,18 +162,31 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	virtual_text = false,
 })
 
--- if there are diagnostics available for a line, show them instead of the hover window
+-- if there are diagnostics available for a line, this function toggles
+-- between the hover window and diagnostic window. Note that when it is
+-- mapped to K it prevents us from entering the window by pressing K again
+-- (because it will toggle instead)
+vim.g.replace_hover_with_diagnostics = true
 local function hover_or_diagnostic()
 	local line_num = vim.api.nvim_win_get_cursor(0)[1]
 	local diagnostics =
 		vim.diagnostic.get(0, { lnum = line_num - 1, severity = { min = vim.diagnostic.severity.HINT } })
 
+	-- use default hover behaviour if no diagnostics are available
 	if #diagnostics == 0 then
 		vim.lsp.buf.hover()
-	else
+		return
+	end
+
+	if vim.g.replace_hover_with_diagnostics == true then
 		vim.diagnostic.open_float()
+		vim.g.replace_hover_with_diagnostics = false
+	else
+		vim.lsp.buf.hover()
+		vim.g.replace_hover_with_diagnostics = true
 	end
 end
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",
 	callback = function(event)
