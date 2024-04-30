@@ -157,15 +157,25 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
+-- only show the prefix char in diagnostic virtual text to avoid clutter
 vim.diagnostic.config({
 	virtual_text = {
 		format = function()
 			return ""
 		end,
-		prefix = "●",
+		prefix = "● ",
 	},
 	severity_sort = true,
 })
+-- don't show diagnostics in signcolumn, just show colored linenumber
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+
+	-- disable diagnostics virtual text highlighting
+	vim.cmd("highlight clear DiagnosticVirtualText" .. type)
+end
 
 -- if there are diagnostics available for a line, this function toggles
 -- between the hover window and diagnostic window. Note that when it is
