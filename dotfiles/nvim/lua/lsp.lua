@@ -194,7 +194,7 @@ local function hover_or_diagnostic()
 	end
 
 	if vim.g.replace_hover_with_diagnostics == true then
-		vim.diagnostic.open_float()
+		vim.diagnostic.open_float({ source = "always" })
 		vim.g.replace_hover_with_diagnostics = false
 	else
 		vim.lsp.buf.hover()
