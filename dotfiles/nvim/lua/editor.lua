@@ -62,7 +62,6 @@ map("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "[e]xplorer (min
 
 local spec_treesitter = require("mini.ai").gen_spec.treesitter
 require("mini.ai").setup({
-	search_method = "cover_or_nearest",
 	-- use treesitter for advanced text objects
 	custom_textobjects = {
 		c = spec_treesitter({ a = "@class.outer", i = "@class.inner" }),
