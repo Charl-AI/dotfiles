@@ -117,6 +117,8 @@ map("n", "<leader>sl", '<cmd>Pick list scope="location"<cr>', { desc = "[l]ocati
 map("n", "<leader>sj", '<cmd>Pick list scope="jump"<cr>', { desc = "[j]ump list" })
 
 require("gitsigns").setup({
+	signcolumn = false,
+	numhl = true,
 	on_attach = function(_)
 		local gs = package.loaded.gitsigns
 		map("n", "[h", gs.prev_hunk, { desc = "Prev Hunk" })

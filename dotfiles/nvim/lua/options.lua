@@ -6,27 +6,23 @@ vim.g.maplocalleader = " "
 
 local opt = vim.opt
 
-opt.autowrite = true
 opt.breakindent = true
 opt.clipboard = "unnamedplus"
-opt.completeopt = "menu,menuone,noselect"
 opt.confirm = true
 opt.cursorline = true
 opt.expandtab = true
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true
-opt.laststatus = 0
 opt.linebreak = true
 opt.number = true
-opt.relativenumber = true
 opt.pumheight = 10
 opt.scrolloff = 5
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "terminal" }
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.tabstop = 2
-opt.sidescrolloff = 8
+opt.sidescrolloff = 5
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.smartindent = true
@@ -37,10 +33,7 @@ opt.timeoutlen = 100
 opt.ttimeoutlen = 0
 opt.undofile = true
 opt.updatetime = 200
-opt.wildmode = "longest:full,full"
-opt.winminwidth = 5
 opt.wrap = false
-opt.hlsearch = true
 opt.fillchars = { eob = " " }
 
 if vim.fn.has("nvim-0.9.0") == 1 then
@@ -79,10 +72,6 @@ map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
-
--- buffers
-map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 -- C-Backspace for deleting word in insert mode (equivalent to C-w)
 map("i", "<C-H>", "<C-W>", { desc = "Delete last word" })
@@ -205,25 +194,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.formatoptions = "tcqjr"
 	end,
 	pattern = "*",
-})
-
--- use absoulute line numbers in insert mode and when buffer is not in focus
-local line_numbers_group = vim.api.nvim_create_augroup("LineNumbers", { clear = true })
-vim.api.nvim_create_autocmd({ "InsertEnter", "FocusLost", "WinLeave" }, {
-	group = line_numbers_group,
-	callback = function()
-		if vim.opt_local.number:get() then
-			vim.opt_local.relativenumber = false
-		end
-	end,
-})
-vim.api.nvim_create_autocmd({ "InsertLeave", "FocusGained", "WinEnter" }, {
-	group = line_numbers_group,
-	callback = function()
-		if vim.opt_local.number:get() then
-			vim.opt_local.relativenumber = true
-		end
-	end,
 })
 
 -- scrolloff at end of file (based on Aasim-A/scrollEOF.nvim)
