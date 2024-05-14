@@ -83,6 +83,7 @@ local function restart_repl()
 end
 
 local function get_visual_lines()
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", false, true, true), "nx", false)
 	local b_line, b_col
 	local e_line, e_col
 
@@ -93,11 +94,19 @@ local function get_visual_lines()
 		e_line, b_line = b_line, e_line
 		e_col, b_col = b_col, e_col
 	end
+	local mode = vim.fn.visualmode()
 
-	local lines = vim.api.nvim_buf_get_lines(0, b_line - 1, e_line, 0)
-
-	if lines == nil or #lines == 0 then
-		return
+	local lines
+	if mode == "v" then
+		lines = vim.api.nvim_buf_get_text(0, b_line - 1, b_col - 1, e_line - 1, e_col, {})
+	elseif mode == "V" then
+		lines = vim.api.nvim_buf_get_lines(0, b_line - 1, e_line, 0)
+	elseif mode == "\22" then -- strip preceeding space from visual block mode
+		local b_offset = math.max(1, b_col) - 1
+		lines = vim.api.nvim_buf_get_lines(0, b_line - 1, e_line, 0)
+		for ix, line in ipairs(lines) do
+			lines[ix] = vim.fn.strcharpart(line, b_offset, math.min(e_col, vim.fn.strwidth(line)))
+		end
 	end
 	return lines
 end
