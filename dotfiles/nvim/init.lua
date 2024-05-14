@@ -29,6 +29,7 @@ require("lazy").setup({
 	{ "nvim-treesitter/nvim-treesitter-textobjects" },
 	{ "echasnovski/mini.nvim" },
 	{ "lewis6991/gitsigns.nvim" },
+	{ "gpanders/nvim-parinfer" },
 
 	-- lsp
 	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
@@ -47,3 +48,4 @@ require("lazy").setup({
 vim.cmd.colorscheme("catppuccin-frappe")
 require("editor")
 require("lsp")
+require("repl")
