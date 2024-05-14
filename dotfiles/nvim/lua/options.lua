@@ -180,6 +180,10 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- scrolloff at end of file (based on Aasim-A/scrollEOF.nvim)
 local function check_eof_scrolloff()
+	if vim.bo.buftype ~= "" then -- exclude all non-standard buffers
+		return
+	end
+
 	local win_height = vim.api.nvim_win_get_height(0)
 	local win_view = vim.fn.winsaveview()
 	local scrolloff = math.min(vim.o.scrolloff, math.floor(win_height / 2))
