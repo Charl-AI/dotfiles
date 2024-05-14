@@ -46,6 +46,7 @@ local function open_repl(filetype, buf)
 	end
 
 	local chan = vim.o.channel
+	vim.cmd("norm G")
 	vim.cmd("wincmd p")
 
 	vim.g.repl_win_id = win
