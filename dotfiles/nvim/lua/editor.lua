@@ -41,6 +41,13 @@ require("nvim-treesitter.configs").setup({
 	auto_install = true,
 	highlight = { enable = true },
 	indent = { enable = true },
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<CR>",
+			node_incremental = "<CR>",
+		},
+	},
 })
 
 -- mini.nvim is a set of small utilities for improving the editor
