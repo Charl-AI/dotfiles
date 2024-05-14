@@ -18,7 +18,7 @@ opt.linebreak = true
 opt.number = true
 opt.pumheight = 10
 opt.scrolloff = 5
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "terminal" }
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help" }
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.tabstop = 2
@@ -66,6 +66,9 @@ map("t", "<C-h>", "<cmd>wincmd h<CR>")
 map("t", "<C-j>", "<cmd>wincmd j<CR>")
 map("t", "<C-k>", "<cmd>wincmd k<CR>")
 map("t", "<C-l>", "<cmd>wincmd l<CR>")
+
+-- use esc to go to normal mode in terminal
+map("t", "<esc>", [[<C-\><C-n>]])
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
