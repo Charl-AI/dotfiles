@@ -178,6 +178,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
 })
 
+-- lisp mode treats hyphens as part of the word and improves indentation for lisps
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		vim.opt_local.lisp = true
+	end,
+	pattern = { "*.fnl", "*.lisp", "*.clj", "*.scm", "*.rkt" },
+})
+
 -- scrolloff at end of file (based on Aasim-A/scrollEOF.nvim)
 local function check_eof_scrolloff()
 	if vim.bo.buftype ~= "" then -- exclude all non-standard buffers
