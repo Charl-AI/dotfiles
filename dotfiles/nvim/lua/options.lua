@@ -137,28 +137,22 @@ map({ "n", "v" }, "c", '"cc')
 map({ "n", "v" }, "C", '"cC')
 
 -- highlight on yank
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.highlight.on_yank()
 	end,
-	group = highlight_group,
 	pattern = "*",
 })
 
 -- resize splits if window got resized
-local resize_splits_group = vim.api.nvim_create_augroup("ResizeSplits", { clear = true })
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-	group = resize_splits_group,
 	callback = function()
 		vim.cmd("tabdo wincmd =")
 	end,
 })
 
 -- go to last loc when opening a buffer
-local last_loc_group = vim.api.nvim_create_augroup("LastLoc", { clear = true })
 vim.api.nvim_create_autocmd("BufReadPost", {
-	group = last_loc_group,
 	callback = function()
 		local mark = vim.api.nvim_buf_get_mark(0, '"')
 		local lcount = vim.api.nvim_buf_line_count(0)
@@ -169,16 +163,15 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- set formatoptions for all filetypes -- default is "jcroql"
-local formatoptions_group = vim.api.nvim_create_augroup("Formatoptions", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	group = formatoptions_group,
 	callback = function()
 		vim.opt_local.formatoptions = "tcqjr"
 	end,
 	pattern = "*",
 })
 
--- lisp mode treats hyphens as part of the word and improves indentation for lisps
+-- set lisp mode for lisp languages
+-- this treats hyphens as part of the word and improves indentation
 vim.api.nvim_create_autocmd("FileType", {
 	callback = function()
 		vim.opt_local.lisp = true
@@ -204,9 +197,7 @@ local function check_eof_scrolloff()
 	end
 end
 
-local scrollEOF_group = vim.api.nvim_create_augroup("ScrollEOF", { clear = true })
 vim.api.nvim_create_autocmd("CursorMoved", {
-	group = scrollEOF_group,
 	pattern = "*",
 	callback = check_eof_scrolloff,
 })
@@ -253,9 +244,7 @@ local function restore_session()
 	end
 end
 
-local session_group = vim.api.nvim_create_augroup("Sessions", { clear = true })
 vim.api.nvim_create_autocmd("VimLeavePre", {
-	group = session_group,
 	callback = save_session,
 })
 
