@@ -136,6 +136,26 @@ map({ "n", "v" }, "X", '"xX')
 map({ "n", "v" }, "c", '"cc')
 map({ "n", "v" }, "C", '"cC')
 
+local function screen_search()
+	local scrolloff = vim.o.scrolloff
+	local botline = vim.fn.line("w$") + 1
+	local topline = vim.fn.line("w0") - 1
+	local eofline = vim.fn.line("$")
+
+	if topline > scrolloff then
+		topline = topline + scrolloff
+	end
+
+	if botline < eofline - scrolloff then
+		botline = botline - scrolloff
+	end
+
+	local pattern = "/\\%>" .. topline .. "l\\%<" .. botline .. "l"
+	vim.fn.feedkeys(pattern, "n")
+end
+vim.api.nvim_create_user_command("ScreenSearch", screen_search, { desc = "" })
+map("n", "/", screen_search, { desc = "" })
+
 -- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
