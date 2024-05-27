@@ -49,11 +49,18 @@ require("conform").setup({
 
 		-- use ruff if available, else isort and black
 		python = function(bufnr)
-			if require("conform").get_formatter_info("ruff_format", bufnr).available then
-				return { "ruff_fix", "ruff_format" }
+			local formatters = {}
+			if require("conform").get_formatter_info("ruff_organize_imports", bufnr).available then
+				table.insert(formatters, "ruff_organize_imports")
 			else
-				return { "isort", "black" }
+				table.insert(formatters, "isort")
 			end
+			if require("conform").get_formatter_info("ruff_format", bufnr).available then
+				table.insert(formatters, "ruff_format")
+			else
+				table.insert(formatters, "black")
+			end
+			return formatters
 		end,
 
 		-- "_" is for filetypes without any other formatters
@@ -85,9 +92,9 @@ end, {
 -- ruff fix tries to fix errors by default,
 -- I just want it to sort imports
 -- (NB we can let ruff_format do the rest of the formatting)
-require("conform").formatters.ruff_fix = {
-	prepend_args = { "--select=I" },
-}
+-- require("conform").formatters.ruff_fix = {
+-- 	prepend_args = { "--select=I" },
+-- }
 
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
