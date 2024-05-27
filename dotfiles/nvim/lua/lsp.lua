@@ -55,6 +55,12 @@ require("conform").setup({
 				return { "isort", "black" }
 			end
 		end,
+
+		-- "_" is for filetypes without any other formatters
+		["_"] = {
+			"trim_whitespace",
+			"trim_newlines",
+		},
 	},
 	format_on_save = function(_)
 		if vim.g.disable_autoformat then
