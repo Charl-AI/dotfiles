@@ -136,6 +136,8 @@ map({ "n", "v" }, "X", '"xX')
 map({ "n", "v" }, "c", '"cc')
 map({ "n", "v" }, "C", '"cC')
 
+-- search in only the visible screen, respecting the scrolloff setting.
+-- The window will never scroll when searching with this function.
 local function screen_search()
 	local scrolloff = vim.o.scrolloff
 	local botline = vim.fn.line("w$") + 1
@@ -154,7 +156,10 @@ local function screen_search()
 	vim.fn.feedkeys(pattern, "n")
 end
 vim.api.nvim_create_user_command("ScreenSearch", screen_search, { desc = "" })
-map("n", "/", screen_search, { desc = "" })
+
+-- Experimental: mapping ? to my custom screen search function. I don't
+-- use ? that much anyway.
+map("n", "?", screen_search, { desc = "" })
 
 -- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
