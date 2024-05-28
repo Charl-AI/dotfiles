@@ -158,8 +158,8 @@ end
 vim.api.nvim_create_user_command("ScreenSearch", screen_search, { desc = "" })
 
 -- Experimental: mapping ? to my custom screen search function. I don't
--- use ? that much anyway.
-map("n", "?", screen_search, { desc = "" })
+-- use ? that much anyway because I use / with wrapping as bidirectional search
+map({ "n", "v" }, "?", screen_search, { desc = "" })
 
 -- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
