@@ -7,56 +7,19 @@ set -e
 function install_packages {
 	echo "Installing packages"
 
-	which sudo || apt-get install -y sudo
-	sudo apt-get update -y
-
-	# TODO: Consider building from source or doing a user-install to avoid sudo
-	echo "Install everything"
-	DEBIAN_FRONTEND=noninteractive sudo apt-get install -y \
-		autoconf \
-		automake \
-		build-essential \
-		cmake \
-		coreutils \
-		curl \
-		git \
-		xclip \
-		libtool \
-		pkgconf \
-		unzip \
-		wget \
-		tmux \
-		ripgrep \
-		fzf \
-		tree \
-		fish
-
-	# gh cli
-	type -p curl >/dev/null || sudo apt install curl -y
-	curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg &&
-		sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg &&
-		echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null &&
-		sudo apt update &&
-		sudo apt install gh -y
-
-	# nvim
-	curl -LO https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
-	sudo rm -rf /opt/nvim
-	sudo tar -C /opt -xzf nvim-linux64.tar.gz
-
-	# lazygit
-	cd /tmp/ &&
-		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*') &&
-		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" &&
-		tar xf lazygit.tar.gz lazygit &&
-		sudo install lazygit /usr/local/bin
+	brew update &&\
+	brew bundle install --cleanup --file=~/.Brewfile --no-lock &&\
+	brew upgrade
 
 }
 
 # this should not require root privileges
 # TODO: switch to stow for nicer management of symlinks
 function link_dotfiles {
-	echo "SymLink dotfiles"
+	echo "SymLinking dotfiles"
+
+	# Brewfile
+	ln -sf "$HOME/dotfiles/dotfiles/.Brewfile" "$HOME/.Brewfile"
 
 	# .profile
 	ln -sf "$HOME/dotfiles/dotfiles/.profile" "$HOME/.profile"
@@ -82,6 +45,9 @@ function link_dotfiles {
 	# ripgrep
 	ln -sf "$HOME/dotfiles/dotfiles/.ripgreprc" "$HOME/.ripgreprc"
 
+	# wezterm
+	ln -sf "$HOME/dotfiles/dotfiles/.wezterm.lua" "$HOME/.wezterm.lua"
+
 	# personal scripts
 	mkdir -p "$HOME/bin"
 	ln -sf "$HOME/dotfiles/bin/"* "$HOME/bin/"
@@ -97,8 +63,8 @@ function link_dotfiles {
 function main {
 	# if no arguments are passed, install everything and link dotfiles
 	if [ $# -eq 0 ]; then
-		install_packages
 		link_dotfiles
+		install_packages
 		return
 	fi
 

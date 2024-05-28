@@ -2,40 +2,59 @@
 
 Dotfiles for my custom settings and a script for installing them.
 
+The general idea is to use homebrew to manage most of my command-line tools. Running the `install.sh` script allows us to use the `.Brewfile` to declaratively build my dependencies. All old packages not specified in the brewfile will be cleaned up. This is my attempt at making a poor-man's nix; see [this blog](https://matthiasportzel.com/brewfile/) for the inspiration behind it.
+
+Use the system package manager for installing GUI apps such as chrome, terminal emulators, nvidia stuff etc.
+
+## Prerequisites (manual)
+
+- Install [wezterm](https://wezfurlong.org/wezterm/)
+- Install homebrew/linuxbrew and its dependencies (`curl`, `build-essential`, etc.)
+- Install [keyd](https://github.com/rvaiya/keyd), and add the following to `/etc/keyd/default.conf`:
+
+```
+[ids]
+
+*
+
+[main]
+
+# Maps capslock to escape when pressed and control when held.
+capslock = overload(control, esc)
+```
+
 ## Installation
 
-Install this repo in `$HOME`. It is easiest to do this with the GitHub CLI:
+Install this repo in `$HOME`:
 
 ```bash
 cd $HOME
-git clone git@github.com:Charl-AI/dotfiles.git $HOME/dotfiles
+git clone https://github.com/Charl-AI/dotfiles.git
 ```
 
-Next, use the install script to set everything up. If you have sudo installed, you can simply run:
+Next, use the install script to set everything up. 
 
 ```bash
 cd $HOME/dotfiles
-sudo chmod +x ./install.sh
+chmod +x ./install.sh
 ./install.sh
 ```
 
-Note: this script will not work properly if the repository was not created in `$HOME`, as specified above.
-
-Alternatively, on organisation machines you might not have sudo or even root. You can run the install script in two stages (run `./install.sh -h` for more details):
+The install script does two things: it syncs your packages with the contents of `.Brewfile`, and it symlinks all dotfiles to the appropriate places. You can run either stage separately by passing the following arguments (see `./install.sh --help` also): 
 
 ```bash
-# Stage 1: install packages -- run as ksu/root
+# Stage 1: sync packages with `.Brewfile`
 ./install.sh -p
 
-# Stage 2: symlink dotfiles -- run as user
+# Stage 2: symlink dotfiles
 ./install.sh -d
 ```
 
-TODO: In future, consider installing all packages in `~/.local/bin` to avoid needing root privileges at all.
+NB: on some machines, you may not have `brew` available and may not be able to have it installed (work/organisation machines). In this case, simply manually install the packages through other means (binaries, apt, etc.). Then, just run `./install.sh -d` to symlink the dotfiles and avoid managing packages with `brew`.
 
-## Updating dotfiles
+## Updating
 
-To update, pull the latest version of the repo and re-run the install script. It is not always necessary to perform the latter step, but the script is idempotent, so doing so won't create any problems.
+To update, simply pull the latest version of the repo and re-run the install script. It is not always necessary to perform the latter step, but the script is idempotent, so doing so won't create any problems.
 
 ## Developing
 
@@ -51,57 +70,9 @@ Running the container will install the dotfiles, then open an interactive tmux s
 
 To test out the dotfiles with vscode devcontainers, run `Remote Containers: Rebuild and Reopen in Container` from the vscode command palette to create a container with the dotfiles installed. This requires Docker and the vscode remote development - containers extension. You will need to have set this repository and install script in settings, e.g. `{"dotfiles.repository": "Charl-AI", "remote.containers.dotfiles.repository": "Charl-AI/dotfiles",}`. NOTE: this will install the dotfiles latest version from GitHub, so un-pushed changes will not show up with this method (whereas they will with the above method).
 
-## Additional notes for manual customisation:
+## MacOS
 
-This repo contains is for automatically installing dotfiles and CLI tools, it is designed to be minimal and used in containers. When setting up a new machine, these notes are for the extra steps I perform manually (mostly related to GUI shortcuts, terminal emulator etc.).
+Some miscellaneous notes for setting up on MacOS.
 
-## Super Caps-Lock
-
-I like my caps lock key to be remapped to Ctrl (when held), and Esc (when tapped).
-
-### Ubuntu
-
-First, use the `gnome-tweaks` GUI to set caps as an extra ctrl, then install `xcape`, log out, and log back in. If you are using these dotfiles, `xcape` should be correctly set to add the esc functionality in `~/.profile`.
-
-### MacOS
-
-Install and use [Hyperkey](https://hyperkey.app/) to remap caps lock to ctrl and esc.
-
-### Ubuntu shortcuts
-
-Some modifications I like to change when using a fresh Ubuntu install. The `install.sh` script does not make these modification because it's set up to be as minimal as possible for use in development containers; it's generally best to make these adjustments manually if necessary.
-
-```bash
-# enable minimise on click for Ubuntu (Gnome)
-gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
-```
-
-Also set up super + I keyboard shortcut for settings and super + E shortcut for explorer (might have to do this manually by setting it to run `nautilus`)
-
-### MacOS shortcuts
-
-[Alt-Tab](https://alt-tab-macos.netlify.app/) and [rectangle](https://rectangleapp.com/) are both pretty useful to improve window management on MacOS.
-
-### Terminal emulator + fonts
-
-I'm generally happy with Windows terminal and Gnome terminal, but I don't like the default one on MacOS. Use Alacritty instead.
-
-(Sadly) Neovim plugins often need nerd fonts installed to work properly.
-
-A decent one is JetBrains Mono:
-
-```bash
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/JetBrainsMono.zip
-```
-
-On windows and MacOS, simply install with the GUI. On linux, do the following:
-
-```
-mkdir -p ~/.fonts
-mv JetBrainsMono.zip ~/.fonts/
-cd ~/.fonts
-unzip JetBrainsMono.zip
-fc-cache fv
-```
-
-After installing the font, remember to configure the terminal emulator to use it.
+- [Hyperkey](https://hyperkey.app/) is useful to remap caps lock to ctrl and esc.
+- [Alt-Tab](https://alt-tab-macos.netlify.app/) and [rectangle](https://rectangleapp.com/) are both pretty useful to improve window management on MacOS.
