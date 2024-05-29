@@ -36,28 +36,26 @@ opt.updatetime = 200
 opt.wrap = false
 opt.fillchars = { eob = " " }
 
--- show leading/trailing tabs and spaces
+-- show tab characters
 opt.list = true
 opt.listchars:append {
   tab = "<->",
-  lead = ".",
-  trail = ".",
 }
 
 if vim.fn.has("nvim-0.9.0") == 1 then
-	opt.splitkeep = "screen"
-	opt.shortmess:append({ C = true })
+  opt.splitkeep = "screen"
+  opt.shortmess:append({ C = true })
 end
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 
 local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true, silent = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.keymap.set(mode, lhs, rhs, options)
+  local options = { noremap = true, silent = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
 -- better up/down
@@ -143,21 +141,21 @@ map({ "n", "v" }, "C", '"cC')
 -- search in only the visible screen, respecting the scrolloff setting.
 -- The window will never scroll when searching with this function.
 local function screen_search()
-	local scrolloff = vim.o.scrolloff
-	local botline = vim.fn.line("w$") + 1
-	local topline = vim.fn.line("w0") - 1
-	local eofline = vim.fn.line("$")
+  local scrolloff = vim.o.scrolloff
+  local botline = vim.fn.line("w$") + 1
+  local topline = vim.fn.line("w0") - 1
+  local eofline = vim.fn.line("$")
 
-	if topline > scrolloff then
-		topline = topline + scrolloff
-	end
+  if topline > scrolloff then
+    topline = topline + scrolloff
+  end
 
-	if botline < eofline - scrolloff then
-		botline = botline - scrolloff
-	end
+  if botline < eofline - scrolloff then
+    botline = botline - scrolloff
+  end
 
-	local pattern = "/\\%>" .. topline .. "l\\%<" .. botline .. "l"
-	vim.fn.feedkeys(pattern, "n")
+  local pattern = "/\\%>" .. topline .. "l\\%<" .. botline .. "l"
+  vim.fn.feedkeys(pattern, "n")
 end
 vim.api.nvim_create_user_command("ScreenSearch", screen_search, { desc = "" })
 
@@ -167,115 +165,115 @@ map({ "n", "v" }, "?", screen_search, { desc = "" })
 
 -- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	pattern = "*",
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  pattern = "*",
 })
 
 -- resize splits if window got resized
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-	callback = function()
-		vim.cmd("tabdo wincmd =")
-	end,
+  callback = function()
+    vim.cmd("tabdo wincmd =")
+  end,
 })
 
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
-	callback = function()
-		local mark = vim.api.nvim_buf_get_mark(0, '"')
-		local lcount = vim.api.nvim_buf_line_count(0)
-		if mark[1] > 0 and mark[1] <= lcount then
-			pcall(vim.api.nvim_win_set_cursor, 0, mark)
-		end
-	end,
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
 })
 
 -- set formatoptions for all filetypes -- default is "jcroql"
 vim.api.nvim_create_autocmd("FileType", {
-	callback = function()
-		vim.opt_local.formatoptions = "tcqjr"
-	end,
-	pattern = "*",
+  callback = function()
+    vim.opt_local.formatoptions = "tcqjr"
+  end,
+  pattern = "*",
 })
 
 -- set lisp mode for lisp languages
 -- this treats hyphens as part of the word and improves indentation
 vim.api.nvim_create_autocmd("FileType", {
-	callback = function()
-		vim.opt_local.lisp = true
-	end,
-	pattern = { "*.fnl", "*.lisp", "*.clj", "*.scm", "*.rkt" },
+  callback = function()
+    vim.opt_local.lisp = true
+  end,
+  pattern = { "*.fnl", "*.lisp", "*.clj", "*.scm", "*.rkt" },
 })
 
 -- scrolloff at end of file (based on Aasim-A/scrollEOF.nvim)
 local function check_eof_scrolloff()
-	if vim.bo.buftype ~= "" then -- exclude all non-standard buffers
-		return
-	end
+  if vim.bo.buftype ~= "" then -- exclude all non-standard buffers
+    return
+  end
 
-	local win_height = vim.api.nvim_win_get_height(0)
-	local win_view = vim.fn.winsaveview()
-	local scrolloff = math.min(vim.o.scrolloff, math.floor(win_height / 2))
-	local scrolloff_line_count = win_height - (vim.fn.line("w$") - win_view.topline + 1)
-	local distance_to_last_line = vim.fn.line("$") - win_view.lnum
+  local win_height = vim.api.nvim_win_get_height(0)
+  local win_view = vim.fn.winsaveview()
+  local scrolloff = math.min(vim.o.scrolloff, math.floor(win_height / 2))
+  local scrolloff_line_count = win_height - (vim.fn.line("w$") - win_view.topline + 1)
+  local distance_to_last_line = vim.fn.line("$") - win_view.lnum
 
-	if distance_to_last_line < scrolloff and scrolloff_line_count + distance_to_last_line < scrolloff then
-		win_view.topline = win_view.topline + scrolloff - (scrolloff_line_count + distance_to_last_line)
-		vim.fn.winrestview(win_view)
-	end
+  if distance_to_last_line < scrolloff and scrolloff_line_count + distance_to_last_line < scrolloff then
+    win_view.topline = win_view.topline + scrolloff - (scrolloff_line_count + distance_to_last_line)
+    vim.fn.winrestview(win_view)
+  end
 end
 
 vim.api.nvim_create_autocmd("CursorMoved", {
-	pattern = "*",
-	callback = check_eof_scrolloff,
+  pattern = "*",
+  callback = check_eof_scrolloff,
 })
 
 -- session management (based on folke/persistence.nvim)
 -- sessions are saved at $HOME/.local/state/sessions/%path%to%project%dir.vim
 local function get_session_path()
-	local save_dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/")
-	os.execute("mkdir -p " .. save_dir)
-	local curr_name = vim.fn.getcwd():gsub("/", "%%")
-	local session_path = save_dir .. curr_name .. ".vim"
-	return session_path
+  local save_dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/")
+  os.execute("mkdir -p " .. save_dir)
+  local curr_name = vim.fn.getcwd():gsub("/", "%%")
+  local session_path = save_dir .. curr_name .. ".vim"
+  return session_path
 end
 
 local function save_session()
-	-- don't save the session if there are no proper buffers open
-	local bufs = vim.tbl_filter(function(b)
-		if vim.bo[b].buftype ~= "" then
-			return false
-		end
-		if vim.bo[b].filetype == "gitcommit" then
-			return false
-		end
-		if vim.bo[b].filetype == "gitrebase" then
-			return false
-		end
-		return vim.api.nvim_buf_get_name(b) ~= ""
-	end, vim.api.nvim_list_bufs())
-	if #bufs == 0 then
-		return
-	end
+  -- don't save the session if there are no proper buffers open
+  local bufs = vim.tbl_filter(function(b)
+    if vim.bo[b].buftype ~= "" then
+      return false
+    end
+    if vim.bo[b].filetype == "gitcommit" then
+      return false
+    end
+    if vim.bo[b].filetype == "gitrebase" then
+      return false
+    end
+    return vim.api.nvim_buf_get_name(b) ~= ""
+  end, vim.api.nvim_list_bufs())
+  if #bufs == 0 then
+    return
+  end
 
-	local session_path = get_session_path()
-	vim.cmd("mksession! " .. vim.fn.fnameescape(session_path))
-	print("Saved current session to " .. session_path)
+  local session_path = get_session_path()
+  vim.cmd("mksession! " .. vim.fn.fnameescape(session_path))
+  print("Saved current session to " .. session_path)
 end
 
 local function restore_session()
-	local session_path = get_session_path()
-	if vim.fn.filereadable(session_path) ~= 0 then
-		vim.cmd("silent! source " .. vim.fn.fnameescape(session_path))
-		print("Restored session from " .. session_path)
-	else
-		print("No saved session found at " .. session_path)
-	end
+  local session_path = get_session_path()
+  if vim.fn.filereadable(session_path) ~= 0 then
+    vim.cmd("silent! source " .. vim.fn.fnameescape(session_path))
+    print("Restored session from " .. session_path)
+  else
+    print("No saved session found at " .. session_path)
+  end
 end
 
 vim.api.nvim_create_autocmd("VimLeavePre", {
-	callback = save_session,
+  callback = save_session,
 })
 
 vim.api.nvim_create_user_command("SaveSession", save_session, { desc = "Save current session" })
