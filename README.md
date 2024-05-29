@@ -9,7 +9,7 @@ Use the system package manager for installing GUI apps such as chrome, terminal 
 ## Prerequisites (manual)
 
 - Install [wezterm](https://wezfurlong.org/wezterm/)
-- Install homebrew/linuxbrew and its dependencies (`curl`, `build-essential`, etc.)
+- Install [homebrew/linuxbrew](https://docs.brew.sh/Homebrew-on-Linux) and its dependencies (`curl`, `build-essential`, etc.)
 - Install [keyd](https://github.com/rvaiya/keyd), and add the following to `/etc/keyd/default.conf`:
 
 ```
