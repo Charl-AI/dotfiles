@@ -20,8 +20,8 @@ opt.pumheight = 10
 opt.scrolloff = 2
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help" }
 opt.shiftround = true
-opt.shiftwidth = 2
 opt.tabstop = 2
+opt.shiftwidth = 0 -- use tabstop value
 opt.sidescrolloff = 5
 opt.signcolumn = "yes"
 opt.smartcase = true
@@ -35,6 +35,14 @@ opt.undofile = true
 opt.updatetime = 200
 opt.wrap = false
 opt.fillchars = { eob = " " }
+
+-- show leading/trailing tabs and spaces
+opt.list = true
+opt.listchars:append {
+  tab = "<->",
+  lead = ".",
+  trail = ".",
+}
 
 if vim.fn.has("nvim-0.9.0") == 1 then
 	opt.splitkeep = "screen"
