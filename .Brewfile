@@ -7,3 +7,7 @@ brew "ripgrep"
 brew "fzf"
 brew "fish"
 brew "lazygit"
+brew "stow"
+
+brew "pyenv"
+brew "node"

@@ -1,0 +1,11 @@
+\.git
+\.gitignore
+\.gitmodules
+
+\.devcontainer
+
+^/.Brewfile
+^/install.sh
+^/README.*
+^/LICENSE.*
+^/COPYING
