@@ -2,7 +2,7 @@
 
 # fkill uses fzf as a UI for finding and killing processes
 
-display_help(){
+display_help() {
   echo ""
   echo "fkill - find and kill processes with fzf"
   echo "You may select multiple processes with <TAB> using fzf multiselect"
@@ -22,10 +22,9 @@ display_help(){
 
 }
 
-
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-    display_help
-    exit 0
+  display_help
+  exit 0
 fi
 
 uid=$(id -u)
@@ -41,5 +40,3 @@ if [ -z "$pid" ]; then
   exit 0
 fi
 kill "-$signal" "$pid"
-
-

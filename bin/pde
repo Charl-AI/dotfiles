@@ -5,35 +5,35 @@
 # this is somewhat similar to the well-known tmux-sessionizer script:
 # https://github.com/ThePrimeagen/.dotfiles
 
-display_help(){
-	echo ""
-	echo "pde sets up your 'personalised development environment'"
-	echo ""
-	echo "pde looks for a tmux session with the given name, then attaches or switches to it if possible"
-	echo "If no session with that name exists, pde creates one, and sets up three windows:"
-	echo "  0. nvim"
-	echo "  1. lazygit"
-	echo "  2. shell (with fish, htop, and nvidia-smi in separate panes)"
-	echo ""
-	echo "Usage: pde [<NAME>][-h | --help]"
-	echo ""
-	echo "Operands:" 
-	echo "  <NAME>  (Optional) name of the tmux session to create. If no <NAME> is given,"
-	echo "          the name is generated from the basename of the current working directory"
-	echo "Options:"
-	echo "  -h, --help  Display this help message and exit"
-	echo ""
-	echo "Examples:"
-	echo "   pde                    # Creates/attaches/switches to a session named after the current directory"
-	echo "   pde my_session_name    # Creates/attaches/switches to a session named 'my_session_name'"
-	echo "   pde -h                 # Displays this help message"
-	echo ""
+display_help() {
+  echo ""
+  echo "pde sets up your 'personalised development environment'"
+  echo ""
+  echo "pde looks for a tmux session with the given name, then attaches or switches to it if possible"
+  echo "If no session with that name exists, pde creates one, and sets up three windows:"
+  echo "  0. nvim"
+  echo "  1. lazygit"
+  echo "  2. shell (with fish, htop, and nvidia-smi in separate panes)"
+  echo ""
+  echo "Usage: pde [<NAME>][-h | --help]"
+  echo ""
+  echo "Operands:"
+  echo "  <NAME>  (Optional) name of the tmux session to create. If no <NAME> is given,"
+  echo "          the name is generated from the basename of the current working directory"
+  echo "Options:"
+  echo "  -h, --help  Display this help message and exit"
+  echo ""
+  echo "Examples:"
+  echo "   pde                    # Creates/attaches/switches to a session named after the current directory"
+  echo "   pde my_session_name    # Creates/attaches/switches to a session named 'my_session_name'"
+  echo "   pde -h                 # Displays this help message"
+  echo ""
 
 }
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-    display_help
-    exit 0
+  display_help
+  exit 0
 fi
 
 DEFAULT_SESSION_NAME=$(basename "$(pwd)")
@@ -43,26 +43,26 @@ SESSION_NAME="${SESSION_NAME//./_}" # Replace dots with underscores
 SESSION_NAME="${SESSION_NAME// /_}" # Replace spaces with underscores
 
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-	if [[ -n $TMUX ]]; then
-		tmux switch-client -t "$SESSION_NAME"
-	else
-		tmux attach -t "$SESSION_NAME"
-	fi
+  if [[ -n $TMUX ]]; then
+    tmux switch-client -t "$SESSION_NAME"
+  else
+    tmux attach -t "$SESSION_NAME"
+  fi
 else
-	tmux new-session -s "$SESSION_NAME" -n nvim -d
-	tmux new-window -t  "$SESSION_NAME":1  -n lazygit
-	tmux new-window -t "$SESSION_NAME":2 -n shell
-	tmux send-keys -t "$SESSION_NAME":0 'nvim' C-m
-	tmux send-keys -t "$SESSION_NAME":1 'lazygit' C-m
-	# commented out line below because I already have fish as my default shell in tmux.conf
-	# tmux send-keys -t $SESSION_NAME:2 'fish' C-m
-	tmux split-window -t "$SESSION_NAME":2 -h -l 20% "watch nvidia-smi"
-	tmux split-window -t "$SESSION_NAME":2 -v "htop"
-	tmux select-pane -t "$SESSION_NAME":2.0
+  tmux new-session -s "$SESSION_NAME" -n nvim -d
+  tmux new-window -t "$SESSION_NAME":1 -n lazygit
+  tmux new-window -t "$SESSION_NAME":2 -n shell
+  tmux send-keys -t "$SESSION_NAME":0 'nvim' C-m
+  tmux send-keys -t "$SESSION_NAME":1 'lazygit' C-m
+  # commented out line below because I already have fish as my default shell in tmux.conf
+  # tmux send-keys -t $SESSION_NAME:2 'fish' C-m
+  tmux split-window -t "$SESSION_NAME":2 -h -l 20% "watch nvidia-smi"
+  tmux split-window -t "$SESSION_NAME":2 -v "htop"
+  tmux select-pane -t "$SESSION_NAME":2.0
 
-	if [[ -n $TMUX ]]; then
-		tmux switch-client -t "$SESSION_NAME"
-	else
-		tmux attach -t "$SESSION_NAME"
-	fi
+  if [[ -n $TMUX ]]; then
+    tmux switch-client -t "$SESSION_NAME"
+  else
+    tmux attach -t "$SESSION_NAME"
+  fi
 fi

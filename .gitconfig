@@ -4,22 +4,22 @@
   username = Charl-AI
 
 [init]
-	defaultBranch = main
+  defaultBranch = main
 
 [core]
   editor = nvim
 
 [pull]
-	rebase = false
+  rebase = false
 
 [credential "https://github.com"]
-	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
-	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+  helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
 
 [credential "https://git.overleaf.com"]
-	username = cj1917@ic.ac.uk
+  username = cj1917@ic.ac.uk
 
 [credential]
-	helper = cache --timeout=604800
+  helper = cache --timeout=604800

@@ -2,7 +2,7 @@
 
 # fssh uses fzf as a UI for selecting ssh hosts
 
-display_help(){
+display_help() {
   echo ""
   echo "fssh - ssh with fzf"
   echo ""
@@ -26,12 +26,15 @@ display_help(){
 
 for arg in "$@"; do
   case $arg in
-    -h|--help) display_help; exit 0 ;;
+    -h | --help)
+      display_help
+      exit 0
+      ;;
     *) ;;
   esac
 done
 
-host=$(awk '/^Host / {print $2}' ~/.ssh/config  | fzf -1 -q "$1")
+host=$(awk '/^Host / {print $2}' ~/.ssh/config | fzf -1 -q "$1")
 
 if [ -z "$host" ]; then
   exit 0

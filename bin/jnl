@@ -3,40 +3,39 @@
 # jnl is a script for opening my daily journal
 # adapted from https://jodavaho.io/posts/bash-journalling.html
 
-display_help(){
-    echo ""
-    echo "jnl opens your daily journal in neovim"
-    echo ""
-    echo "Usage: jnl [DATE]"
-    echo "DATE can be any date format that date(1) accepts"
-    echo ""
-    echo "Examples:"
-    echo "  jnl              opens today's journal"
-    echo "  jnl yesterday    opens yesterday's journal"
-    echo "  jnl last tuesday opens last tuesday's journal"
-    echo "  jnl 5/11/2014    opens the journal for May 11, 2014"
-    echo "  jnl June 13      opens the journal for June 13 of this year"
-    echo "  jnl 2 weeks ago  opens the journal for two weeks ago"
-    echo ""
-    echo "By default, each day is a markdown file in ~/journal"
-    echo "You can change this by exporting JOURNAL_LOGDIR"
-    echo "to another directory."
-    echo ""
-    echo "jnl -h | --help   displays this help"
-    echo ""
+display_help() {
+  echo ""
+  echo "jnl opens your daily journal in neovim"
+  echo ""
+  echo "Usage: jnl [DATE]"
+  echo "DATE can be any date format that date(1) accepts"
+  echo ""
+  echo "Examples:"
+  echo "  jnl              opens today's journal"
+  echo "  jnl yesterday    opens yesterday's journal"
+  echo "  jnl last tuesday opens last tuesday's journal"
+  echo "  jnl 5/11/2014    opens the journal for May 11, 2014"
+  echo "  jnl June 13      opens the journal for June 13 of this year"
+  echo "  jnl 2 weeks ago  opens the journal for two weeks ago"
+  echo ""
+  echo "By default, each day is a markdown file in ~/journal"
+  echo "You can change this by exporting JOURNAL_LOGDIR"
+  echo "to another directory."
+  echo ""
+  echo "jnl -h | --help   displays this help"
+  echo ""
 }
 
 default_logdir="$HOME/journal"
 logdir="${JOURNAL_LOGDIR:-$default_logdir}"
 
 journal() {
-    nvim "$logdir/$(date +%Y-%m-%d -d "$*").md"
+  nvim "$logdir/$(date +%Y-%m-%d -d "$*").md"
 }
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-    display_help
-    exit 0
+  display_help
+  exit 0
 fi
 
 journal "$@"
-

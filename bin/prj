@@ -3,7 +3,7 @@
 # prj is for listing project directories and switching to them
 # requires fzf and pde
 
-display_help(){
+display_help() {
   echo ""
   echo "prj is for finding and switching projects"
   echo ""
@@ -39,8 +39,11 @@ DEFAULT_SEARCH_DIRS=("$HOME" "$HOME/projects" "/data" "/data2")
 
 for arg in "$@"; do
   case $arg in
-    -h|--help) display_help; exit 0;;
-    -l|--list) list_directories=true ;;
+    -h | --help)
+      display_help
+      exit 0
+      ;;
+    -l | --list) list_directories=true ;;
     *) PRJ_SEARCH_DIRS+=("$arg") ;;
   esac
 done
@@ -51,7 +54,7 @@ directories=()
 
 for search_dir in "${PRJ_SEARCH_DIRS[@]}"; do
   if [[ ! -d "$search_dir" ]]; then
-    continue  # skip iteration if dir doesnt exist
+    continue # skip iteration if dir doesnt exist
   fi
   readarray -d '' dirs_found < <(find "$search_dir" -maxdepth 2 -type d -name ".git" -exec dirname {} \;)
   directories+=("${dirs_found[@]}")
@@ -59,11 +62,11 @@ done
 
 if [[ "$list_directories" ]]; then
   printf '%s\n' "${directories[@]}" | sed -e '/^\s*$/d'
-  
+
   exit 0
 fi
 
-selected_dir=$(printf '%s\n' "${directories[@]}" | sed -e  '/^\s*$/d' | fzf)
+selected_dir=$(printf '%s\n' "${directories[@]}" | sed -e '/^\s*$/d' | fzf)
 
 if [[ -z "$selected_dir" ]]; then
   exit 1
