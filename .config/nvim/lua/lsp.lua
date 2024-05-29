@@ -77,6 +77,13 @@ require("conform").setup({
   end,
 })
 
+require("conform").formatters.shfmt = {
+  prepend_args = { "--indent=2", "--case-indent" },
+}
+
+require("conform").formatters.stylua = {
+  prepend_args = { "--indent-type=Spaces", "--indent-width=2" },
+}
 vim.api.nvim_create_user_command("FormatToggle", function()
   if vim.g.disable_autoformat == true then
     vim.g.disable_autoformat = false
@@ -88,13 +95,6 @@ vim.api.nvim_create_user_command("FormatToggle", function()
 end, {
   desc = "Toggle autoformat-on-save",
 })
-
--- ruff fix tries to fix errors by default,
--- I just want it to sort imports
--- (NB we can let ruff_format do the rest of the formatting)
--- require("conform").formatters.ruff_fix = {
--- 	prepend_args = { "--select=I" },
--- }
 
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
@@ -187,8 +187,7 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 
 local function hover_or_diagnostic()
   local line_num = vim.api.nvim_win_get_cursor(0)[1]
-  local diagnostics =
-      vim.diagnostic.get(0, { lnum = line_num - 1, severity = { min = vim.diagnostic.severity.HINT } })
+  local diagnostics = vim.diagnostic.get(0, { lnum = line_num - 1, severity = { min = vim.diagnostic.severity.HINT } })
 
   -- use default hover behaviour if no diagnostics are available
   if #diagnostics == 0 then
@@ -233,12 +232,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       "<cmd>Trouble lsp_definitions<cr>",
       { buffer = event.buf, desc = "[d]efinitions" }
     )
-    vim.keymap.set(
-      "n",
-      "<leader>cr",
-      "<cmd>Trouble lsp_references<cr>",
-      { buffer = event.buf, desc = "[r]eferences" }
-    )
+    vim.keymap.set("n", "<leader>cr", "<cmd>Trouble lsp_references<cr>", { buffer = event.buf, desc = "[r]eferences" })
     vim.keymap.set(
       "n",
       "<leader>ci",
