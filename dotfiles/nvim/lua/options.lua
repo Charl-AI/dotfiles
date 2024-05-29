@@ -227,6 +227,7 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 -- sessions are saved at $HOME/.local/state/sessions/%path%to%project%dir.vim
 local function get_session_path()
 	local save_dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/")
+	os.execute("mkdir -p " .. save_dir)
 	local curr_name = vim.fn.getcwd():gsub("/", "%%")
 	local session_path = save_dir .. curr_name .. ".vim"
 	return session_path
