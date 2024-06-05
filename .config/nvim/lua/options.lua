@@ -35,6 +35,7 @@ opt.undofile = true
 opt.updatetime = 200
 opt.wrap = false
 opt.fillchars = { eob = " " }
+opt.jumpoptions = "view,stack"
 
 -- show tab characters
 opt.list = true
