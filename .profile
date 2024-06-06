@@ -2,8 +2,12 @@
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists. Use this file to set environment variables and add items to PATH.
 
+export PIP_REQUIRE_VIRTUALENV=true # don't allow python to install without an active venv
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+export FZF_DEFAULT_OPTS='--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
+
 # add homebrew-installed packages to PATH
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || echo "homebrew not found"
 
 if [ -x "$(command -v pyenv)" ]; then
   export PYENV_ROOT="$HOME/.pyenv"
@@ -11,14 +15,6 @@ if [ -x "$(command -v pyenv)" ]; then
   eval "$(pyenv init -)"
 else
   echo "pyenv not found. Using system python."
-fi
-
-if [ -x "$(command -v rg)" ]; then
-  export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-fi
-
-if [ -x "$(command -v fzf)" ]; then
-  export FZF_DEFAULT_OPTS='--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 fi
 
 # set PATH so it includes user's private bin if it exists
