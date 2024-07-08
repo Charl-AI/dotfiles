@@ -18,7 +18,6 @@ vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "[l]azy (plugin mana
 require("lazy").setup({
   -- misc
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  { "nvim-tree/nvim-web-devicons" },
   { "christoomey/vim-tmux-navigator" },
 
   -- editor
