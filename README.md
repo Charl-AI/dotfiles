@@ -32,7 +32,7 @@ cd $HOME
 git clone https://github.com/Charl-AI/dotfiles.git
 ```
 
-Next, use the install script to set everything up. 
+Next, use the install script to set everything up.
 
 ```bash
 cd $HOME/dotfiles
@@ -40,7 +40,7 @@ chmod +x ./install.sh
 ./install.sh
 ```
 
-The install script does two things: it syncs your packages with the contents of `.Brewfile`, and it symlinks all dotfiles to the appropriate places. You can run either stage separately by passing the following arguments (see `./install.sh --help` also): 
+The install script does two things: it syncs your packages with the contents of `.Brewfile`, and it symlinks all dotfiles to the appropriate places. You can run either stage separately by passing the following arguments (see `./install.sh --help` also):
 
 ```bash
 # Stage 1: sync packages with `.Brewfile`
@@ -72,7 +72,10 @@ To test out the dotfiles with vscode devcontainers, run `Remote Containers: Rebu
 
 ## MacOS
 
-Some miscellaneous notes for setting up on MacOS.
+Apple laptops are great, but for a while I found MacOS frustrating. These are my current settings to alleviate the pain:
 
-- [Hyperkey](https://hyperkey.app/) is useful to remap caps lock to ctrl and esc.
-- [Alt-Tab](https://alt-tab-macos.netlify.app/) and [rectangle](https://rectangleapp.com/) are both pretty useful to improve window management on MacOS.
+- [Karabiner](https://karabiner-elements.pqrs.org/) is for keyboard remapping and my `karabiner.json` is saved in this repo. The general idea is to map caps to cmd and esc most of the time, but change it to ctrl and esc when in the terminal. This gives a pretty close experience to linux. Make sure to disable the default keymap for ctrl-space (input switching) in settings, as this clashes with my tmux prefix.
+
+- [Alt-Tab](https://alt-tab-macos.netlify.app/) and [rectangle](https://rectangleapp.com/) are both pretty useful to improve window management on MacOS. In rectangle, I like to map cmd-{up,down,left,right} to snap windows a bit like the super key in gnome.
+
+- [Shortcat](https://shortcat.app/) is nice for being mouseless.
