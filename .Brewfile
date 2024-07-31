@@ -1,3 +1,4 @@
+brew "bash"
 brew "tmux"
 brew "neovim"
 brew "wget"
