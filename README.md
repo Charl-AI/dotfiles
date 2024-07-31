@@ -78,4 +78,4 @@ Apple laptops are great, but for a while I found MacOS frustrating. These are my
 
 - [Alt-Tab](https://alt-tab-macos.netlify.app/) and [rectangle](https://rectangleapp.com/) are both pretty useful to improve window management on MacOS. In rectangle, I like to map cmd-{up,down,left,right} to snap windows a bit like the super key in gnome.
 
-- [Shortcat](https://shortcat.app/) is nice for being mouseless.
+- [Shortcat](https://shortcat.app/) is nice for being mouseless. I tend to use cmd+/ as the trigger.
