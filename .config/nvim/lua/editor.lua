@@ -52,6 +52,21 @@ require("nvim-treesitter.configs").setup({
   },
 })
 
+require("oil").setup({
+  columns = { "icon" },
+  use_default_keymaps = false,
+  keymaps = {
+    ["g?"] = "actions.show_help",
+    ["q"] = "actions.close",
+    ["<CR>"] = "actions.select",
+    ["<BS>"] = "actions.parent",
+  },
+  view_options = {
+    show_hidden = true,
+  },
+})
+map("n", "<leader>e", "<cmd>Oil<cr>", { desc = "[e]xplorer (Oil)" })
+
 -- mini.nvim is a set of small utilities for improving the editor
 require("mini.icons").setup()
 require("mini.bracketed").setup()
@@ -61,13 +76,6 @@ require("mini.surround").setup()
 require("mini.statusline").setup()
 require("mini.jump").setup()
 require("mini.extra").setup()
-
-require("mini.files").setup({
-  mappings = {
-    go_in_plus = "<cr>",
-  },
-})
-map("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "[e]xplorer (mini.Files)" })
 
 local spec_treesitter = require("mini.ai").gen_spec.treesitter
 require("mini.ai").setup({
