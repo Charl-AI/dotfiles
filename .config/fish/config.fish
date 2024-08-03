@@ -30,3 +30,6 @@ function conda
     end
     echo "No conda installation found in $CONDA_PATH"
 end
+
+atuin init fish | source
+
