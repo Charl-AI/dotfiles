@@ -212,6 +212,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { buffer = event.buf, desc = "[h]over" })
     vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { buffer = event.buf, desc = "[R]ename" })
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = event.buf, desc = "[a]ction" })
+    vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { buffer = event.buf, desc = "[d]efinitions" })
+    vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, { buffer = event.buf, desc = "[r]eferences" })
+    vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, { buffer = event.buf, desc = "[i]mplementations" })
+    vim.keymap.set("n", "<leader>ct", vim.lsp.buf.type_definition, { buffer = event.buf, desc = "[t]ype definitions" })
     vim.keymap.set(
       "n",
       "<leader>cc",
@@ -223,27 +227,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       "<leader>cf",
       "<cmd>FormatToggle<cr>",
       { buffer = event.buf, desc = "[f]ormat on save (toggle)" }
-    )
-
-    -- the built in LSP uses the quickfix list for these methods, here we use trouble because I think it is a bit nicer
-    vim.keymap.set(
-      "n",
-      "<leader>cd",
-      "<cmd>Trouble lsp_definitions<cr>",
-      { buffer = event.buf, desc = "[d]efinitions" }
-    )
-    vim.keymap.set("n", "<leader>cr", "<cmd>Trouble lsp_references<cr>", { buffer = event.buf, desc = "[r]eferences" })
-    vim.keymap.set(
-      "n",
-      "<leader>ci",
-      "<cmd>Trouble lsp_implementations<cr>",
-      { buffer = event.buf, desc = "[i]mplementations" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>ct",
-      "<cmd>Trouble lsp_type_definitions<cr>",
-      { buffer = event.buf, desc = "[t]ype definitions" }
     )
   end,
 })

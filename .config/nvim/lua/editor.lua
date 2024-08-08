@@ -20,23 +20,6 @@ require("which-key").register({
   ["<leader>s"] = { name = "+search (mini.Pick)" },
 })
 
--- trouble is an improved quickfix/location list for showing diagnostics
-require("trouble").setup({
-  use_diagnostic_signs = true,
-  auto_preview = false,
-  warn_no_results = false,
-  open_no_results = true,
-  focus = false,
-})
-map("n", "<leader>o", "<cmd>Trouble symbols toggle<cr><cmd>wincmd p<cr>", { desc = "[o]utline (buffer symbols)" })
-map("n", "<leader>D", "<cmd>Trouble diagnostics toggle<cr><cmd>wincd p<cr>", { desc = "[D]iagnostics (workspace)" })
-map(
-  "n",
-  "<leader>d",
-  "<cmd>Trouble diagnostics toggle filter.buf=0<cr><cmd>wincmd p<cr>",
-  { desc = "[d]iagnostics (buffer)" }
-)
-
 -- treesitter is for syntax highlighting and smart text objects
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "bash", "json", "lua", "markdown", "python", "rust", "vim", "vimdoc", "yaml" },

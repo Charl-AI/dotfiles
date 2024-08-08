@@ -23,7 +23,7 @@ require("lazy").setup({
   -- editor
   { "folke/which-key.nvim" },
   { "stevearc/oil.nvim" },
-  { "folke/trouble.nvim" },
+  -- { "folke/trouble.nvim" },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-textobjects" },
   { "echasnovski/mini.nvim" },
@@ -48,3 +48,4 @@ vim.cmd.colorscheme("catppuccin-frappe")
 require("editor")
 require("lsp")
 require("repl")
+require("qf")
