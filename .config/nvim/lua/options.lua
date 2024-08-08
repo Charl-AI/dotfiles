@@ -63,6 +63,10 @@ end
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
+-- Use Q instead of q for recording macros
+map("n", "Q", "q")
+map("n", "q", "<Nop>")
+
 -- Move to window using the <ctrl> hjkl keys
 map({ "n", "t" }, "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
 map({ "n", "t" }, "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
@@ -196,6 +200,13 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.formatoptions = "tcqjr"
   end,
   pattern = "*",
+})
+
+-- keep quickfix list updated
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+  callback = function()
+    vim.diagnostic.setqflist({ open = false, title = "Workspace Diagnostics" })
+  end,
 })
 
 -- set lisp mode for lisp languages
