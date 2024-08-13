@@ -34,6 +34,10 @@ local function open_llpp(cache)
   -- filetype, whilst keeping our custom mappings only for our llpp type
   vim.api.nvim_exec2("setlocal filetype=qf", {})
 
+  if items == nil or #items == 0 then
+    return
+  end
+
   -- Populate the buffer with the items
   for _, item in ipairs(items) do
     if item.type == nil then
