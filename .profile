@@ -9,14 +9,6 @@ export FZF_DEFAULT_OPTS='--cycle --layout=reverse --border --height=90% --previe
 # add homebrew-installed packages to PATH
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || echo "homebrew not found"
 
-if [ -x "$(command -v pyenv)" ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-else
-  echo "pyenv not found. Using system python."
-fi
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ]; then
   export PATH="$HOME/bin:$PATH"
