@@ -10,5 +10,5 @@ brew "fish"
 brew "lazygit"
 brew "stow"
 
-brew "pyenv"
+brew "uv"
 brew "node"
