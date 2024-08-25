@@ -44,6 +44,7 @@ require("mini.surround").setup()
 require("mini.statusline").setup()
 require("mini.jump").setup()
 require("mini.extra").setup()
+require("mini.diff").setup()
 
 require("mini.files").setup({
   mappings = {
@@ -107,26 +108,3 @@ map("n", "<leader>sS", '<cmd>Pick lsp scope="workspace_symbol"<cr>', { desc = "[
 map("n", "<leader>sq", '<cmd>Pick list scope="quickfix"<cr>', { desc = "[q]uickfix list" })
 map("n", "<leader>sl", '<cmd>Pick list scope="location"<cr>', { desc = "[l]ocation list" })
 map("n", "<leader>sj", '<cmd>Pick list scope="jump"<cr>', { desc = "[j]ump list" })
-
-require("gitsigns").setup({
-  signcolumn = false,
-  numhl = true,
-  on_attach = function(_)
-    local gs = package.loaded.gitsigns
-    map("n", "[h", gs.prev_hunk, { desc = "Prev Hunk" })
-    map("n", "]h", gs.next_hunk, { desc = "Next Hunk" })
-
-    map({ "n", "v" }, "<leader>gs", gs.stage_hunk, { desc = "Stage hunk" })
-    map({ "n", "v" }, "<leader>gr", gs.reset_hunk, { desc = "Reset hunk" })
-    map({ "n", "v" }, "<leader>gu", gs.undo_stage_hunk, { desc = "Unstage hunk" })
-    map("n", "<leader>gS", gs.stage_buffer, { desc = "Stage buffer" })
-    map("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
-    map("n", "<leader>gU", gs.reset_buffer_index, { desc = "Unstage buffer" })
-    map("n", "<leader>gp", gs.preview_hunk, { desc = "Preview hunk" })
-    map("n", "<leader>gB", gs.toggle_current_line_blame, { desc = "Toggle inline blame" })
-    map("n", "<leader>gd", gs.diffthis, { desc = "Diff line" })
-    map("n", "<leader>gb", function()
-      gs.blame_line({ full = true })
-    end, { desc = "Blame line" })
-  end,
-})

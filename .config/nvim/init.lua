@@ -25,7 +25,6 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-textobjects" },
   { "echasnovski/mini.nvim" },
-  { "lewis6991/gitsigns.nvim" },
   { "gpanders/nvim-parinfer" },
 
   -- lsp
