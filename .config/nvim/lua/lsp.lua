@@ -37,6 +37,7 @@ require("mason-lspconfig").setup({
   },
 })
 vim.keymap.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "[m]ason (LSP installer)" })
+
 require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua" },
@@ -209,13 +210,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(event)
     vim.keymap.set("n", "K", hover_or_diagnostic, { buffer = event.buf, desc = "Hover" })
     vim.keymap.set("n", "<leader>cl", "<cmd>LspInfo<cr>", { buffer = event.buf, desc = "[l]sp info" })
-    vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { buffer = event.buf, desc = "[h]over" })
+    vim.keymap.set("n", "<leader>ck", vim.lsp.buf.hover, { buffer = event.buf, desc = "[k] hover" })
     vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, { buffer = event.buf, desc = "[R]ename" })
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = event.buf, desc = "[a]ction" })
     vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { buffer = event.buf, desc = "[d]efinitions" })
     vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, { buffer = event.buf, desc = "[r]eferences" })
     vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, { buffer = event.buf, desc = "[i]mplementations" })
     vim.keymap.set("n", "<leader>ct", vim.lsp.buf.type_definition, { buffer = event.buf, desc = "[t]ype definitions" })
+    vim.keymap.set("n", "<leader>ch", function()
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+    end, { desc = "[h]ints (toggle inlay)" })
     vim.keymap.set(
       "n",
       "<leader>cc",
