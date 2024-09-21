@@ -128,6 +128,10 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 -- toggle word wrap
 map("n", "<leader>w", "<cmd>set wrap!<cr>", { desc = "[w]ord wrap (toggle)" })
 
+-- diagnostics
+map("n", "<leader>d", vim.diagnostic.setloclist, { desc = "[d]iagnostics (buffer)" })
+map("n", "<leader>D", vim.diagnostic.setqflist, { desc = "[D]iagnostics (all)" })
+
 -- I don't like how deleting typically overrides the register with your
 -- last copy because it makes it harder to copy-delete-paste.
 -- This changes the d,c,x operators to delete to 'd', 'c', 'x' registers by default
@@ -200,13 +204,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.formatoptions = "tcqjr"
   end,
   pattern = "*",
-})
-
--- keep quickfix list updated
-vim.api.nvim_create_autocmd("DiagnosticChanged", {
-  callback = function()
-    vim.diagnostic.setqflist({ open = false, title = "Workspace Diagnostics" })
-  end,
 })
 
 -- set lisp mode for lisp languages
