@@ -37,12 +37,8 @@ require("nvim-treesitter.configs").setup({
 
 -- mini.nvim is a set of small utilities for improving the editor
 require("mini.icons").setup()
-require("mini.bracketed").setup()
-require("mini.pairs").setup()
 require("mini.move").setup()
 require("mini.surround").setup()
-require("mini.statusline").setup()
-require("mini.jump").setup()
 require("mini.extra").setup()
 require("mini.diff").setup()
 

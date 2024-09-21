@@ -36,12 +36,12 @@ opt.updatetime = 200
 opt.wrap = false
 opt.fillchars = { eob = " " }
 opt.jumpoptions = "view,stack"
+opt.ruler = false
+opt.showcmd = false
 
 -- show tab characters
 opt.list = true
-opt.listchars:append({
-  tab = "<->",
-})
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 if vim.fn.has("nvim-0.9.0") == 1 then
   opt.splitkeep = "screen"
