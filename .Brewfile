@@ -9,6 +9,8 @@ brew "fzf"
 brew "fish"
 brew "lazygit"
 brew "stow"
+brew "atuin"
 
 brew "uv"
 brew "node"
+brew "fennel"
