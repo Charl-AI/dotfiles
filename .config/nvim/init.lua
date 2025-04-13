@@ -13,8 +13,8 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "[l]azy (plugin manager)", noremap = true, silent = true })
+
 require("lazy").setup({
   -- misc
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
@@ -29,7 +29,6 @@ require("lazy").setup({
 
   -- lsp
   { "williamboman/mason.nvim", build = ":MasonUpdate" },
-  { "williamboman/mason-lspconfig.nvim" },
   { "stevearc/conform.nvim" },
   { "hrsh7th/vim-vsnip" },
   { "hrsh7th/nvim-cmp" },

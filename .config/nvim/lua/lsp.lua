@@ -1,42 +1,25 @@
 -- LSP plugins
 
-local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-local default_setup = function(server)
-  require("lspconfig")[server].setup({
-    capabilities = lsp_capabilities,
-  })
-end
+-- mason is for installing language servers
+require("mason").setup()
+vim.keymap.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "[m]ason (LSP installer)" })
 
-require("mason").setup({})
-require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls" },
-  handlers = {
-    default_setup,
-
-    -- lua_ls custom setup to work with neovim config
-    lua_ls = function()
-      require("lspconfig").lua_ls.setup({
-        capabilities = lsp_capabilities,
-        settings = {
-          Lua = {
-            runtime = {
-              version = "LuaJIT",
-            },
-            diagnostics = {
-              globals = { "vim" },
-            },
-            workspace = {
-              library = {
-                vim.env.VIMRUNTIME,
-              },
-            },
-          },
-        },
-      })
-    end,
+vim.lsp.config("luals", {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", ".git" },
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT" },
+      diagnostics = { globals = { "vim" } },
+      workspace = { library = { vim.env.VIMRUNTIME } },
+    },
   },
 })
-vim.keymap.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "[m]ason (LSP installer)" })
+vim.lsp.enable("luals")
+vim.lsp.enable("pyright")
+vim.lsp.enable("ruff")
+vim.lsp.enable("rust_analyzer")
 
 require("conform").setup({
   formatters_by_ft = {
@@ -177,7 +160,7 @@ cmp.setup.cmdline(":", {
     },
   }),
 })
-
+--
 vim.diagnostic.config({ virtual_text = false, severity_sort = true })
 
 -- if there are diagnostics available for a line, this function toggles
