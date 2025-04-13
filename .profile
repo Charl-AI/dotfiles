@@ -4,7 +4,7 @@
 
 export PIP_REQUIRE_VIRTUALENV=true # don't allow python to install without an active venv
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export FZF_DEFAULT_OPTS='--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
+export FZF_DEFAULT_OPTS='--style=full --cycle --layout=reverse --border=none --height=~50% --preview-window=wrap --marker="*"'
 
 # add homebrew-installed packages to PATH
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || echo "homebrew not found"
