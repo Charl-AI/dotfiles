@@ -6,7 +6,7 @@ function fish_greeting
 end
 
 function fish_user_key_bindings
-  fish_vi_key_bindings
+  fish_default_key_bindings
 end
 
 # (c)hancge (e)nvironment with conda
@@ -31,5 +31,5 @@ function conda
     echo "No conda installation found in $CONDA_PATH"
 end
 
-atuin init fish | source
 
+fzf --fish | source
