@@ -9,16 +9,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- which-key provides hints/menus to visualise keybindings
-require("which-key").setup()
-require("which-key").register({
-  mode = { "n", "v" },
-  ["g"] = { name = "+goto" },
-  ["]"] = { name = "+next" },
-  ["["] = { name = "+prev" },
-  ["<leader>c"] = { name = "+code" },
-  ["<leader>g"] = { name = "+git" },
-  ["<leader>s"] = { name = "+search (mini.Pick)" },
-})
+require("which-key").setup({ icons = { mappings = false } })
 
 -- treesitter is for syntax highlighting and smart text objects
 require("nvim-treesitter.configs").setup({
