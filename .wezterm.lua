@@ -5,7 +5,7 @@ config.color_scheme = "Catppuccin Frappe"
 config.font = wezterm.font("JetBrains Mono")
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" } -- turn off ligatures
 config.hide_tab_bar_if_only_one_tab = true
-config.font_size = 13.0
+config.font_size = 14.0
 config.audible_bell = "Disabled"
 
 -- adding a border helps to prevent overlapping windows
