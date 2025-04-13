@@ -54,10 +54,6 @@ else
   tmux new-window -t "$SESSION_NAME":2 -n shell
   tmux send-keys -t "$SESSION_NAME":0 'nvim' C-m
   tmux send-keys -t "$SESSION_NAME":1 'lazygit' C-m
-  # commented out line below because I already have fish as my default shell in tmux.conf
-  # tmux send-keys -t $SESSION_NAME:2 'fish' C-m
-  tmux split-window -t "$SESSION_NAME":2 -h -l 20% "watch nvidia-smi"
-  tmux split-window -t "$SESSION_NAME":2 -v "htop"
   tmux select-pane -t "$SESSION_NAME":2.0
 
   if [[ -n $TMUX ]]; then
