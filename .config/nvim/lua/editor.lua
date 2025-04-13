@@ -69,19 +69,8 @@ require("mini.indentscope").setup({
 })
 
 require("mini.pick").setup({
-  mappings = {
-    move_down = "<C-j>",
-    move_up = "<C-k>",
-    paste = "<C-p>",
-    scroll_down = "<C-d>",
-    scroll_up = "<C-u>",
-  },
-
-  -- Window related options
-  window = {
-    -- Float window config (table or callable returning it)
-    config = { width = 1000, height = 15 },
-  },
+  mappings = { scroll_down = "<C-d>", scroll_up = "<C-u>" },
+  window = { config = { width = 1000, height = 15 } },
 })
 
 -- commonly used search keymaps in top level namespace
