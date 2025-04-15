@@ -34,6 +34,7 @@ require("mini.surround").setup()
 require("mini.extra").setup()
 require("mini.diff").setup()
 require("mini.jump").setup()
+require("mini.snippets").setup()
 
 require("mini.files").setup({
   mappings = {

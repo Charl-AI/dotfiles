@@ -82,85 +82,29 @@ end, {
 
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
-local cmp = require("cmp")
-local has_words_before = function()
-  unpack = unpack or table.unpack
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
-cmp.setup({
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
-  sources = {
-    { name = "nvim_lsp_signature_help" },
-    { name = "nvim_lsp" },
-    { name = "buffer" },
-    { name = "path" },
-  },
-  mapping = {
-    ["<CR>"] = cmp.mapping({
-      i = function(fallback)
-        if cmp.visible() and cmp.get_active_entry() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+require("blink.cmp").setup({
+  keymap = {
+    preset = "default",
+    ["<Tab>"] = {
+      function(cmp)
+        if cmp.snippet_active() then
+          return cmp.accept()
         else
-          fallback()
+          return cmp.select_and_accept()
         end
       end,
-      s = cmp.mapping.confirm({ select = true }),
-    }),
-
-    ["<Tab>"] = function(fallback)
-      if not cmp.select_next_item() then
-        if vim.bo.buftype ~= "prompt" and has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end
-    end,
-
-    ["<S-Tab>"] = function(fallback)
-      if not cmp.select_prev_item() then
-        if vim.bo.buftype ~= "prompt" and has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end
-    end,
-  },
-
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-})
-
-cmp.setup.cmdline({ "/", "?" }, {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = "buffer" },
-  },
-})
-
-cmp.setup.cmdline(":", {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = "path" },
-  }, {
-    {
-      name = "cmdline",
-      option = {
-        ignore_cmds = { "Man", "!" },
-      },
+      "snippet_forward",
+      "fallback",
     },
-  }),
+    ["<S-Tab>"] = { "snippet_backward", "fallback" },
+  },
+  snippets = { preset = "mini_snippets" },
+  cmdline = { completion = { menu = { auto_show = true } } },
+  completion = { list = { selection = { preselect = false, auto_insert = true } } },
+  fuzzy = { implementation = "prefer_rust" },
+  signature = { enabled = true },
 })
---
+
 vim.diagnostic.config({ virtual_text = false, severity_sort = true })
 
 -- if there are diagnostics available for a line, this function toggles
