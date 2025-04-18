@@ -82,9 +82,6 @@ map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
--- C-Backspace for deleting word in insert mode (equivalent to C-w)
-map("i", "<C-H>", "<C-W>", { desc = "Delete last word" })
-
 -- move cursor with alt-hjkl in insert mode
 map({ "i", "c", "t" }, "<M-h>", "<Left>", { silent = false, noremap = false, desc = "Left" })
 map({ "i", "c", "t" }, "<M-j>", "<Down>", { silent = false, noremap = false, desc = "Down" })
