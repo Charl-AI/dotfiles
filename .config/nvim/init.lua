@@ -32,6 +32,7 @@ require("lazy").setup({
   { "stevearc/conform.nvim" },
   { "neovim/nvim-lspconfig" },
   { "saghen/blink.cmp", version = "1.*" },
+  { "rafamadriz/friendly-snippets" },
 }, {})
 
 vim.cmd.colorscheme("catppuccin-frappe")

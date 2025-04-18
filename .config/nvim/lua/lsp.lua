@@ -83,22 +83,7 @@ end, {
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 require("blink.cmp").setup({
-  keymap = {
-    preset = "default",
-    ["<Tab>"] = {
-      function(cmp)
-        if cmp.snippet_active() then
-          return cmp.accept()
-        else
-          return cmp.select_and_accept()
-        end
-      end,
-      "snippet_forward",
-      "fallback",
-    },
-    ["<S-Tab>"] = { "snippet_backward", "fallback" },
-  },
-  snippets = { preset = "mini_snippets" },
+  keymap = { preset = "default" },
   cmdline = { completion = { menu = { auto_show = true } } },
   completion = { list = { selection = { preselect = false, auto_insert = true } } },
   fuzzy = { implementation = "prefer_rust" },
