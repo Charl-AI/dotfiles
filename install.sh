@@ -7,7 +7,7 @@ function install_packages {
   echo "Installing packages"
 
   brew update &&
-    brew bundle install --cleanup --file=$HOME/dotfiles/.Brewfile --no-lock &&
+    brew bundle install --cleanup --file=$HOME/dotfiles/.Brewfile &&
     brew upgrade
 
 }
