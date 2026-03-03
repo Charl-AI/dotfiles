@@ -34,13 +34,10 @@ require("mini.surround").setup()
 require("mini.extra").setup()
 require("mini.diff").setup()
 require("mini.jump").setup()
-require("mini.snippets").setup()
+require("mini.completion").setup()
+require("mini.cmdline").setup()
 
-require("mini.files").setup({
-  mappings = {
-    go_in_plus = "<cr>",
-  },
-})
+require("mini.files").setup({ mappings = { go_in_plus = "<cr>" } })
 map("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { desc = "[e]xplorer (mini.Files)" })
 
 local spec_treesitter = require("mini.ai").gen_spec.treesitter

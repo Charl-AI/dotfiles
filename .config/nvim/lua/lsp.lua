@@ -82,14 +82,6 @@ end, {
 
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
-require("blink.cmp").setup({
-  keymap = { preset = "default" },
-  cmdline = { completion = { menu = { auto_show = true } } },
-  completion = { list = { selection = { preselect = false, auto_insert = true } } },
-  fuzzy = { implementation = "prefer_rust" },
-  signature = { enabled = true },
-})
-
 vim.diagnostic.config({ virtual_text = false, severity_sort = true })
 
 -- if there are diagnostics available for a line, this function toggles

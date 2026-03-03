@@ -36,7 +36,6 @@ opt.updatetime = 200
 opt.wrap = false
 opt.fillchars = { eob = " " }
 opt.jumpoptions = "view,stack"
-opt.ruler = false
 opt.showcmd = false
 
 -- show tab characters

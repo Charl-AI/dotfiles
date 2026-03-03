@@ -31,8 +31,6 @@ require("lazy").setup({
   { "williamboman/mason.nvim", build = ":MasonUpdate" },
   { "stevearc/conform.nvim" },
   { "neovim/nvim-lspconfig" },
-  { "saghen/blink.cmp", version = "1.*" },
-  { "rafamadriz/friendly-snippets" },
 }, {})
 
 vim.cmd.colorscheme("catppuccin-frappe")
