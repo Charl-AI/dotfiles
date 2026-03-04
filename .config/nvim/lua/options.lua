@@ -8,6 +8,7 @@ local opt = vim.opt
 
 opt.breakindent = true
 opt.clipboard = "unnamedplus"
+opt.completeopt = "menuone,noselect,fuzzy,nosort"
 opt.confirm = true
 opt.cursorline = true
 opt.expandtab = true
@@ -37,6 +38,7 @@ opt.wrap = false
 opt.fillchars = { eob = " " }
 opt.jumpoptions = "view,stack"
 opt.showcmd = false
+opt.virtualedit = "block" -- Allow going past end of line in blockwise mode
 
 -- show tab characters
 opt.list = true
@@ -44,7 +46,7 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 if vim.fn.has("nvim-0.9.0") == 1 then
   opt.splitkeep = "screen"
-  opt.shortmess:append({ C = true })
+  opt.shortmess:append({ C = true, c = true })
 end
 
 -- Fix markdown indentation settings
