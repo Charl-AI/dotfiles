@@ -64,10 +64,6 @@ end
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
--- Use Q instead of q for recording macros
-map("n", "Q", "q")
-map("n", "q", "<Nop>")
-
 -- Move to window using the <ctrl> hjkl keys
 map({ "n", "t" }, "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
 map({ "n", "t" }, "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
