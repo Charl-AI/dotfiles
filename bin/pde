@@ -10,10 +10,11 @@ display_help() {
   echo "pde sets up your 'personalised development environment'"
   echo ""
   echo "pde looks for a tmux session with the given name, then attaches or switches to it if possible"
-  echo "If no session with that name exists, pde creates one, and sets up three windows:"
+  echo "If no session with that name exists, pde creates one, and sets up four windows:"
   echo "  0. nvim"
   echo "  1. lazygit"
-  echo "  2. shell (with fish, htop, and nvidia-smi in separate panes)"
+  echo "  2. shell"
+  echo "  3. claude"
   echo ""
   echo "Usage: pde [<NAME>][-h | --help]"
   echo ""
@@ -52,9 +53,11 @@ else
   tmux new-session -s "$SESSION_NAME" -n nvim -d
   tmux new-window -t "$SESSION_NAME":1 -n lazygit
   tmux new-window -t "$SESSION_NAME":2 -n shell
+  tmux new-window -t "$SESSION_NAME":3 -n claude
+  tmux select-pane -t "$SESSION_NAME":2.0
   tmux send-keys -t "$SESSION_NAME":0 'nvim' C-m
   tmux send-keys -t "$SESSION_NAME":1 'lazygit' C-m
-  tmux select-pane -t "$SESSION_NAME":2.0
+  tmux send-keys -t "$SESSION_NAME":3 'claude' C-m
 
   if [[ -n $TMUX ]]; then
     tmux switch-client -t "$SESSION_NAME"
